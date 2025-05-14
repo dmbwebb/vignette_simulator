@@ -1,0 +1,7 @@
+# Diagnosis for case 3
+diagnosis:
+  correct:
+    - tuberculosis
+    - TB
+    - Koch's disease
+    - pulmonary tuberculosis

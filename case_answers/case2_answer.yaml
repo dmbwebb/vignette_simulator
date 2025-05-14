@@ -1,0 +1,8 @@
+# Diagnosis for case 3
+diagnosis:
+  correct:
+    - pre-eclampsia
+    - hypertension
+    - high blood pressure
+    - PIH (pregnancy induced hypertension)
+    - pregnancy-related hypertension

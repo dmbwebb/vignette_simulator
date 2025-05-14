@@ -1,0 +1,34 @@
+# Python virtual environment
+venv/
+env/
+ENV/
+
+# Example code directory
+example_code/
+outputs/*
+!outputs/curated_outputs/
+!outputs/curated_outputs/**
+
+.DS_Store
+
+# Environment files
+.env
+.env.example
+
+api_keys.yaml
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# IDE specific files
+.vscode/
+.idea/
+*.swp
+*.swo 

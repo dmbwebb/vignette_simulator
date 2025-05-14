@@ -1,0 +1,383 @@
+# Clinical Vignette Questions and Answers: Case IV – 45‑year‑old MAN
+# Patient Presentation:
+# English: Doctor, this morning I had a pain in my chest.
+# Hindi: डॉक्टर, आज सुबह मेरे सीने में दर्द हुआ।
+
+introduction:
+  en: |
+    Doctor, I am a 45‑year‑old man. This morning I developed pain in my chest and have come for your advice.
+  hi: |
+    डॉक्टर, मैं 45 वर्ष का पुरुष हूँ। आज सुबह मेरे सीने में दर्द हुआ और सलाह लेने आया हूँ।
+
+history_questions:
+  - id: H1
+    type: History
+    question_en: Where is the pain?
+    question_hi: दर्द कहाँ है?
+    answer_en: Points to the left side of his chest – “All over this side.”
+    answer_hi: अपने बाएँ सीने की ओर इशारा करते हुए – “पूरे इस तरफ।”
+
+  - id: H2
+    type: History
+    question_en: When did this pain start?
+    question_hi: दर्द कब शुरू हुआ?
+    answer_en: Three hours ago.
+    answer_hi: लगभग 3 घंटे पहले।
+
+  - id: H3
+    type: History
+    question_en: What were you doing when the pain began?
+    question_hi: दर्द शुरू होते समय आप क्या कर रहे थे?
+    answer_en: I was sleeping; I woke up suddenly with severe chest pain.
+    answer_hi: मैं सो रहा था; अचानक तेज सीने का दर्द हुआ और जाग गया।
+
+  - id: H4
+    type: History
+    question_en: Severity of pain?
+    question_hi: दर्द कितना तेज है?
+    answer_en: “It is hurting a lot.”
+    answer_hi: “बहुत तेज दर्द हो रहा है।”
+
+  - id: H5
+    type: History
+    question_en: Does the pain radiate anywhere?
+    question_hi: क्या दर्द कहीं और फैलता है?
+    answer_en: Rubbing over left arm – “It is hurting here and here.”
+    answer_hi: बाएँ बाँह पर हाथ फेरते हुए – “यहाँ‑यहाँ दर्द हो रहा है।”
+
+  - id: H6
+    type: History
+    question_en: Previous history of similar pain?
+    question_hi: क्या पहले भी ऐसा दर्द हुआ है?
+    answer_en: Yes, but it used to get better with resting.
+    answer_hi: हाँ, पहले हुआ है, आराम करने से ठीक हो जाता था।
+
+  - id: H7
+    type: History
+    question_en: Since when have you been getting these pains?
+    question_hi: ऐसे दर्द कब से हो रहे हैं?
+    answer_en: For the last one year.
+    answer_hi: पिछले एक वर्ष से।
+
+  - id: H8
+    type: History
+    question_en: What makes it worse?
+    question_hi: किससे दर्द बढ़ जाता है?
+    answer_en: When I exert with heavy work.
+    answer_hi: भारी काम करने पर।
+
+  - id: H9
+    type: History
+    question_en: Since it began today, has the pain increased or decreased?
+    question_hi: आज शुरू होने के बाद दर्द बढ़ा है या घटा?
+    answer_en: The pain has subsided; now it just feels strange.
+    answer_hi: दर्द कम हुआ है; अब अजीब‑सा लग रहा है।
+
+  - id: H10
+    type: History
+    question_en: Quality of pain (dull/heavy vs. sharp)?
+    question_hi: दर्द का स्वभाव कैसा है (दबाव जैसा या चुभन जैसा)?
+    answer_en: Feels like a clenching heaviness – “like something heavy is on my chest.”
+    answer_hi: कसाव‑सा भारीपन – “मानो सीने पर कुछ भारी रखा हो।”
+
+  - id: H11
+    type: History
+    question_en: Does the pain change with inhalation or exhalation?
+    question_hi: सांस लेने‑छोड़ने पर दर्द बदलता है?
+    answer_en: No.
+    answer_hi: नहीं।
+
+  - id: H12
+    type: History
+    question_en: Shortness of breath?
+    question_hi: सांस फूलती है?
+    answer_en: Yes.
+    answer_hi: हाँ।
+
+  - id: H13
+    type: History
+    question_en: Nausea or vomiting?
+    question_hi: मतली या उलटी?
+    answer_en: No vomiting, but I feel nauseated.
+    answer_hi: उलटी नहीं, पर मतली है।
+
+  - id: H14
+    type: History
+    question_en: What did you eat this morning?
+    question_hi: आज सुबह आपने क्या खाया?
+    answer_en: Just some tea.
+    answer_hi: केवल थोड़ी चाय पी।
+
+  - id: H15
+    type: History
+    question_en: Sweating?
+    question_hi: पसीना आया?
+    answer_en: Yes, I was drenched in sweat.
+    answer_hi: हाँ, पूरा पसीने से भीग गया था।
+
+  - id: H16
+    type: History
+    question_en: Age
+    question_hi: आयु
+    answer_en: 45 years.
+    answer_hi: 45 वर्ष।
+
+  - id: H17
+    type: History
+    question_en: Other medical history?
+    question_hi: अन्य चिकित्सीय इतिहास?
+    answer_en: I was told I had a “sugar problem” (diabetes) a few years ago but take no medicine now.
+    answer_hi: कुछ वर्ष पहले शुगर (डायबिटीज़) बताई गई थी, अभी कोई दवा नहीं ले रहा।
+
+  - id: H18
+    type: History
+    question_en: Do you take any medicines for sugar?
+    question_hi: शुगर के लिए कोई दवा लेते हैं?
+    answer_en: I used to, but not anymore.
+    answer_hi: पहले लेता था, अब नहीं।
+
+  - id: H19
+    type: History
+    question_en: When did you stop the medicine?
+    question_hi: दवा कब बंद की?
+    answer_en: A few years ago.
+    answer_hi: कुछ साल पहले।
+
+  - id: H20
+    type: History
+    question_en: Diarrhea?
+    question_hi: दस्त?
+    answer_en: No.
+    answer_hi: नहीं।
+
+  - id: H21
+    type: History
+    question_en: Constipation?
+    question_hi: कब्ज?
+    answer_en: No.
+    answer_hi: नहीं।
+
+  - id: H22
+    type: History
+    question_en: Stomach pain?
+    question_hi: पेट में दर्द?
+    answer_en: No.
+    answer_hi: नहीं।
+
+  - id: H23
+    type: History
+    question_en: Stools normal?
+    question_hi: मल सामान्य है?
+    answer_en: Yes, normal.
+    answer_hi: हाँ, सामान्य।
+
+  - id: H24
+    type: History
+    question_en: Any acidity or gas problems?
+    question_hi: गैस या अम्लता की समस्या?
+    answer_en: No.
+    answer_hi: नहीं।
+
+  - id: H25
+    type: History
+    question_en: Fever?
+    question_hi: बुखार?
+    answer_en: No.
+    answer_hi: नहीं।
+
+  - id: H26
+    type: History
+    question_en: Beedi/cigarette or gutkha use?
+    question_hi: बीड़ी‑सिगरेट या गुटखा लेते हैं?
+    answer_en: Yes – I smoke one pack per day.
+    answer_hi: हाँ, रोज़ एक पैकेट बीड़ी पीता हूँ।
+
+  - id: H27
+    type: History
+    question_en: Alcohol consumption?
+    question_hi: शराब पीते हैं?
+    answer_en: Yes – about one drink per week.
+    answer_hi: हाँ, सप्ताह में एक ड्रिंक।
+
+  - id: H28
+    type: History
+    question_en: Occupation
+    question_hi: पेशा
+    answer_en: Farming and labor.
+    answer_hi: किसान और मज़दूर।
+
+  - id: H29
+    type: History
+    question_en: Did any sibling/parent have a similar problem?
+    question_hi: क्या भाई‑बहन या माता‑पिता को भी ऐसा ही दर्द था?
+    answer_en: Yes – my older brother used to have chest‑pain problems.
+    answer_hi: हाँ, बड़े भाई को सीने का दर्द रहता था।
+
+  - id: H30
+    type: History
+    question_en: How is he now?
+    question_hi: वे अब कैसे हैं?
+    answer_en: He died.
+    answer_hi: उनका देहांत हो गया।
+
+  - id: H31
+    type: History
+    question_en: Did he have a heart attack?
+    question_hi: क्या उन्हें हार्ट अटैक था?
+    answer_en: I don’t know.
+    answer_hi: पता नहीं।
+
+  - id: H32
+    type: History
+    question_en: When was this?
+    question_hi: यह कब हुआ?
+    answer_en: Five years ago.
+    answer_hi: पाँच साल पहले।
+
+examination_questions:
+  - id: E1
+    type: Examination
+    question_en: Pulse
+    question_hi: नाड़ी
+    answer_en: 88 beats/min
+    answer_hi: 88 प्रति मिनट
+
+  - id: E2
+    type: Examination
+    question_en: Weight
+    question_hi: वजन
+    answer_en: 80 kg
+    answer_hi: 80 किलोग्राम
+
+  - id: E3
+    type: Examination
+    question_en: Blood Pressure
+    question_hi: रक्त चाप
+    answer_en: 135/90 mm Hg
+    answer_hi: 135/90 मि.मी. पारा
+
+  - id: E4
+    type: Examination
+    question_en: Respiratory rate
+    question_hi: श्वास दर
+    answer_en: 13 per minute
+    answer_hi: 13 प्रति मिनट
+
+  - id: E5
+    type: Examination
+    question_en: Auscultation (front) for breath sounds
+    question_hi: छाती के आगे से आस्कल्टेशन
+    answer_en: Normal
+    answer_hi: सामान्य
+
+  - id: E6
+    type: Examination
+    question_en: Auscultation (back) for breath sounds
+    question_hi: छाती के पीछे से आस्कल्टेशन
+    answer_en: Normal
+    answer_hi: सामान्य
+
+  - id: E7
+    type: Examination
+    question_en: Temperature
+    question_hi: तापमान
+    answer_en: 98.8 °F
+    answer_hi: 98.8 °F
+
+  - id: E8
+    type: Examination
+    question_en: ECG/EKG
+    question_hi: ईसीजी
+    answer_en: Abnormal
+    answer_hi: असामान्य
+
+  - id: E9
+    type: Examination
+    question_en: X‑ray chest
+    question_hi: चेस्ट एक्स‑रे
+    answer_en: Normal
+    answer_hi: सामान्य
+
+  - id: E10
+    type: Examination
+    question_en: Blood tests – Chem‑7
+    question_hi: रक्त जाँच – केम 7
+    answer_en: All parameters normal.
+    answer_hi: सभी मानक सामान्य।
+
+  - id: E11
+    type: Examination
+    question_en: Blood tests – Calcium, magnesium, phosphorous
+    question_hi: रक्त जाँच – कैल्शियम, मैग्नीशियम, फॉस्फोरस
+    answer_en: All normal.
+    answer_hi: सभी सामान्य।
+
+  - id: E12
+    type: Examination
+    question_en: Blood tests – Lipid profile
+    question_hi: रक्त जाँच – लिपिड प्रोफाइल
+    answer_en: LDL 4.7 mmol/L (elevated), total cholesterol 2.7 mmol/L (elevated), triglycerides 13.3 mmol/L (mildly elevated), HDL 0.8 mmol/L (low)
+    answer_hi: एल‑डी‑एल 4.7 mmol/L (ऊँचा), कुल कोलेस्ट्रॉल 2.7 mmol/L (ऊँचा), ट्राइग्लिसराइड 13.3 mmol/L (थोड़ा ऊँचा), एच‑डी‑एल 0.8 mmol/L (कम)
+
+  - id: E13
+    type: Examination
+    question_en: CBC – WBC, hemoglobin, platelets
+    question_hi: सीबीसी – डब्ल्यूबीसी, हीमोग्लोबिन, प्लेटलेट्स
+    answer_en: WBC 6000, Hb 13 g/dL, platelets 250 000 – all normal.
+    answer_hi: डब्ल्यूबीसी 6000, हीमोग्लोबिन 13 g/dL, प्लेटलेट 250 000 – सभी सामान्य।
+
+  - id: E14
+    type: Examination
+    question_en: Blood tests – CK and troponin
+    question_hi: रक्त जाँच – सीके और ट्रोपोनिन
+    answer_en: Elevated
+    answer_hi: बढ़ा हुआ
+
+  - id: E15
+    type: Examination
+    question_en: ESR
+    question_hi: ईएसआर
+    answer_en: Normal
+    answer_hi: सामान्य
+
+  - id: E16
+    type: Examination
+    question_en: Blood tests – TLC/DLC
+    question_hi: टीएलसी/डीएलसी
+    answer_en: Normal
+    answer_hi: सामान्य
+
+  - id: E17
+    type: Examination
+    question_en: Blood glucose
+    question_hi: रक्त ग्लूकोज़
+    answer_en: 10 mmol/L, mildly elevated
+    answer_hi: 10 mmol/L, थोड़ा ऊँचा
+
+  - id: E18
+    type: Examination
+    question_en: Angiogram
+    question_hi: एंजियोग्राम
+    answer_en: Abnormal
+    answer_hi: असामान्य
+
+  - id: E19
+    type: Examination
+    question_en: Liver function tests (LFTs)
+    question_hi: लिवर फ़ंक्शन टेस्ट
+    answer_en: Normal except AST slightly elevated.
+    answer_hi: सामान्य, केवल एएसटी थोड़ा ऊँचा।
+
+  - id: E20
+    type: Examination
+    question_en: Echo test
+    question_hi: ईको टेस्ट
+    answer_en: Abnormal
+    answer_hi: असामान्य
+
+  - id: E21
+    type: Examination
+    question_en: Treadmill stress test (TMT)
+    question_hi: ट्रेडमिल स्ट्रेस टेस्ट
+    answer_en: Abnormal
+    answer_hi: असामान्य

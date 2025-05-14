@@ -1,0 +1,405 @@
+# Clinical Vignette Questions and Answers: Case III – SHANKARLAL & SONU
+# Patient Presentation:
+# English: Doctor, my 2‑year‑old child has been suffering from diarrhea for 2 days.
+# Hindi: डॉक्टर, मेरा 2‑साल का बच्चा दो दिनों से दस्त से पीड़ित है।
+
+introduction:
+  en: |
+    I am a 25 year old father of a young child. My two‑year‑old son has had diarrhea for the past two days.  
+  hi: |
+    डॉक्टर, मेरे दो‑साल के बेटे को पिछले दो दिनों से दस्त हो रहा है।  
+    आप जो भी पूछें — मैं जवाब दूँगा और आपकी हर सलाह का पालन करूँगा।
+
+history_questions:
+  - id: H1
+    type: History
+    question_en: What is your name? What is the child’s name?
+    question_hi: आपका नाम क्या है? बच्चे का नाम क्या है?
+    answer_en: My name is Shankarlal and the child’s name is Sonu.
+    answer_hi: मेरा नाम शंकरलाल है और बच्चे का नाम सोनू है।
+  - id: H2
+    type: History
+    question_en: Is there a fever? Is the child warm?
+    question_hi: क्या बुखार है? क्या बच्चा गरम महसूस होता है?
+    answer_en: He feels warm to the touch.
+    answer_hi: छूने पर गरम लगता है।
+  - id: H3
+    type: History
+    question_en: Is there vomiting?
+    question_hi: क्या उल्टी हो रही है?
+    answer_en: No vomiting.
+    answer_hi: नहीं, उल्टी नहीं।
+  - id: H4
+    type: History
+    question_en: What is the stool like – consistency and colour?
+    question_hi: मल कैसा है — उसकी संरचना और रंग कैसा है?
+    answer_en: Earlier watery, but now it is sticky.
+    answer_hi: पहले पानी जैसा था, अब चिपचिपा है।
+  - id: H5
+    type: History
+    question_en: What is the quantity of stool?
+    question_hi: मल की मात्रा कितनी है?
+    answer_en: Very little; he goes to the toilet but does not pass much stool.
+    answer_hi: बहुत कम; वह शौचालय जाता है लेकिन मल कम निकलता है।
+  - id: H6
+    type: History
+    question_en: How frequent are the stools?
+    question_hi: कितनी बार शौच जा रहा है?
+    answer_en: About 8–10 stools per day.
+    answer_hi: दिन में लगभग 8–10 बार।
+  - id: H7
+    type: History
+    question_en: Is there blood and mucus in the stools?
+    question_hi: क्या मल में खून और म्यूकस है?
+    answer_en: Yes – some blood and mucus.
+    answer_hi: हाँ, थोड़ा खून और म्यूकस है।
+  - id: H8
+    type: History
+    question_en: Have you noticed any worms in the stool?
+    question_hi: क्या आपने मल में कीड़े देखे?
+    answer_en: No.
+    answer_hi: नहीं।
+  - id: H9
+    type: History
+    question_en: Is the stool foul‑smelling?
+    question_hi: क्या मल से बहुत दुर्गंध आती है?
+    answer_en: No.
+    answer_hi: नहीं।
+  - id: H10
+    type: History
+    question_en: Is it explosive diarrhea?
+    question_hi: क्या यह विस्फोटक दस्त है?
+    answer_en: No.
+    answer_hi: नहीं।
+  - id: H11
+    type: History
+    question_en: How many times did the child defecate in half an hour?
+    question_hi: आधे घंटे में बच्चे ने कितनी बार शौच किया?
+    answer_en: Twice.
+    answer_hi: दो बार।
+  - id: H12
+    type: History
+    question_en: Does the child cry while passing stool?
+    question_hi: शौच करते समय बच्चा रोता है?
+    answer_en: Yes.
+    answer_hi: हाँ।
+  - id: H13
+    type: History
+    question_en: Is there any stomach ache?
+    question_hi: क्या पेट में दर्द है?
+    answer_en: He complained of stomach pain last night.
+    answer_hi: उसने रात में पेट‑दर्द की शिकायत की थी।
+  - id: H14
+    type: History
+    question_en: What is the colour of the urine?
+    question_hi: पेशाब का रंग कैसा है?
+    answer_en: Slightly yellow.
+    answer_hi: हल्का पीला।
+  - id: H15
+    type: History
+    question_en: Is the urine otherwise normal?
+    question_hi: पेशाब सामान्य है?
+    answer_en: Yes.
+    answer_hi: हाँ।
+  - id: H16
+    type: History
+    question_en: When did the child last pass urine?
+    question_hi: बच्चे ने आखिरी बार कब पेशाब किया?
+    answer_en: Three hours ago.
+    answer_hi: तीन घंटे पहले।
+  - id: H17
+    type: History
+    question_en: Is the child drinking a lot of water?
+    question_hi: क्या बच्चा बहुत पानी पी रहा है?
+    answer_en: Yes, he has been drinking a lot of water.
+    answer_hi: हाँ, बहुत पानी पी रहा है।
+  - id: H18
+    type: History
+    question_en: What is his weight?
+    question_hi: उसका वजन कितना है?
+    answer_en: 11 kg.
+    answer_hi: 11 किलोग्राम।
+  - id: H19
+    type: History
+    question_en: Is the child normally weak?
+    question_hi: आम तौर पर बच्चा कमजोर रहता है?
+    answer_en: No, he is normally healthy.
+    answer_hi: नहीं, सामान्यतः स्वस्थ रहता है।
+  - id: H20
+    type: History
+    question_en: What are the child’s current feeding habits?
+    question_hi: बच्चा क्या‑क्या खाता‑पीता है?
+    answer_en: Weaned six months ago; now bottle‑milk and normal food.
+    answer_hi: छह महीने पहले स्तनपान छुड़ाया; अब बोतल का दूध और सामान्य खाना।
+  - id: H21
+    type: History
+    question_en: Any recent change in the child’s diet?
+    question_hi: हाल में भोजन में कोई बदलाव हुआ?
+    answer_en: No.
+    answer_hi: नहीं।
+  - id: H22
+    type: History
+    question_en: Is the mother breastfeeding the child?
+    question_hi: क्या माँ अभी बच्चे को दूध पिला रही है?
+    answer_en: No.
+    answer_hi: नहीं।
+  - id: H23
+    type: History
+    question_en: How many times a day do you give bottle‑milk?
+    question_hi: बोतल का दूध दिन में कितनी बार देते हैं?
+    answer_en: Three times a day.
+    answer_hi: दिन में तीन बार।
+  - id: H24
+    type: History
+    question_en: Do you boil the feeding bottle?
+    question_hi: क्या आप बोतल उबालते हैं?
+    answer_en: Yes.
+    answer_hi: हाँ।
+  - id: H25
+    type: History
+    question_en: How is the drinking water – hand‑pump or tap?
+    question_hi: पीने का पानी कैसा है — हैंड‑पंप या नल?
+    answer_en: Hand‑pump water.
+    answer_hi: हैंड‑पंप का पानी।
+  - id: H26
+    type: History
+    question_en: Is the drinking water boiled?
+    question_hi: क्या पीने का पानी उबालते हैं?
+    answer_en: No.
+    answer_hi: नहीं।
+  - id: H27
+    type: History
+    question_en: What did the mother eat last night? What does she usually eat?
+    question_hi: माँ ने कल रात क्या खाया? सामान्यतः क्या खाती हैं?
+    answer_en: Dal, roti and vegetables.
+    answer_hi: दाल, रोटी और सब्ज़ियाँ।
+  - id: H28
+    type: History
+    question_en: How is the environment around the child?
+    question_hi: बच्चे के आसपास का वातावरण कैसा है?
+    answer_en: Relatively clean.
+    answer_hi: 比較तः साफ़।
+  - id: H29
+    type: History
+    question_en: What are the toilets like?
+    question_hi: शौचालय किस प्रकार का है?
+    answer_en: Pit latrine that is kept relatively clean.
+    answer_hi: गड्ढे वाला शौचालय, जो अपेक्षाकृत साफ़ है।
+  - id: H30
+    type: History
+    question_en: What type of house do you live in – cement or mud?
+    question_hi: आप पक्का (सीमेंट) या कच्चे (मिट्टी) घर में रहते हैं?
+    answer_en: Cement house.
+    answer_hi: सीमेंट का घर।
+  - id: H31
+    type: History
+    question_en: Does the child eat or play in mud?
+    question_hi: क्या बच्चा मिट्टी खाता या मिट्टी में खेलता है?
+    answer_en: No.
+    answer_hi: नहीं।
+  - id: H32
+    type: History
+    question_en: Does the child have long nails?
+    question_hi: क्या बच्चे के नाखून बड़े हैं?
+    answer_en: No.
+    answer_hi: नहीं।
+  - id: H33
+    type: History
+    question_en: How often do you bathe the child?
+    question_hi: आप बच्चे को कितनी बार नहाँते हैं?
+    answer_en: Once every day.
+    answer_hi: रोज़ एक बार।
+  - id: H34
+    type: History
+    question_en: Does the child wear clean clothes?
+    question_hi: क्या बच्चा साफ़ कपड़े पहनता है?
+    answer_en: Yes.
+    answer_hi: हाँ।
+  - id: H35
+    type: History
+    question_en: How often do you change the child’s clothes?
+    question_hi: बच्चे के कपड़े कितनी बार बदलते हैं?
+    answer_en: Once every day.
+    answer_hi: रोज़ एक बार।
+  - id: H36
+    type: History
+    question_en: Does the mother wash her hands after defecating or before feeding?
+    question_hi: क्या माँ शौच के बाद या बच्चे को खिलाने से पहले हाथ धोती है?
+    answer_en: Always after defecating and usually before feeding the child.
+    answer_hi: शौच के बाद हमेशा, और बच्चे को खिलाने से पहले प्रायः हाथ धोती हूँ।
+  - id: H37
+    type: History
+    question_en: Are there any other children in the family with diarrhea?
+    question_hi: क्या परिवार में किसी और बच्चे को दस्त है?
+    answer_en: No.
+    answer_hi: नहीं।
+  - id: H40
+    type: History
+    question_en: Is the child irritated?
+    question_hi: क्या बच्चा चिड़चिड़ा है?
+    answer_en: Yes.
+    answer_hi: हाँ।
+  - id: H41
+    type: History
+    question_en: Is the child teething?
+    question_hi: क्या बच्चे के दाँत निकल रहे हैं?
+    answer_en: No.
+    answer_hi: नहीं।
+  - id: H42
+    type: History
+    question_en: Any ear infection? Is the child pulling his ears?
+    question_hi: क्या कान में कोई संक्रमण है? क्या बच्चा कान खींचता है?
+    answer_en: No.
+    answer_hi: नहीं।
+  - id: H43
+    type: History
+    question_en: Does the child have malaria?
+    question_hi: क्या बच्चे को मलेरिया है?
+    answer_en: Don’t know.
+    answer_hi: पता नहीं।
+  - id: H44
+    type: History
+    question_en: Where was the child born? Was it a timely birth?
+    question_hi: बच्चे का जन्म कहाँ हुआ? क्या समय पर हुआ था?
+    answer_en: In a PHC; yes, timely.
+    answer_hi: एक पीएचसी में; हाँ, समय पर।
+  - id: H45
+    type: History
+    question_en: Is the child taking any medicines?
+    question_hi: क्या बच्चा कोई दवा ले रहा है?
+    answer_en: No.
+    answer_hi: नहीं।
+  - id: H46
+    type: History
+    question_en: Have you given him ORS?
+    question_hi: क्या आपने उसे ओआरएस दिया?
+    answer_en: No.
+    answer_hi: नहीं।
+  - id: H47
+    type: History
+    question_en: Have you given the child anything so far?
+    question_hi: अभी तक बच्चे को क्या दिया?
+    answer_en: Only water, without sugar or salt.
+    answer_hi: सिर्फ़ पानी; चीनी‑नमक नहीं।
+  - id: H48
+    type: History
+    question_en: Since diarrhea began, have you continued feeding?
+    question_hi: दस्त होने के बाद भी क्या आप बच्चे को खाना दे रहे हैं?
+    answer_en: No, only water.
+    answer_hi: नहीं, सिर्फ़ पानी।
+  - id: H49
+    type: History
+    question_en: Why have you come to me?
+    question_hi: आप मेरे पास क्यों आए?
+    answer_en: I heard you are a good doctor and I’m worried about my child.
+    answer_hi: सुना है आप अच्छे डॉक्टर हैं और मुझे अपने बच्चे की चिंता है।
+
+examination_questions:
+  - id: E1
+    type: Examination
+    question_en: Height/length of child
+    question_hi: बच्चे की लंबाई
+    answer_en: 80 cm
+    answer_hi: 80 सेंटीमीटर
+  - id: E2
+    type: Examination
+    question_en: Weight of child
+    question_hi: बच्चे का वजन
+    answer_en: 11 kg
+    answer_hi: 11 किलोग्राम
+  - id: E3
+    type: Examination
+    question_en: Respiratory rate
+    question_hi: श्वास दर
+    answer_en: Slightly increased, 25 per minute
+    answer_hi: थोड़ी बढ़ी हुई, 25 प्रति मिनट
+  - id: E4
+    type: Examination
+    question_en: Pulse rate
+    question_hi: नाड़ी दर
+    answer_en: 105 beats per minute
+    answer_hi: 105 धड़कन/मिनट
+  - id: E5
+    type: Examination
+    question_en: Temperature
+    question_hi: तापमान
+    answer_en: 102.2 °F
+    answer_hi: 102.2 °F
+  - id: E6
+    type: Examination
+    question_en: Auscultation of chest and heart
+    question_hi: छाती व हृदय का आसकुल्टेशन
+    answer_en: Normal
+    answer_hi: सामान्य
+  - id: E7
+    type: Examination
+    question_en: Blood for serum electrolytes
+    question_hi: सीरम इलेक्ट्रोलाइट्स के लिए रक्त परीक्षण
+    answer_en: Normal
+    answer_hi: सामान्य
+  - id: E8
+    type: Examination
+    question_en: Blood for TLC/DLC
+    question_hi: टीएलसी/डीएलसी
+    answer_en: Normal
+    answer_hi: सामान्य
+  - id: E9
+    type: Examination
+    question_en: Blood for Hemoglobin
+    question_hi: हीमोग्लोबिन
+    answer_en: 10 g/dL
+    answer_hi: 10 ग्राम/डेसीलीटर
+  - id: E10
+    type: Examination
+    question_en: Stool test for worms
+    question_hi: मल में कृमि जाँच
+    answer_en: No evidence of worm infestation
+    answer_hi: कृमि का कोई प्रमाण नहीं
+  - id: E11
+    type: Examination
+    question_en: Stool test for bacteria (including amoeba)
+    question_hi: मल में जीवाणु (अमीबा सहित) जाँच
+    answer_en: Evidence of amoeba present
+    answer_hi: अमीबा का प्रमाण है
+  - id: E12
+    type: Examination
+    question_en: Mucous membranes for moistness
+    question_hi: श्लेष्म झिल्ली की नमी
+    answer_en: Mildly dry
+    answer_hi: थोड़ी सूखी
+  - id: E13
+    type: Examination
+    question_en: Are there tears?
+    question_hi: क्या आँसू आते हैं?
+    answer_en: Yes – he cried two hours ago
+    answer_hi: हाँ, दो घंटे पहले रोया था
+  - id: E14
+    type: Examination
+    question_en: Skin colour and turgor/tenting
+    question_hi: त्वचा का रंग और तन्यता
+    answer_en: Normal colour and turgor; no cyanosis
+    answer_hi: रंग और तन्यता सामान्य; सायनोसिस नहीं
+  - id: E15
+    type: Examination
+    question_en: Palpation of the abdomen
+    question_hi: पेट का palpation
+    answer_en: Normal; child does not cry when palpated
+    answer_hi: सामान्य; palpation पर बच्चा नहीं रोता
+  - id: E16
+    type: Examination
+    question_en: Depression of the skull fontanel
+    question_hi: कपाल के fontanel का धँसाव
+    answer_en: Not sunken
+    answer_hi: धँसा नहीं है
+  - id: E17
+    type: Examination
+    question_en: Look at skin, eyes, lips and tongue for dehydration
+    question_hi: निर्जलीकरण के लिए त्वचा, आँखें, होंठ, जीभ देखना
+    answer_en: No signs of severe dehydration
+    answer_hi: गंभीर निर्जलीकरण के कोई लक्षण नहीं
+  - id: E18
+    type: Examination
+    question_en: Pick up the child to see activity
+    question_hi: बच्चे को उठा कर गतिविधि देखना
+    answer_en: He is active; no signs of dehydration
+    answer_hi: बच्चा सक्रिय है; निर्जलीकरण के लक्षण नहीं

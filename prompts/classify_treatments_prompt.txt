@@ -1,0 +1,31 @@
+You are an AI assistant. Your task is to classify a list of stated treatments based on an answer key.
+The answer key categorizes treatments into "correct", "palliative", and "unnecessary_or_harmful".
+
+You will be given:
+1.  The "Doctor's Stated Treatments": A list of treatments the doctor mentioned.
+2.  The "Answer Key Treatments": Three lists (correct, palliative, unnecessary_or_harmful) from a reference case.
+
+Your goal is to compare each of the "Doctor's Stated Treatments" against the "Answer Key Treatments".
+A stated treatment should be matched to the categories case-insensitively and allowing for minor variations if the intent is clear. If a stated treatment matches an item in multiple categories in the answer key (this shouldn't typically happen with a good key), prioritize the first match in the order: correct, palliative, unnecessary_or_harmful.
+
+Based on this comparison, count how many of the doctor's stated treatments fall into each category.
+
+Return your response as a JSON object with the following keys:
+- "correct_count": integer, number of doctor's treatments classified as correct.
+- "palliative_count": integer, number of doctor's treatments classified as palliative.
+- "unnecessary_or_harmful_count": integer, number of doctor's treatments classified as unnecessary_or_harmful.
+- "classification_details": list of objects, where each object details a stated treatment, its matched category, and the matched key item. Example: [{"stated_treatment": "ORS", "category": "correct", "matched_key_item": "ORS"}, {"stated_treatment": "Aspirin", "category": "unnecessary_or_harmful", "matched_key_item": "aspirin"}]
+- "explanation": string, a brief explanation of your classification process or any ambiguities.
+
+Doctor's Stated Treatments:
+{{DOCTORS_STATED_TREATMENTS_JSON_LIST}}
+
+Answer Key Treatments:
+Correct:
+{{CORRECT_TREATMENTS_JSON_LIST}}
+Palliative:
+{{PALLIATIVE_TREATMENTS_JSON_LIST}}
+Unnecessary or Harmful:
+{{UNNECESSARY_OR_HARMFUL_TREATMENTS_JSON_LIST}}
+
+Output (JSON object): 

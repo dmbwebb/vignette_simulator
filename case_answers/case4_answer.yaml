@@ -1,0 +1,89 @@
+history_questions:
+  - item: where is the pain
+    ids: [H1]
+  - item: when started
+    ids: [H2]
+  - item: severity of pain
+    ids: [H4]
+  - item: radiation
+    ids: [H5]
+  - item: previous similar
+    ids: [H6]
+  - item: since when
+    ids: [H7, H9]                # both “since when” prompts
+  - item: shortness of breath
+    ids: [H12]
+  - item: sweating
+    ids: [H15]
+  - item: beedi‑cigarette
+    ids: [H26]
+  - item: family history
+    ids: [H29, H30, H31, H32]    # all follow‑ups about sibling/parent MI
+
+examinations:
+  - item: pulse
+    ids: [E1]
+  - item: blood pressure
+    ids: [E3]
+  - item: auscultation (front or back)
+    ids: [E5, E6]
+  - item: temperature
+    ids: [E7]
+  - item: ECG/EKG
+    ids: [E8]
+
+diagnosis:
+  correct:
+    - heart attack
+    - angina
+    - myocardial infarction
+    - attack
+  incorrect:
+    - blood pressure problem
+    - gastrointestinal problem
+    - muscle problem
+    - the weather
+    - injury
+    - nerve pull
+    - lack of blood
+    - swelling in chest
+    - pain from drinking cold water
+    - heavy work
+    - bad blood
+    - decaying lungs
+    - chest congestion
+
+treatments:
+  correct:
+    - Aspirin
+    - clopidogrel
+    - other anti‑platelet agents
+    - do an ECG
+  palliative:
+    - Nitroglycerin
+    - blood thinners
+    - betablockers
+    - ACE inhibitors
+    - vasodilators
+    - other cardiac medication
+    - morphine
+    - other pain medication
+    - referral
+    - referral for an ECG
+  unnecessary_or_harmful:
+    - antibiotics
+    - oral rehydration salts
+    - oral electrolyte solution
+    - zinc
+    - steroids
+    - inhaler
+    - bronchodilators
+    - theophylline
+    - inhaled corticosteroids
+    - leukotriene inhibitors
+    - cromones
+    - inhaled anticholinergics
+    - oral corticosteroids
+    - other anti‑asthmatic medication
+    - anti‑allergy medication
+    - psychiatric medication

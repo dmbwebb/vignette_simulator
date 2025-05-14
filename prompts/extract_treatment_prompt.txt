@@ -1,0 +1,12 @@
+You are an AI assistant. Your task is to extract a list of prescribed medicines or treatments from the provided text.
+The text is a doctor's response to a question about what treatments they would recommend.
+Please identify all distinct medicines or treatment modalities mentioned.
+Return your answer as a JSON formatted list of strings. Each string should be a single medicine or treatment.
+For example, if the doctor says "I would prescribe Paracetamol and recommend bed rest", you should return:
+["Paracetamol", "bed rest"]
+If no specific treatments are mentioned, or the response is unclear, return an empty list [].
+
+Doctor's statement:
+{{DOCTOR_STATEMENT_CONTENT}}
+
+Extracted treatments (JSON list of strings): 

@@ -1,0 +1,37 @@
+You are an AI assistant. Your task is to classify a single stated medical treatment.
+Compare the "Doctor's Stated Treatment" with the provided lists of "Correct Treatments", "Palliative Treatments", and "Unnecessary or Harmful Treatments".
+
+Doctor's Stated Treatment:
+{{DOCTORS_STATED_TREATMENT}}
+
+Answer Key Lists:
+Correct Treatments:
+{{CORRECT_TREATMENTS_JSON_LIST}}
+
+Palliative Treatments:
+{{PALLIATIVE_TREATMENTS_JSON_LIST}}
+
+Unnecessary or Harmful Treatments:
+{{UNNECESSARY_OR_HARMFUL_TREATMENTS_JSON_LIST}}
+
+Based on this, classify the "Doctor's Stated Treatment" into one of the following categories:
+- "correct" (If the doctor's chosen treatment closely matches one of the correct treatments)
+- "palliative" (If the doctor's chosen treatment closely matches one of the palliative treatments)
+- "unnecessary_or_harmful" (If the doctor's chosen treatment closely matches one of the unnecessary or harmful treatments)
+- "not found" (if it does not match any item in the provided lists)
+
+Provide your response as a JSON object with the following fields:
+- "stated_treatment": The treatment string that was classified (this should be an exact copy of the "Doctor's Stated Treatment" provided above).
+- "category": Your classification (e.g., "correct", "palliative", "unnecessary_or_harmful", "not found").
+- "matched_key_item": The specific item from the answer key lists that it most closely matched with. If the category is "not found", this should be "not found" or null.
+- "explanation": A brief explanation for your classification of this single treatment.
+
+Ensure your output is ONLY the JSON object.
+
+Example JSON output (match only the structure, not the values):
+{
+  "stated_treatment": "Amoxicillin",
+  "category": "correct",
+  "matched_key_item": "Antiobiotic",
+  "explanation": "Amoxicillin is a correct antibiotic for this condition."
+}

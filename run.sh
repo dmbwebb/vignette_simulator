@@ -1,0 +1,160 @@
+#!/bin/bash
+
+# Activate virtual environment
+source venv/bin/activate
+
+# --- Configuration ---
+NUM_SIMS=1 # Number of simulations to run FOR EACH CASE
+# Define the list of case files to process
+CASE_FILES_TO_RUN=(
+  # "case_definitions/case1.yaml"
+  # "case_definitions/case2.yaml"
+  "case_definitions/case3.yaml"
+  # "case_definitions/case4.yaml"
+  # "case_definitions/case5.yaml"
+  # Add more case files here, e.g., "case_definitions/case3.yaml"
+)
+# PROMPT_FILE is now determined by --prompt-dir in the python script
+PROVIDER="OpenAI"
+MODEL="gpt-4o-mini"
+MODEL_DOCTOR="gpt-4o" # Specific model for the doctor. Leave empty or comment out to use general MODEL.
+
+# Set the desired behavior using boolean flags
+# --diagnosis: enables final diagnosis, extraction, classification, and uses diagnosis prompt (if --examination is false)
+# --examination: enables examination prompt and implies diagnosis behavior
+DIAGNOSIS_ACTIVE=true
+EXAMINATION_ACTIVE=true # If true, uses doc_prompt_diagnosis_examinations.txt. If false and DIAGNOSIS_ACTIVE is true, uses doc_prompt_diagnosis.txt. If both false, uses doc_prompt.txt (summary).
+TREATMENT_ACTIVE=true   # If true, enables treatment recommendation, extraction, and classification
+
+PROMPT_DIR="prompts" # Directory where prompt files are located
+
+echo "--- Running Vignette Simulator for Multiple Cases ---"
+echo "Case Files to Process:"
+for f in "${CASE_FILES_TO_RUN[@]}"; do echo "  - $f"; done
+echo "Number of simulations per case: $NUM_SIMS"
+# echo "Mode: $MODE" # Old MODE variable removed
+echo "Diagnosis Active: $DIAGNOSIS_ACTIVE"
+echo "Examination Active: $EXAMINATION_ACTIVE"
+echo "Treatment Active: $TREATMENT_ACTIVE"
+echo "Prompt Directory: $PROMPT_DIR"
+echo "Provider: $PROVIDER"
+echo "General Model: $MODEL"
+if [ -n "$MODEL_DOCTOR" ]; then
+  echo "Doctor Model: $MODEL_DOCTOR"
+else
+  echo "Doctor Model: (using general model - $MODEL)"
+fi
+echo "-----------------------------------"
+
+if [ ${#CASE_FILES_TO_RUN[@]} -eq 0 ]; then
+  echo "No case files specified in CASE_FILES_TO_RUN. Exiting."
+  exit 0
+fi
+
+# Run the simulator for all specified cases
+# The python script now handles looping internally
+# Output is sent to terminal live via tee to /dev/stderr, and also captured to FULL_COMMAND_OUTPUT
+python_command="python3 -u vignette_simulator.py \
+  --cases$(printf " \"%s\"" "${CASE_FILES_TO_RUN[@]}") \
+  --prompt-dir \"$PROMPT_DIR\" \
+  --provider \"$PROVIDER\" \
+  --model \"$MODEL\" \
+  --n_sims \"$NUM_SIMS\""
+
+# Add diagnosis and examination flags if active
+if [ "$DIAGNOSIS_ACTIVE" = "true" ]; then
+  python_command+=" \
+  --diagnosis"
+fi
+
+if [ "$EXAMINATION_ACTIVE" = "true" ]; then
+  python_command+=" \
+  --examination"
+fi
+
+# Add treatment flag if active
+if [ "$TREATMENT_ACTIVE" = "true" ]; then
+  python_command+=" \
+  --treatment"
+fi
+
+# Add model-doctor only if MODEL_DOCTOR is set
+if [ -n "$MODEL_DOCTOR" ]; then
+  python_command+=" \
+  --model-doctor \"$MODEL_DOCTOR\""
+fi
+
+# Output is sent to terminal live via tee to /dev/stderr, and also captured to FULL_COMMAND_OUTPUT
+FULL_COMMAND_OUTPUT=$(eval $python_command 2>&1 | tee /dev/stderr)
+
+# Check the exit code of the python script (first command in the pipeline, which is eval)
+SIMULATOR_EXIT_CODE=${PIPESTATUS[0]}
+
+if [ $SIMULATOR_EXIT_CODE -ne 0 ]; then
+  echo "-----------------------------------"
+  echo "ERROR: Vignette simulator failed with exit code $SIMULATOR_EXIT_CODE."
+  echo "Full output was displayed above."
+  echo "-----------------------------------"
+  # TMP_OUTPUT will be cleaned up by the trap
+  exit 1
+fi
+
+# Extract the output directory from the temp file
+# The Python script now prints "Results saved in: <directory_path>"
+OUTPUT_DIR=$(echo "$FULL_COMMAND_OUTPUT" | grep "Results saved in:" | sed 's/Results saved in: //')
+
+# Trim potential leading/trailing whitespace
+OUTPUT_DIR=$(echo "$OUTPUT_DIR" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+
+# Check if OUTPUT_DIR was extracted
+if [ -z "$OUTPUT_DIR" ]; then
+  echo "-----------------------------------"
+  echo "ERROR: Could not determine output directory from simulator output (displayed above)."
+  echo "Attempting fallback: finding the latest directory in 'outputs'..."
+  # Fallback: Find the latest modified directory in 'outputs'
+  LATEST_DIR=$(ls -td outputs/*/ 2>/dev/null | head -n 1)
+  if [ -n "$LATEST_DIR" ] && [ -d "$LATEST_DIR" ]; then
+     # Trim trailing slash if present (from ls fallback)
+     OUTPUT_DIR=${LATEST_DIR%/}
+     echo "Using latest directory: $OUTPUT_DIR (Warning: This may not be the correct one if multiple batches ran recently)"
+  else
+     echo "ERROR: Fallback failed. Could not find a suitable output directory. Exiting."
+     echo "Full simulator output was displayed above."
+     echo "-----------------------------------"
+     exit 1
+  fi
+fi
+
+echo "-----------------------------------"
+echo "Output directory identified as: $OUTPUT_DIR"
+
+# Check if the directory actually exists
+if [ ! -d "$OUTPUT_DIR" ]; then
+  echo "ERROR: Identified output directory '$OUTPUT_DIR' does not exist or is not a directory."
+  echo "Full output from simulator was displayed above."
+  echo "-----------------------------------"
+  exit 1
+fi
+
+echo "--- Running summarizer on batch output: $OUTPUT_DIR ---"
+
+# Run the summarizer script on the batch output directory
+python3 simulator_summarise.py "$OUTPUT_DIR" --case_answer_dir case_answers
+
+# Check the exit code of the summarizer script
+SUMMARIZER_EXIT_CODE=$?
+if [ $SUMMARIZER_EXIT_CODE -eq 0 ]; then
+  echo "Summarizer finished successfully."
+else
+  echo "ERROR: Summarizer script failed with exit code $SUMMARIZER_EXIT_CODE."
+  echo "Full output from simulator was displayed above."
+  echo "-----------------------------------"
+  exit 1
+fi
+
+# Trap will automatically clean up $TMP_OUTPUT on successful exit here
+
+echo "-----------------------------------"
+echo "Script finished successfully."
+echo "Output directory: $OUTPUT_DIR"
+echo "-----------------------------------"

@@ -1,0 +1,476 @@
+# Clinical Vignette Questions and Answers: Case I - RAVI
+# Patient Presentation:
+# English: Doctor, I have been suffering from a fever (bukhar), cough (khasi), weakness (kamzori), and weight loss (wajan ghate jaa raha hai) for the last month.
+# Hindi: डॉक्टर, मुझे पिछले महीने से बुखार, खाँसी, कमजोरी है और मेरा वजन घटता जा रहा है।
+
+introduction:
+  en: |
+    Doctor, I am a 40 year old man. I have been suffering from a fever (bukhar), cough (khasi), weakness (kamzori), and weight loss (wajan ghate jaa raha hai) for the last month.
+  hi: |
+    डॉक्टर, मुझे पिछले महीने से बुखार, खाँसी, कमजोरी है और मेरा वजन घटता जा रहा है।
+
+history_questions:
+  - id: H1
+    type: History
+    question_en: What is your name?
+    question_hi: आपका नाम क्या है?
+    answer_en: Ravi
+    answer_hi: रवी
+  - id: H2
+    type: History
+    question_en: What is the pattern of fever? Is there an evening rise in temperature?
+    question_hi: बुखार? क्या शाम को बुखार बढ़ जाता है?
+    answer_en: Low grade fever, higher at night
+    answer_hi: हल्का-फुल्का बुखार, रात में तेज हो जाता है
+  - id: H3
+    type: History
+    question_en: Is the fever continuous or does it fluctuate?
+    question_hi: क्या बुखार लगातार रहता है या ये घटता / बढ़ता रहता है?
+    answer_en: Low grade fever; feels continuous but gets higher at night.
+    answer_hi: हल्का-फुल्का बुखार, लगातार महसूस होता है लेकिन रात में तेज हो जाता है
+  - id: H4
+    type: History
+    question_en: Are there any night sweats present?
+    question_hi: क्या रात में पसीना आता है?
+    answer_en: Yes
+    answer_hi: हाँ
+  - id: H5
+    type: History
+    question_en: How is the cough? Is there any sputum?
+    question_hi: खाँसी कैसी है? क्या कोई बलगम / थूक आता है?
+    answer_en: Yes there is sputum in the cough.
+    answer_hi: हाँ, खाँसी में बलगम आता है
+  - id: H6
+    type: History
+    question_en: Is there any blood in the sputum? What is the quantity of blood in the sputum?
+    question_hi: क्या बलगम / थूक में खून आता है? बलगम / थूक में कितनी मात्रा में खून आता है?
+    answer_en: Yes Blood spots in sputum
+    answer_hi: हाँ बलगम में खून के धब्बे होते हैं
+  - id: H7
+    type: History
+    question_en: Is there any mucous in the sputum?
+    question_hi: क्या बलगम / थूक में म्यूकस आता है?
+    answer_en: No
+    answer_hi: नहीं
+  - id: H8
+    type: History
+    question_en: Has the cough been continuous for the last 1 month?
+    question_hi: क्या खाँसी पिछले 1 महीने से आ रही है?
+    answer_en: Yes
+    answer_hi: हाँ
+  - id: H9
+    type: History
+    question_en: What time of the day do you cough more?
+    question_hi: दिन के किस समय पर आपको ज्यादा खाँसी आती है?
+    answer_en: All day
+    answer_hi: पूरे दिन
+  - id: H10
+    type: History
+    question_en: Is there any weight loss?
+    question_hi: क्या वजन कम हुआ है?
+    answer_en: Yes
+    answer_hi: हाँ
+  - id: H11
+    type: History
+    question_en: How many KGs have you lost?
+    question_hi: आपका कितने किलोग्राम वजन कम हुआ है?
+    answer_en: Patient thinks that it is a substantial amount of weight because his clothes do not fit him anymore but does not know exact number of KGs lost
+    answer_hi: मरीज को लगता है कि उसका वजन काफी ज्यादा मात्रा में कम हुआ है, क्योंकि अब उसके कपड़े उसको फिट नहीं आते हैं लेकिन वो ये नहीं जानता है कि वास्तव में कितने किलोग्राम वजन कम हुआ है?
+  - id: H12
+    type: History
+    question_en: How is your appetite? Is there any appetite loss?
+    question_hi: आपकी भूख कैसी है? क्या भूख में कोई कमी आयी है?
+    answer_en: Appetite is poor. Yes there has been appetite loss
+    answer_hi: भूख सही से नहीं लगती है। हाँ भूख में कमी आयी है
+  - id: H13
+    type: History
+    question_en: Is there any pain in the chest?
+    question_hi: क्या सीने में किसी प्रकार का कोई दर्द है?
+    answer_en: No
+    answer_hi: नहीं
+  - id: H14
+    type: History
+    question_en: How long has there been weakness?
+    question_hi: कमजोरी कितने समय से है?
+    answer_en: 1 month
+    answer_hi: 1 महीना
+  - id: H15
+    type: History
+    question_en: Do you feel tired?
+    question_hi: क्या आप थकान महसूस करते है?
+    answer_en: Yes
+    answer_hi: हाँ
+  - id: H16
+    type: History
+    question_en: Do you feel breathlessness when climbing stairs?
+    question_hi: जब आप सीढ़ियाँ चढ़ते हैं तो क्या आपकी साँस फूलती है?
+    answer_en: No
+    answer_hi: नहीं
+  - id: H17
+    type: History
+    question_en: Can this patient perform his normal activities?
+    question_hi: क्या ये मरीज अपने सामान्य कार्यों को कर सकता है?
+    answer_en: Yes
+    answer_hi: हाँ
+  - id: H18
+    type: History
+    question_en: Is there any bodyache or headache?
+    question_hi: क्या किसी प्रकार का बदनदर्द या सिरदर्द होता है?
+    answer_en: Sometimes in the evening
+    answer_hi: कभी-कभी रात में
+  - id: H19
+    type: History
+    question_en: Any dizziness?
+    question_hi: सिर घूमता है/ चक्कर आते हैं?
+    answer_en: No
+    answer_hi: नहीं
+  - id: H20
+    type: History
+    question_en: Are there any chills or rigors?
+    question_hi: क्या कंपकंपी लगती हैं?
+    answer_en: No
+    answer_hi: नहीं
+  - id: H21
+    type: History
+    question_en: Is the patient diabetic?
+    question_hi: क्या मरीज को डायबिटीज है?
+    answer_en: No
+    answer_hi: नहीं
+  - id: H22
+    type: History
+    question_en: Do you feel cold?
+    question_hi: क्या आपको सर्दी है?
+    answer_en: No
+    answer_hi: नहीं
+  - id: H23
+    type: History
+    question_en: Has the patient been showering in cold water?
+    question_hi: क्या मरीज ठण्डे पानी से नहाया है?
+    answer_en: No
+    answer_hi: नहीं
+  - id: H24
+    type: History
+    question_en: Has the patient been drenched in the rain?
+    question_hi: क्या मरीज पानी में भीगा है?
+    answer_en: No
+    answer_hi: नहीं
+  - id: H25
+    type: History
+    question_en: Any sourness in the mouth?
+    question_hi: मुँह में किसी प्रकार का खट्टापन?
+    answer_en: No
+    answer_hi: नहीं
+  - id: H26
+    type: History
+    question_en: Has this happened before?
+    question_hi: क्या ये पहले भी हुआ है?
+    answer_en: Yes, for the last month, but not before that
+    answer_hi: हाँ, पिछे महीने हुआ था, लेकिन उससे पहले नहीं
+  - id: H27
+    type: History
+    question_en: Has this type of cough happened to any others in your family/dwelling?
+    question_hi: क्या इस प्रकार की खाँसी आपके परिवार / घर में किसी और को भी हुयी है?
+    answer_en: Yes, my father before he died.
+    answer_hi: हाँ, मेरे पिता को हुयी थी, उनकी मृत्यु हो गयी
+  - id: H28
+    type: History
+    question_en: Did you take medicine continuously?
+    question_hi: क्या आप नियमित रूप से दवाईयाँ ली थी?
+    answer_en: No
+    answer_hi: नहीं
+  - id: H29
+    type: History
+    question_en: Did you take any antibiotics?
+    question_hi: क्या आपने कोई एन्टीबायोटिक्स ली थी?
+    answer_en: No
+    answer_hi: नहीं
+  - id: H30
+    type: History
+    question_en: Have you taken treatment (including DOTS therapy) before?
+    question_hi: क्या आपने पहले इलाज करवाया था? इसमें डॉट्स थेरेपी शामिल है
+    answer_en: No
+    answer_hi: नहीं
+  - id: H31
+    type: History
+    question_en: Have you gone to any doctor before coming here?
+    question_hi: यहाँ पर आने से पहले क्या आप किसी डॉक्टर के पास गये थे?
+    answer_en: I went to a doctor in the village 2 weeks ago. The doctor gave some medication, which I took for 4 days. I felt a bit better but then things went back to the way they were.
+    answer_hi: 2 सप्ताह पहले मैं गाँव में एक डॉक्टर के पास गया था। डॉक्टर ने मुझे कुछ दवाईयाँ दी थी, जिन्हे मैने 4 दिनो तक लिया था। मुझे कुछ अच्छा महूसस हुआ लेकिन फिर स्थिति वैसी ही हो गयी जैसी पहले थी?
+  - id: H32
+    type: History
+    question_en: Have you done any tests before coming here?
+    question_hi: यहाँ पर आपने पहले क्या आपने कोई टेस्ट करवाये हैं?
+    answer_en: No
+    answer_hi: नहीं
+  - id: H33
+    type: History
+    question_en: Have you taken a BCG vaccine as a child?
+    question_hi: जब आप बच्चे थे तो क्या आपको बीसीजी का टीका लगा था?
+    answer_en: Yes
+    answer_hi: हाँ
+  - id: H34
+    type: History
+    question_en: Do you drink?
+    question_hi: क्या आप शराब पीते हैं?
+    answer_en: I used to, but not for the last 6 months
+    answer_hi: हाँ, मैं पहले पीता था, लेकिन 6 महीने से नहीं पीता हूँ
+  - id: H35
+    type: History
+    question_en: Do you smoke?
+    question_hi: क्या आप धूम्रपान करते / सिगरेट पीते हैं?
+    answer_en: Yes, one packet of bidi everyday
+    answer_hi: हाँ एक पैकेट बीड़ी रोजाना
+  - id: H36
+    type: History
+    question_en: Have you indulged in any high-risk sexual behavior?
+    question_hi: क्या आप वेश्यागमन करते करते हैं?
+    answer_en: Does not visit sex workers/prostitutes
+    answer_hi: सेक्स वर्कर्स / वेश्याओं के पास नहीं जाते हैं
+  - id: H37
+    type: History
+    question_en: What is your profession?
+    question_hi: आप क्या काम करते हैं?
+    answer_en: Agriculture labor
+    answer_hi: कृषि मजदूर (Implicit from context)
+  - id: H38
+    type: History
+    question_en: Are you exposed to dust at work?
+    question_hi: क्या आप काम पर धूल मिट्टी का सामना करते हैं?
+    answer_en: No
+    answer_hi: नहीं
+  - id: H39
+    type: History
+    question_en: Does any cloth residue irritate your nose at work place?
+    question_hi: काम की जगह पर क्या कपड़े का कोई टुकड़ा आपकी नाक में खुजली/जलन पैदा करता है?
+    answer_en: No
+    answer_hi: नहीं
+  - id: H40
+    type: History
+    question_en: Do you take any precautions like covering your nose at your workplace?
+    question_hi: क्या आप काम की जगह पर कोई सावधानी बरतते हैं जैसे कि अपनी नाक को ढकना?
+    answer_en: No
+    answer_hi: नहीं
+  - id: H41
+    type: History
+    question_en: How many hours do you work?
+    question_hi: आप कितने घण्टे काम करते है?
+    answer_en: 10 hours a day
+    answer_hi: एक दिन में 10 घण्टे
+  - id: H42
+    type: History
+    question_en: What is your normal diet?
+    question_hi: आपकी सामान्य खुराक क्या है?
+    answer_en: Rice, vegetables and sometimes meat
+    answer_hi: चावल, सब्जियों और कभी-कभी माँस
+  - id: H43
+    type: History
+    question_en: Do you eat veg or non-veg?
+    question_hi: क्या आप अण्डे या माँसाहारी भोजन खाते हैं?
+    answer_en: Mostly can only afford veg
+    answer_hi: ज्यादातर तो केवल शाकाहारी भोजन ही वहन कर सकते हैं
+  - id: H44
+    type: History
+    question_en: How much water are you drinking?
+    question_hi: आप कितना पानी पीते हैं?
+    answer_en: Normal amount
+    answer_hi: सामान्य मात्रा
+  - id: H45
+    type: History
+    question_en: How is the stool?
+    question_hi: आपका मल कैसा है?
+    answer_en: Normal
+    answer_hi: सामान्य
+  - id: H46
+    type: History
+    question_en: What is the color of your urine?
+    question_hi: आपकी पेशाब का रंग कैसा है?
+    answer_en: Yellow
+    answer_hi: पीला
+  - id: H47
+    type: History
+    question_en: How is your nature?
+    question_hi: आपका स्वभाव कैसा है?
+    answer_en: Okay
+    answer_hi: ठीक है
+  - id: H48
+    type: History
+    question_en: Are you afraid of anything?
+    question_hi: क्या आपको किसी बात का डर है?
+    answer_en: No
+    answer_hi: नहीं
+  - id: H49
+    type: History
+    question_en: Do you feel like socializing?
+    question_hi: क्या आपका लोगों से मिलने-जुलने का मन करता है?
+    answer_en: Feel like socializing the usual amount
+    answer_hi: आमतौर पर लोगों से मिलने-जुलने का मन करता है
+
+examination_questions:
+  - id: E1
+    type: Examination
+    question_en: Height
+    question_hi: कद/लंबाई
+    answer_en: 5'8"
+    answer_hi: 5 फुट 8 इंच
+  - id: E2
+    type: Examination
+    question_en: Weight
+    question_hi: वनज
+    answer_en: 62 kilos
+    answer_hi: 62 किलोग्राम
+  - id: E3
+    type: Examination
+    question_en: Pulse Rate
+    question_hi: नब्ज की दर
+    answer_en: Moderately elevated; 80/minute
+    answer_hi: नियंत्रित रूप से बढ़ी हुयी.. 80 प्रति मिनट
+  - id: E4
+    type: Examination
+    question_en: Respiratory Rate
+    question_hi: साँसो की दर
+    answer_en: 20/minute
+    answer_hi: 20 प्रति मिनट
+  - id: E5
+    type: Examination
+    question_en: Blood Pressure
+    question_hi: ब्लड प्रेशर/रक्त चाप
+    answer_en: 120/80
+    answer_hi: 120/80
+  - id: E6
+    type: Examination
+    question_en: Temperature
+    question_hi: टैम्प्रेचर / तापमान
+    answer_en: 100.5 F
+    answer_hi: 100.5 डिग्री फॉरेनहाइट
+  - id: E7
+    type: Examination
+    question_en: Chest Inspection for Retraction or decreased movement
+    question_hi: रिट्रैक्शन या घटे हुयी मूवमेन्ट के लिए छाती का परीक्षण
+    answer_en: Normal
+    answer_hi: सामान्य
+  - id: E8
+    type: Examination
+    question_en: Chest Percussion
+    question_hi: छाती पर चोट ठेस
+    answer_en: Normal
+    answer_hi: सामान्य
+  - id: E9
+    type: Examination
+    question_en: Auscultation for breath sounds
+    question_hi: साँसों की आवाज के लिए हृदग्रगति का परीक्षण / ऑस्कलटैशन
+    answer_en: Normal
+    answer_hi: सामान्य
+  - id: E10
+    type: Examination
+    question_en: Blood for TLC/DLC
+    question_hi: टीएलसी/डीएलसी के लिए रक्त
+    answer_en: Normal
+    answer_hi: सामान्य
+  - id: E11
+    type: Examination
+    question_en: Blood for fasting ESR (Erythrocytic Sedimentation Rate)
+    question_hi: फास्टिंग ईएसआर (इरेथ्रोसाइटिक सेडीमेन्टेशन रेट) के लिए रक्त
+    answer_en: ">20mm"
+    answer_hi: "20mm से कम (Note: Discrepancy between EN/HI in PDF, used EN value)"
+  - id: E12
+    type: Examination
+    question_en: Blood test - White Blood Cells (WBC)
+    question_hi: रक्त परीक्षण सफेद रक्त कणिकाएं/ व्हाइट ब्लड सेल्स (WBC)
+    answer_en: 6,300 cells per cubic millimeter (cmm)
+    answer_hi: प्रति क्यूबिक मिलीमीटर में 6,300 सेल्स
+  - id: E13
+    type: Examination
+    question_en: Blood test - Red Blood Cells (RBC)
+    question_hi: रक्त परीक्षण लाल रक्त कणिकाएं/रेड ब्लड सेल्स (RBC)
+    answer_en: Normal, 5 million cells per microliter
+    answer_hi: सामान्य 50 लाख कोशिकाएं प्रति माइक्रोलीटर (Translated value)
+  - id: E14
+    type: Examination
+    question_en: Blood test - Platelet count
+    question_hi: रक्त परीक्षण प्लेटलेटस
+    answer_en: normal, 250,000 platelets per microliter
+    answer_hi: सामान्य 250,000 प्लेटलेट्स प्रति माइक्रोलीटर (Translated value)
+  - id: E15
+    type: Examination
+    question_en: Blood test - Hemoglobin (Hb)
+    question_hi: रक्त परीक्षण हीमोग्लोबिन
+    answer_en: 8.6 g/dl
+    answer_hi: 8.6 g/dl
+  - id: E16
+    type: Examination
+    question_en: Blood for HIV test
+    question_hi: एचआईवी परीक्षण के लिए रक्त
+    answer_en: Negative
+    answer_hi: निगेटिव
+  - id: E17
+    type: Examination
+    question_en: Mantoux Tuberculin Skin Test (TST)
+    question_hi: मैनटॉक्स ट्यूबरक्यूलिन स्किन टेस्ट (TST)
+    answer_en: Positive reaction of greater than 10mm.
+    answer_hi: 10mm से ज्यादा का पॉजिटिव रिएक्शन
+  - id: E18
+    type: Examination
+    question_en: Sputum for AFB (Acid-Fast Bacilli)
+    question_hi: एएफबी (एसिड-फास्ट बेसिली) के लिए थूक/बलगम
+    answer_en: Positive
+    answer_hi: पॉजिटिव
+  - id: E19
+    type: Examination
+    question_en: Chest X-Ray
+    question_hi: छाती का एक्स-रे
+    answer_en: Show x-ray
+    answer_hi: एक्स-रे दिखायें
+  - id: E20
+    type: Examination
+    question_en: Typhoid Test
+    question_hi: टाइफाइड टेस्ट
+    answer_en: Negative
+    answer_hi: निगेटिव
+  - id: E21
+    type: Examination
+    question_en: MP (Malarial Parasite) Test
+    question_hi: एमपी (मलेरिया का परजीवी) परीक्षण
+    answer_en: Negative
+    answer_hi: निगेटिव
+  - id: E22
+    type: Examination
+    question_en: Widal Test
+    question_hi: वाइडल टेसट
+    answer_en: Negative
+    answer_hi: निगेटिव
+  - id: E23
+    type: Examination
+    question_en: Check eyes (including for signs of jaundice or anemia)
+    question_hi: आँखों का परीक्षण (पीलिया या खून की कमी के परीक्षण के लिए)
+    answer_en: Normal (No signs of jaundice or anemia)
+    answer_hi: सामान्य (पीलिया या खून की कमी के के कोई लक्षण नहीं)
+  - id: E24
+    type: Examination
+    question_en: Check eyes for anemia
+    question_hi: खून की कमी के लिए आँखों का परीक्षण
+    answer_en: No signs of anemia
+    answer_hi: एनीमिया के कोई लक्षण नहीं
+  - id: E25
+    type: Examination
+    question_en: Check gums and neck glands
+    question_hi: मसूढ़ों और गर्दन की ग्रन्थियों का परीक्षण
+    answer_en: Normal
+    answer_hi: सामान्य
+  - id: E26
+    type: Examination
+    question_en: Check mouth for Infection (including Candidiasis)
+    question_hi: संक्रमण के लिए मुँह का परीक्षण (इसमें कैन्डीडियासिस शामिल है)
+    answer_en: No signs of Infections (including Candidiasis)
+    answer_hi: संक्रमण (इसमें कैन्डीडियासिस शामिल है) के कोई लक्षण नहीं
+  - id: E27
+    type: Examination
+    question_en: Drug culture report
+    question_hi: ड्रग कल्चर रिपोर्ट
+    answer_en: Negative
+    answer_hi: निगेटिव
+  - id: E28
+    type: Examination
+    question_en: Liver test-SGPT
+    question_hi: लीवर परीक्षण
+    answer_en: "Normal, AST (SGOT), 20 units per liter and ALT (SGPT), 30 units per liter"
+    answer_hi: "सामान्य, एएसटी (एसजीओटी), 20 यूनिट प्रति लीटर और एएलटी (एसजीपीटी), 30 यूनिट प्रति लीटर"

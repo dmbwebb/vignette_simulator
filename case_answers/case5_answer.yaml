@@ -1,0 +1,80 @@
+history_questions:
+  - item: current breathing problems
+    ids: [H1, H2, H10]                     # episode description, duration, frequency
+  - item: cough
+    ids: [H3, H4]
+  - item: expectoration probes
+    ids: [H5]
+  - item: previous breathing problems
+    ids: [H6, H7, H8]                      # incl. “seen a doctor” follow‑up
+  - item: since when problems
+    ids: [H9]
+  - item: shortness constant or episodic
+    ids: [H11]
+  - item: what triggers
+    ids: [H12]
+  - item: fever
+    ids: [H22]
+  - item: chest pain
+    ids: [H23]
+  - item: weight loss
+    ids: [H24]
+  - item: beedi‑cigarette
+    ids: [H27]
+  - item: family history
+    ids: [H29, H30]
+
+examinations:
+  - item: pulse
+    ids: [E1]
+  - item: blood pressure
+    ids: [E2]
+  - item: auscultation (front or back)
+    ids: [E4, E5]
+  - item: temperature
+    ids: [E7]
+
+diagnosis:
+  correct:
+    - Asthma
+    - asthma attack
+  incorrect:
+    - blood pressure problem
+    - gastrointestinal problem
+    - heart problem
+    - the weather
+    - cough in chest
+    - thyroid problem
+    - weakness
+    - lack of blood
+    - infection in windpipe
+    - pregnancy
+    - allergy
+
+treatments:
+  correct:
+    - bronchodilators
+    - theophylline
+    - inhaled or oral corticosteroids
+    - leukotriene inhibitors
+    - cromones
+    - inhaled anticholinergics
+  palliative:
+    - anti‑allergy medication
+  unnecessary_or_harmful:
+    - Aspirin
+    - clopidogrel
+    - anti‑platelet agents
+    - blood thinners
+    - betablockers
+    - ACE inhibitors
+    - vasodilators
+    - other cardiac medication
+    - morphine
+    - other pain medication
+    - oral rehydration salts
+    - oral electrolyte solution
+    - zinc
+    - antibiotics
+    - anti‑ulcer medication
+    - psychiatric medication

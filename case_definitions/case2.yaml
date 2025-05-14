@@ -1,0 +1,412 @@
+# Clinical Vignette Questions and Answers: Case II – LAKSHMI
+# Patient Presentation:
+# English: Doctor, I have been having a splitting headache – it feels like my head is going to burst (sar phate jaa raha hai).
+# Hindi: डॉक्टर, मुझे बहुत तेज़ सिरदर्द हो रहा है—ऐसा लगता है कि सिर फट जाएगा (सर फटे जा रहा है)।
+
+introduction:
+  en: |
+    Doctor, I am a 25‑year‑old woman in an advanced stage of pregnancy.  
+    I have been suffering from a splitting headache—it feels like my head is going to burst—for the last few months.
+  hi: |
+    डॉक्टर, मैं 25‑वर्ष‑की गर्भवती महिला हूँ।  
+    मुझे कई महीनों से बहुत तेज़ सिरदर्द हो रहा है—ऐसा लगता है कि सिर फट जाएगा।
+
+history_questions:
+  - id: H1
+    type: History
+    question_en: What is your name?
+    question_hi: आपका नाम क्या है?
+    answer_en: Lakshmi Bai
+    answer_hi: लक्ष्मी बाई
+  - id: H2
+    type: History
+    question_en: What is the severity and frequency of the headaches?
+    question_hi: सिरदर्द कितना तेज़ है और कितनी बार होता है?
+    answer_en: Severe and incapacitating; 2–3 times a day
+    answer_hi: बहुत तेज़ और असहनीय; दिन में 2–3 बार
+  - id: H3
+    type: History
+    question_en: How long have you had these headaches?
+    question_hi: यह सिरदर्द कितने समय से है?
+    answer_en: For the last 3 months
+    answer_hi: पिछले 3 महीनों से
+  - id: H4
+    type: History
+    question_en: Do you know the reason why you have this headache?
+    question_hi: क्या आपको पता है कि सिरदर्द किस कारण से है?
+    answer_en: No
+    answer_hi: नहीं
+  - id: H5
+    type: History
+    question_en: Any history of migraines?
+    question_hi: क्या कभी माइग्रेन रहा है?
+    answer_en: No
+    answer_hi: नहीं
+  - id: H6
+    type: History
+    question_en: Does your head hurt everywhere or only on one side?
+    question_hi: पूरा सिर दर्द करता है या सिर का एक हिस्सा?
+    answer_en: Hurts everywhere
+    answer_hi: पूरा सिर दर्द करता है
+  - id: H7
+    type: History
+    question_en: What time of day do you have this pain?
+    question_hi: दिन के किस समय सिरदर्द होता है?
+    answer_en: No particular time
+    answer_hi: कोई निश्चित समय नहीं
+  - id: H8
+    type: History
+    question_en: Does your head hurt when you read?
+    question_hi: पढ़ने पर सिर दर्द होता है?
+    answer_en: No
+    answer_hi: नहीं
+  - id: H9
+    type: History
+    question_en: Have you ever had any eye‑related problems or an eye examination?
+    question_hi: कभी आँखों की समस्या या जाँच हुई है?
+    answer_en: No
+    answer_hi: नहीं
+  - id: H10
+    type: History
+    question_en: Any nausea or vomiting? If so, how much?
+    question_hi: क्या उल्टी या मितली होती है? कितनी?
+    answer_en: Mild nausea/vomiting in first trimester; now vomits at least once a day
+    answer_hi: पहली तिमाही में हल्की उल्टी थी; अब दिन में कम‑से‑कम एक बार उल्टी होती है
+  - id: H11
+    type: History
+    question_en: Is there a fever?
+    question_hi: क्या बुखार है?
+    answer_en: No
+    answer_hi: नहीं
+  - id: H12
+    type: History
+    question_en: Do you feel dizzy?
+    question_hi: चक्कर आते हैं?
+    answer_en: No
+    answer_hi: नहीं
+  - id: H13
+    type: History
+    question_en: Any swelling in the feet?
+    question_hi: पैरों में सूजन है?
+    answer_en: A lot of swelling
+    answer_hi: बहुत सूजन
+  - id: H14
+    type: History
+    question_en: Last menstrual period
+    question_hi: अंतिम माहवारी कब हुई?
+    answer_en: 7 months back
+    answer_hi: 7 महीने पहले
+  - id: H15
+    type: History
+    question_en: Weight before pregnancy
+    question_hi: गर्भावस्था से पहले वजन कितना था?
+    answer_en: 55 kg
+    answer_hi: 55 किलोग्राम
+  - id: H16
+    type: History
+    question_en: Can you feel your baby's movements?
+    question_hi: क्या आप बच्चे की हलचल महसूस करती हैं?
+    answer_en: Yes
+    answer_hi: हाँ
+  - id: H17
+    type: History
+    question_en: Do you have any bleeding or discharge?
+    question_hi: क्या कोई रक्तस्राव या डिस्चार्ज है?
+    answer_en: No
+    answer_hi: नहीं
+  - id: H18
+    type: History
+    question_en: Have you had any antenatal check‑up during this pregnancy?
+    question_hi: इस गर्भावस्था में कोई प्रसव‑पूर्व जाँच करवाई है?
+    answer_en: No
+    answer_hi: नहीं
+  - id: H19
+    type: History
+    question_en: How many children do you have?
+    question_hi: आपके कितने बच्चे हैं?
+    answer_en: 1
+    answer_hi: 1
+  - id: H20
+    type: History
+    question_en: Where was the child born and was it a normal birth?
+    question_hi: बच्चा कहाँ पैदा हुआ था? क्या सामान्य प्रसव था?
+    answer_en: In the PHC; yes, normal birth
+    answer_hi: पीएचसी में; हाँ, सामान्य प्रसव
+  - id: H21
+    type: History
+    question_en: Did you make an antenatal care card in the hospital?
+    question_hi: क्या अस्पताल में एएनसी कार्ड बनवाया?
+    answer_en: No
+    answer_hi: नहीं
+  - id: H22
+    type: History
+    question_en: Have you had any other pregnancies?
+    question_hi: क्या और भी गर्भ रह चुके हैं?
+    answer_en: Yes – one still‑birth at 8 months
+    answer_hi: हाँ, 8‑वें महीने में मृत‑जन्म हुआ था
+  - id: H23
+    type: History
+    question_en: Have you had any abortions?
+    question_hi: क्या कभी गर्भपात हुआ है?
+    answer_en: No
+    answer_hi: नहीं
+  - id: H24
+    type: History
+    question_en: Did you get any immunizations during previous or current pregnancy?
+    question_hi: पिछली या वर्तमान गर्भावस्था में कोई टीके लगे?
+    answer_en: No
+    answer_hi: नहीं
+  - id: H25
+    type: History
+    question_en: Have you had an ultrasound done?
+    question_hi: क्या अल्ट्रासाउंड करवाया है?
+    answer_en: No
+    answer_hi: नहीं
+  - id: H26
+    type: History
+    question_en: Do you have hypertension now or during a previous pregnancy?
+    question_hi: अभी या पिछली गर्भावस्था में उच्च रक्तचाप था?
+    answer_en: Yes – during the still‑birth pregnancy
+    answer_hi: हाँ, मृत‑जन्म वाली गर्भावस्था में था
+  - id: H27
+    type: History
+    question_en: Do you have diabetes now or during previous pregnancy?
+    question_hi: अभी या पिछली गर्भावस्था में मधुमेह था?
+    answer_en: No
+    answer_hi: नहीं
+  - id: H28
+    type: History
+    question_en: Do you have anemia now or during previous pregnancy?
+    question_hi: अभी या पिछली गर्भावस्था में खून की कमी थी?
+    answer_en: No
+    answer_hi: नहीं
+  - id: H29
+    type: History
+    question_en: Do you have any heart disease now or during previous pregnancy?
+    question_hi: अभी या पिछली गर्भावस्था में हृदय रोग था?
+    answer_en: No
+    answer_hi: नहीं
+  - id: H30
+    type: History
+    question_en: Any inherited disease in yourself, partner, or child?
+    question_hi: आपको, आपके पति या बच्चे को कोई अनुवांशिक रोग है?
+    answer_en: No
+    answer_hi: नहीं
+  - id: H31
+    type: History
+    question_en: Are you seeing a lady doctor (gynecologist)?
+    question_hi: क्या किसी स्त्री‑रोग विशेषज्ञ को दिखा रही हैं?
+    answer_en: No
+    answer_hi: नहीं
+  - id: H32
+    type: History
+    question_en: Do you smoke or drink?
+    question_hi: क्या आप धूम्रपान करती या शराब पीती हैं?
+    answer_en: No
+    answer_hi: नहीं
+  - id: H33
+    type: History
+    question_en: Do you get short of breath at rest or on mild exercise?
+    question_hi: हल्के श्रम या आराम में सांस फूलती है?
+    answer_en: Yes – breathless on mild exercise; cannot perform household chores
+    answer_hi: हाँ, हल्के काम पर भी सांस फूलती है; घर‑का‑काम नहीं कर पाती
+  - id: H34
+    type: History
+    question_en: How do you sleep? Is it normal?
+    question_hi: आपकी नींद कैसी है?
+    answer_en: Sleeps a normal amount
+    answer_hi: सामान्य नींद लेती हूँ
+  - id: H35
+    type: History
+    question_en: What time do you go to bed and wake up?
+    question_hi: आप कितने बजे सोती और उठती हैं?
+    answer_en: Goes to bed at 10 pm and wakes at 6 am
+    answer_hi: रात 10 बजे सोती हूँ, सुबह 6 बजे उठती हूँ
+  - id: H36
+    type: History
+    question_en: Are there any tensions or problems in the family that bother you?
+    question_hi: परिवार में कोई चिंता या समस्या है?
+    answer_en: No
+    answer_hi: नहीं
+  - id: H37
+    type: History
+    question_en: Do you face any problems with your daily work?
+    question_hi: रोज़मर्रा के काम में कोई दिक्कत?
+    answer_en: No
+    answer_hi: नहीं
+  - id: H38
+    type: History
+    question_en: Are there any stomach issues?
+    question_hi: पेट से जुड़ी कोई समस्या?
+    answer_en: No
+    answer_hi: नहीं
+  - id: H39
+    type: History
+    question_en: What are your dietary habits? Does the patient eat well?
+    question_hi: आपका भोजन कैसा है? ठीक से खाती हैं?
+    answer_en: Rice, dal and vegetables; avoiding hot foods and taking less salt
+    answer_hi: चावल, दाल, सब्ज़ियाँ; गरम चीज़ें नहीं खाती, कम नमक लेती हूँ
+  - id: H40
+    type: History
+    question_en: Do you eat very spicy or salty food?
+    question_hi: बहुत तीखा या खारा खाना खाती हैं?
+    answer_en: Not too spicy or salty
+    answer_hi: नहीं, ज़्यादा तीखा‑खारा नहीं
+  - id: H41
+    type: History
+    question_en: Do you feel constipated?
+    question_hi: कब्ज़ रहती है?
+    answer_en: No
+    answer_hi: नहीं
+  - id: H42
+    type: History
+    question_en: Is your stool normal?
+    question_hi: मल सामान्य है?
+    answer_en: Yes – normal
+    answer_hi: हाँ, सामान्य
+  - id: H43
+    type: History
+    question_en: Are you passing urine properly?
+    question_hi: पेशाब ठीक से हो रहा है?
+    answer_en: Yes
+    answer_hi: हाँ
+  - id: H44
+    type: History
+    question_en: Have you gone to any other doctors?
+    question_hi: क्या किसी और डॉक्टर को दिखाया?
+    answer_en: Yes – saw a doctor 20 days ago
+    answer_hi: हाँ, 20 दिन पहले डॉक्टर को दिखाया था
+  - id: H45
+    type: History
+    question_en: Have you taken any medication?
+    question_hi: कोई दवा ली है?
+    answer_en: Doctor gave medicine for headache; felt better for 2 days then headaches worsened
+    answer_hi: सिरदर्द की दवा मिली थी; 2 दिन ठीक लगा, फिर सिरदर्द और बढ़ गया
+  - id: H46
+    type: History
+    question_en: Any history of epilepsy?
+    question_hi: मिर्गी का इतिहास?
+    answer_en: No
+    answer_hi: नहीं
+  - id: H47
+    type: History
+    question_en: Since when is the swelling in the ankles?
+    question_hi: टखनों में सूजन कब से है?
+    answer_en: Swelling since 3rd month; much worse for last 1 month
+    answer_hi: तीसरे महीने से सूजन है; पिछले 1 महीने से बहुत बढ़ गई है
+
+examination_questions:
+  - id: E1
+    type: Examination
+    question_en: Height
+    question_hi: कद
+    answer_en: 5′2″
+    answer_hi: 5 फुट 2 इंच
+  - id: E2
+    type: Examination
+    question_en: Weight
+    question_hi: वजन
+    answer_en: 68 kg
+    answer_hi: 68 किलोग्राम
+  - id: E3
+    type: Examination
+    question_en: Pulse Rate
+    question_hi: नाड़ी दर
+    answer_en: 78 beats/min
+    answer_hi: 78 धड़कन/मिनट
+  - id: E4
+    type: Examination
+    question_en: Respiratory Rate
+    question_hi: श्वास दर
+    answer_en: 20 per minute
+    answer_hi: 20 प्रति मिनट
+  - id: E5
+    type: Examination
+    question_en: Temperature
+    question_hi: तापमान
+    answer_en: 98.6 °F
+    answer_hi: 98.6 °F
+  - id: E6
+    type: Examination
+    question_en: Blood Pressure
+    question_hi: रक्तचाप
+    answer_en: 160/114 mm Hg
+    answer_hi: 160/114 मि.मी. पारे
+  - id: E7
+    type: Examination
+    question_en: Auscultation of chest and heart
+    question_hi: छाती व हृदय का आसकुल्टेशन
+    answer_en: Normal
+    answer_hi: सामान्य
+  - id: E8
+    type: Examination
+    question_en: Edema in feet
+    question_hi: पैरों में सूजन
+    answer_en: Pitting edema in both ankles
+    answer_hi: दोनों टखनों में पिटिंग एडिमा
+  - id: E9
+    type: Examination
+    question_en: Examination of eyes and mouth for anemia
+    question_hi: एनीमिया के लिए आँख व मुँह की जाँच
+    answer_en: Normal
+    answer_hi: सामान्य
+  - id: E10
+    type: Examination
+    question_en: Urine for albumin/proteins
+    question_hi: मूत्र में एल्बुमिन/प्रोटीन
+    answer_en: 1.6 g albumin/L (two specimens 6 hours apart)
+    answer_hi: 1.6 ग्राम एल्बुमिन/लीटर (6 घंटे के अंतर पर दो नमूने)
+  - id: E11
+    type: Examination
+    question_en: Urine for glucose
+    question_hi: मूत्र में ग्लूकोज़
+    answer_en: Not present
+    answer_hi: अनुपस्थित
+  - id: E12
+    type: Examination
+    question_en: Blood glucose
+    question_hi: रक्त ग्लूकोज़
+    answer_en: Not present
+    answer_hi: अनुपस्थित
+  - id: E13
+    type: Examination
+    question_en: Blood for Hemoglobin (Hb)
+    question_hi: हीमोग्लोबिन
+    answer_en: 11.2 g/dL
+    answer_hi: 11.2 ग्राम/डेसीलीटर
+  - id: E14
+    type: Examination
+    question_en: Blood Test – TLC/DLC
+    question_hi: टीएलसी/डीएलसी
+    answer_en: Normal
+    answer_hi: सामान्य
+  - id: E15
+    type: Examination
+    question_en: Palpation of fetus
+    question_hi: भ्रूण की जांच (पलपेशन)
+    answer_en: Normal
+    answer_hi: सामान्य
+  - id: E16
+    type: Examination
+    question_en: Fetal heart rate
+    question_hi: भ्रूण हृदय दर
+    answer_en: Normal
+    answer_hi: सामान्य
+  - id: E17
+    type: Examination
+    question_en: CT‑Scan
+    question_hi: सीटी‑स्कैन
+    answer_en: Normal
+    answer_hi: सामान्य
+  - id: E18
+    type: Examination
+    question_en: MRI Scan
+    question_hi: एमआरआई स्कैन
+    answer_en: Normal
+    answer_hi: सामान्य
+  - id: E19
+    type: Examination
+    question_en: Ultrasound report
+    question_hi: अल्ट्रासाउंड रिपोर्ट
+    answer_en: Normal
+    answer_hi: सामान्य

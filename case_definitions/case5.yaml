@@ -1,0 +1,280 @@
+# Clinical Vignette Questions and Answers: Case V – RAJESH & RADHA
+# Patient Presentation:
+# English: Doctor, last night I had a lot of difficulty with breathing.
+# Hindi: डॉक्टर, कल रात मुझे साँस लेने में बहुत तकलीफ़ हुई।
+
+introduction:
+  en: |
+    Doctor, I am a 25‑year‑old female.  
+    Last night I suddenly developed severe shortness of breath and have come for your advice.
+  hi: |
+    डॉक्टर, मैं 25 वर्ष का/की हूँ।  
+    कल रात अचानक साँस फूलने लगी, इसलिए सलाह लेने आया/आई हूँ।
+
+history_questions:
+  - id: H1
+    type: History
+    question_en: What happened last night? (current episode)
+    question_hi: कल रात क्या हुआ था? (वर्तमान प्रकरण)
+    answer_en: I was short of breath and anxious, could not take a full breath, and there was a whistling sound. 
+    answer_hi: साँस लेने में बहुत दिक्कत और घबराहट थी, पूरी साँस नहीं ले पा रहा/रही था/थी, और सीटी‑सी आवाज़ आ रही थी।
+  - id: H2
+    type: History
+    question_en: How long was the attack last night?
+    question_hi: कल रात का दौरा कितनी देर चला?
+    answer_en: About 10–15 minutes; then I felt a bit better but weak for almost two hours.
+    answer_hi: लगभग 10–15 मिनट; फिर थोड़ी राहत मिली लेकिन दो घंटे तक कमजोरी रही।
+  - id: H3
+    type: History
+    question_en: Cough?
+    question_hi: खाँसी?
+    answer_en: I cough only when I am breathless.
+    answer_hi: सिर्फ साँस फूलने पर खाँसी आती है।
+  - id: H4
+    type: History
+    question_en: Do you have more cough at night?
+    question_hi: क्या रात में ज़्यादा खाँसी आती है?
+    answer_en: Yes – last night I coughed a lot when the breathing problem started.
+    answer_hi: हाँ – कल रात साँस फूलने पर बहुत खाँसी हुई।
+  - id: H5
+    type: History
+    question_en: Does anything come up (mucus/blood) or is it a dry cough?
+    question_hi: खाँसी में बलगम/खून आता है या सूखी खाँसी है?
+    answer_en: Nothing comes up; it is a dry cough.
+    answer_hi: कुछ नहीं निकलता; सूखी खाँसी है।
+  - id: H6
+    type: History
+    question_en: Have you had breathing problems previously?
+    question_hi: क्या पहले भी साँस लेने में दिक्कत हुई है?
+    answer_en: Yes, it has happened before.
+    answer_hi: हाँ, पहले भी हुआ है।
+  - id: H7
+    type: History
+    question_en: Tell me about previous breathing‑difficulty episodes.
+    question_hi: पिछली साँस‑फूलने की घटनाओं के बारे में बताइए।
+    answer_en: I have had many attacks, but none as bad as last night.
+    answer_hi: कई बार दौरे पड़े हैं, पर कल रात जितने गंभीर कभी नहीं थे।
+  - id: H8
+    type: History
+    question_en: Have you seen a doctor about this?
+    question_hi: क्या आपने इसके लिए डॉक्टर को दिखाया?
+    answer_en: No.
+    answer_hi: नहीं।
+  - id: H9
+    type: History
+    question_en: Since when have you had these breathing problems?
+    question_hi: यह समस्या कब से है?
+    answer_en: About one year.
+    answer_hi: लगभग एक साल से।
+  - id: H10
+    type: History
+    question_en: How often does this happen?
+    question_hi: यह कितनी बार होता है?
+    answer_en: In the last 3–4 months about once a month; for the last week it has happened every day.
+    answer_hi: पिछले 3–4 महीनों में महीने में एक बार; पिछले एक हफ़्ते से रोज़ हो रहा है।
+  - id: H11
+    type: History
+    question_en: Is the shortness of breath constant or episodic?
+    question_hi: साँस फूलना लगातार रहता है या दौरे‑दौरे से?
+    answer_en: Episodic – after a short while I return to normal.
+    answer_hi: दौरे‑दौरे से; थोड़ी देर बाद सामान्य हो जाता/जाती हूँ।
+  - id: H12
+    type: History
+    question_en: What triggers the episodes (dust, pollution, cold, etc.)?
+    question_hi: दौरा किन कारणों से भड़कता है (धूल, धुआँ, ठंड आदि)?
+    answer_en: When I am cleaning something or when around smoke and dust.
+    answer_hi: साफ‑सफाई करते समय या धुआँ‑धूल के पास रहने पर।
+  - id: H13
+    type: History
+    question_en: Is the difficulty worse in the morning or evening?
+    question_hi: सुबह ज़्यादा तकलीफ़ होती है या शाम को?
+    answer_en: More in the evening.
+    answer_hi: ज़्यादातर शाम को।
+  - id: H14
+    type: History
+    question_en: How long does an attack last?
+    question_hi: एक दौरा कितनी देर रहता है?
+    answer_en: Earlier 1–2 minutes; yesterday it lasted almost 10–15 minutes then weakness for a couple of hours.
+    answer_hi: पहले 1–2 मिनट रहता था; कल रात लगभग 10–15 मिनट चला और फिर दो घंटे तक कमजोरी रही।
+  - id: H15
+    type: History
+    question_en: Does anything make the symptoms better?
+    question_hi: किससे आराम मिलता है?
+    answer_en: Ginger tea or warm water and rest reduce the discomfort.
+    answer_hi: अदरक वाली चाय या गुनगुना पानी पीकर और आराम करके राहत मिलती है।
+  - id: H16
+    type: History
+    question_en: Have you taken medication before?
+    question_hi: क्या आपने पहले कोई दवा ली थी?
+    answer_en: Last month I took my brother’s asthma pills and felt some relief.
+    answer_hi: पिछले महीने भाई की अस्थमा की गोलियाँ ली थीं, तो आराम मिला था।
+  - id: H17
+    type: History
+    question_en: Did you try that medication last night?
+    question_hi: क्या कल रात वही दवा ली?
+    answer_en: No – my brother was out of the village so I could not use it.
+    answer_hi: नहीं – भाई गाँव से बाहर था, इसलिए दवा नहीं ले सका/सकी।
+  - id: H18
+    type: History
+    question_en: Did you eat anything you had not taken before?
+    question_hi: क्या कल कुछ नया खाया‑पीया था?
+    answer_en: No, just the usual dal, roti and vegetables.
+    answer_hi: नहीं, हमेशा की तरह दाल‑रोटी‑सब्ज़ी ही खाई।
+  - id: H19
+    type: History
+    question_en: Childhood illnesses (cough or breathing problems)?
+    question_hi: बचपन में खाँसी या साँस‑फूलने की बीमारी रही?
+    answer_en: I don’t remember, but my mother says I used to cough a lot.
+    answer_hi: याद नहीं, पर माँ कहती हैं कि बचपन में बहुत खाँसी होती थी।
+  - id: H20
+    type: History
+    question_en: Do you have any allergies?
+    question_hi: क्या कोई एलर्जी है?
+    answer_en: No.
+    answer_hi: नहीं।
+  - id: H21
+    type: History
+    question_en: Age
+    question_hi: आयु
+    answer_en: 25 years
+    answer_hi: 25 वर्ष
+  - id: H22
+    type: History
+    question_en: Fever?
+    question_hi: बुखार?
+    answer_en: No.
+    answer_hi: नहीं।
+  - id: H23
+    type: History
+    question_en: Chest pain?
+    question_hi: सीने में दर्द?
+    answer_en: No.
+    answer_hi: नहीं।
+  - id: H24
+    type: History
+    question_en: Weight loss?
+    question_hi: वजन कम हो रहा है?
+    answer_en: No.
+    answer_hi: नहीं।
+  - id: H25
+    type: History
+    question_en: Night sweats?
+    question_hi: रात में पसीना आता है?
+    answer_en: No.
+    answer_hi: नहीं।
+  - id: H26
+    type: History
+    question_en: Throat or other upper‑respiratory symptoms?
+    question_hi: गले या ऊपरी श्वसन पथ में कोई लक्षण?
+    answer_en: No.
+    answer_hi: नहीं।
+  - id: H27
+    type: History
+    question_en: Do you smoke beedis/cigarettes?
+    question_hi: बीड़ी‑सिगरेट पीते हैं?
+    answer_en: No – nobody in our family smokes.
+    answer_hi: नहीं – हमारे घर में कोई नहीं पीता।
+  - id: H28
+    type: History
+    question_en: Occupation – what work do you do?
+    question_hi: पेशा – आप क्या काम करते/करती हैं?
+    answer_en: "Radha: helps her husband with tailoring at home."
+    answer_hi: "राजेश: दर्ज़ी; राधा: घर पर पति के दर्ज़ी के काम में मदद करती हैं।"
+  - id: H29
+    type: History
+    question_en: Any family history of similar problems?
+    question_hi: परिवार में किसी को ऐसी समस्या है?
+    answer_en: My older brother has breathing problems.
+    answer_hi: बड़े भाई को साँस‑फूलने की समस्या है।
+  - id: H30
+    type: History
+    question_en: How long has he had these problems?
+    question_hi: उन्हें यह समस्या कितने समय से है?
+    answer_en: Many years.
+    answer_hi: कई वर्षों से।
+
+examination_questions:
+  - id: E1
+    type: Examination
+    question_en: Pulse
+    question_hi: नाड़ी
+    answer_en: 72 beats/min
+    answer_hi: 72 धड़कन/मिनट
+  - id: E2
+    type: Examination
+    question_en: Blood Pressure
+    question_hi: रक्तचाप
+    answer_en: 120/80 mm Hg
+    answer_hi: 120/80 मि.मी. पारा
+  - id: E3
+    type: Examination
+    question_en: Respiratory rate
+    question_hi: श्वास दर
+    answer_en: 13 per minute
+    answer_hi: 13 प्रति मिनट
+  - id: E4
+    type: Examination
+    question_en: Auscultation (front) for breath sounds
+    question_hi: सामने से छाती का ऑस्कल्टेशन
+    answer_en: Normal
+    answer_hi: सामान्य
+  - id: E5
+    type: Examination
+    question_en: Auscultation (back) for breath sounds
+    question_hi: पीछे से छाती का ऑस्कल्टेशन
+    answer_en: Normal
+    answer_hi: सामान्य
+  - id: E6
+    type: Examination
+    question_en: Peak Flow
+    question_hi: पीक फ्लो
+    answer_en: 300 L/min
+    answer_hi: 300 ली./मिनट
+  - id: E7
+    type: Examination
+    question_en: Temperature
+    question_hi: तापमान
+    answer_en: 98.8 °F
+    answer_hi: 98.8 °F
+  - id: E8
+    type: Examination
+    question_en: X‑ray chest
+    question_hi: छाती का एक्स‑रे
+    answer_en: Normal
+    answer_hi: सामान्य
+  - id: E9
+    type: Examination
+    question_en: Blood tests – Chem‑7
+    question_hi: रक्त जाँच – केम‑7
+    answer_en: All parameters normal
+    answer_hi: सभी मानक सामान्य
+  - id: E10
+    type: Examination
+    question_en: Blood tests – Calcium, magnesium, phosphorous
+    question_hi: रक्त जाँच – कैल्शियम, मैग्नीशियम, फॉस्फोरस
+    answer_en: All normal
+    answer_hi: सभी सामान्य
+  - id: E11
+    type: Examination
+    question_en: CBC (WBC, hemoglobin, platelets)
+    question_hi: सीबीसी (डब्ल्यूबीसी, हीमोग्लोबिन, प्लेटलेट्स)
+    answer_en: All normal – WBC 6000, Hb 13 g/dL, platelets 250 000 /µL
+    answer_hi: सभी सामान्य – डब्ल्यूबीसी 6000, हीमोग्लोबिन 13 ग्राम/डेसीलीटर, प्लेटलेट 250 000/µL
+  - id: E12
+    type: Examination
+    question_en: ESR
+    question_hi: ईएसआर
+    answer_en: Normal
+    answer_hi: सामान्य
+  - id: E13
+    type: Examination
+    question_en: TLC/DLC
+    question_hi: टीएलसी/डीएलसी
+    answer_en: Normal
+    answer_hi: सामान्य
+  - id: E14
+    type: Examination
+    question_en: Liver function tests (LFTs)
+    question_hi: लीवर फ़ंक्शन टेस्ट (एलएफटी)
+    answer_en: Normal, except AST (SGOT) slightly elevated
+    answer_hi: सामान्य, सिर्फ़ एएसटी (एसजीओटी) थोड़ा बढ़ा हुआ

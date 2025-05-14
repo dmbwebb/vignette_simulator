@@ -1,0 +1,68 @@
+history_questions:
+  - item: qualities of stool
+    ids: [H4, H7, H9, H10]   # consistency/colour, blood‑mucus, smell, explosive
+  - item: frequency of stool
+    ids: [H6, H11]           # daily frequency and half‑hour count
+  - item: quantity of stool
+    ids: [H5]                # direct “quantity” question  
+  - item: urination
+    ids: [H14, H15, H16]     # colour, normal?, last void  
+  - item: child active/playful
+    ids: [E18, H40]          # activity exam (E18) and irritability history (H40) – unsure, includes exam 
+  - item: fever
+    ids: [H2, E5]            # history of fever and measured temperature – includes exam 
+  - item: abdominal pain
+    ids: [H13]               # stomach‑ache 
+  - item: vomiting
+    ids: [H3]                # vomiting yes/no  
+  - item: source of water
+    ids: [H25, H26]          # hand‑pump/tap and whether boiled (quality) 
+  - item: what has child eaten
+    ids: [H20, H21]          # feeding habits and recent diet change  
+  - item: child taking fluids
+    ids: [H17, H46]          # drinking lots of water; ORS given? (fluid intake) – unsure on H46 
+
+examinations:
+
+# Diagnosis for case 3
+diagnosis:
+  correct:
+    - bacterial diarrhea
+    - dysentery
+  incorrect:
+    - weather
+    - heat in liver
+    - acidity
+    - diarrhea
+
+# Treatments for case 3
+treatments:
+  correct:
+    - ORS
+    - rehydration
+  palliative:
+    - antibiotics
+    - zinc
+  unnecessary_or_harmful:
+    - aspirin
+    - clopidogrel
+    - anti-platelet agents
+    - blood thinners
+    - betablockers
+    - ACE inhibitors
+    - vasodilators
+    - other cardiac medication
+    - morphine
+    - other pain medication
+    - steroids
+    - inhaler
+    - bronchodilators
+    - theophylline
+    - inhaled corticosteroids
+    - leukotriene inhibitors
+    - cromones
+    - inhaled anticholinergics
+    - oral corticosteroids
+    - other anti-asthmatic medication
+    - anti-allergy medication
+    - psychiatric medication
