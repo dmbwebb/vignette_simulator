@@ -80,6 +80,7 @@ The Vignette Simulator offers a range of features for comprehensive LLM evaluati
     * `outputs/`: Default directory where simulation results (individual YAMLs and summary CSVs) are saved.
         * `outputs/curated_outputs/`: Contains YAML outputs from key/main simulation runs that are often referenced.
     * `figs/`: Contains graphs and figures visualizing the main results of simulations.
+    * `analysis.R`: R script that generates visualizations and statistical analyses of the curated simulation outputs.
 
 ### Manual setup
 
@@ -113,6 +114,22 @@ The Vignette Simulator offers a range of features for comprehensive LLM evaluati
    ```
 
    The simulator will check for API keys in both locations, with environment variables taking precedence.
+
+## Analysis
+
+The project includes an R-based analysis pipeline (`analysis.R`) that processes the curated simulation outputs to generate visualizations and statistical analyses. This script:
+
+* **Processes Curated Outputs**: Analyzes the YAML files in `outputs/curated_outputs/` to extract key metrics and patterns.
+* **Generates Visualizations**: Creates graphs and figures that are saved to the `figs/` directory, helping to visualize:
+    * Performance metrics across different models and cases
+    * Question coverage and diagnostic accuracy
+    * Comparative analyses of different simulation runs
+* **Statistical Analysis**: Provides quantitative insights into the simulation results, helping to identify patterns and trends in the LLM's performance.
+
+To run the analysis:
+```bash
+Rscript analysis.R
+```
 
 ## Usage
 
