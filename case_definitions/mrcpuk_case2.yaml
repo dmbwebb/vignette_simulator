@@ -1,0 +1,120 @@
+patient_details:
+  name: Miss Anne Rogers
+  age: 55-year-old woman
+
+your_role: You are the doctor in the general medical outpatient clinic
+
+presenting_complaint: Nausea and anorexia, associated with abnormal liver function tests
+
+referral_text: |
+  Thank you for seeing this patient who has recently attended the surgery with a 1-month history of
+  nausea and anorexia.
+  I have found no abnormalities on examination but her routine blood tests
+  show a gamma glutamyl transferase (GGT) of 252 U/L (normal range: 4-35) and an alanine
+  aminotransferase (ALT) of 75 U/L (normal range: 5-35).
+  She is not taking any prescribed medication.
+
+  The patient has a past history of depression and is the mother of two teenaged children.
+  On examination, she seemed very anxious.
+
+introduction:
+  en: |
+    Doctor, I am a 55-year-old woman.
+    I have been feeling unwell for the last 6 months and over the past 4 weeks I have not felt like eating. I have also felt sick in the morning.
+
+history_questions:
+  - id: H1
+    type: History
+    question_en: "Have you noticed any change in your weight with this loss of appetite?"
+    answer_en: "I have lost a few kilograms in weight but remain overweight."
+  - id: H2
+    type: History
+    question_en: "Are you experiencing any abdominal pain or discomfort?"
+    answer_en: "I have no abdominal pain but some mild indigestion."
+  - id: H3
+    type: History
+    question_en: "Have you had any difficulty swallowing?"
+    answer_en: "I have no difficulty swallowing."
+  - id: H4
+    type: History
+    question_en: "Have you actually vomited?"
+    answer_en: "I have not vomited."
+  - id: H5
+    type: History
+    question_en: "Have you noticed any changes in your bowel habits?"
+    answer_en: "I have become a little constipated."
+  - id: H6
+    type: History
+    question_en: "Have you seen any blood in your stool?"
+    answer_en: "I am not passing any blood in my stool."
+  - id: H7
+    type: History
+    question_en: "Any problems with your urination? For example, any pain or change in colour?"
+    answer_en: "I have no urinary symptoms."
+  - id: H8
+    type: History
+    question_en: "Could you tell me about your periods? Have there been any recent changes?"
+    answer_en: "My periods stopped 6 months ago."
+  - id: H9
+    type: History
+    question_en: "Apart from the depression mentioned by your GP, have you had any other major physical illnesses or any surgeries in the past?"
+    answer_en: "Other than that I have had no major physical illnesses or surgery in the past."
+  - id: H10
+    type: History
+    question_en: "Have you ever been jaundiced, meaning have your skin or eyes ever turned yellow?"
+    answer_en: "I have never been jaundiced."
+  - id: H11
+    type: History
+    question_en: "Have you ever had a blood transfusion?"
+    answer_en: "I have never had a blood transfusion."
+  - id: H12
+    type: History
+    question_en: "Are you currently taking any medications? Your GP mentioned no prescribed ones, but what about over-the-counter medicines?"
+    answer_en: "Over the past 6 months, I have been taking up to eight paracetamol tablets per day for headaches. I sometimes take some proprietary antacids."
+  - id: H13
+    type: History
+    question_en: "Have you ever taken any recreational drugs?"
+    answer_en: "I have never taken recreational drugs."
+  - id: H14
+    type: History
+    question_en: "Do you have any allergies to medications or anything else?"
+    answer_en: "None known."
+  - id: H15
+    type: History
+    question_en: "Do you smoke?"
+    answer_en: "I do not smoke."
+  - id: H16
+    type: History
+    question_en: "Can you tell me about your alcohol consumption?"
+    answer_en: "I have been drinking two large glasses of gin with tonic water every evening for the past year and I have also taken to drinking at least half a bottle of wine at weekends."
+  - id: H17
+    type: History
+    question_en: "How are things at home? Could you tell me about your personal circumstances?"
+    answer_en: "My partner works away from home and your eldest child has left home to live with a man of whom I do not approve."
+  - id: H18
+    type: History
+    question_en: "What kind of work do you do?"
+    answer_en: "I work as a cashier in a local supermarket."
+  - id: H19
+    type: History
+    question_en: "Have you done any travelling recently, particularly abroad?"
+    answer_en: "None relevant."
+  - id: H20
+    type: History
+    question_en: "Is there any family history of liver problems or any other significant illnesses?"
+    answer_en: "There is no relevant family history. My parents are both alive although my father had a heart attack a few years ago."
+  - id: H21
+    type: History
+    question_en: "You mentioned a past history of depression; how has that been?"
+    answer_en: "I have had depression in the past, especially following the birth of my second child (a boy)."
+
+patient_direct_questions:
+  - question_en: What is wrong with me?
+  - question_en: Could I have cancer?
+  - question_en: Should I have further tests to find out what is wrong?
+  - question_en: Will I get better?
+
+patient_underlying_concerns:
+  - concern: Realises that she may be drinking more than she should.
+  - concern: Feels guilty and does not want anyone else to know.
+  - concern: Worried about her recent symptoms and is concerned that she might have cancer.

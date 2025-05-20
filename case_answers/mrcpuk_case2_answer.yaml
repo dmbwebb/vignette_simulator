@@ -1,0 +1,44 @@
+general_candidate_expectations:
+  - Takes a history which includes a detailed social history and activities of daily living.
+  - Particularly focuses on the questions raised in the referral letter.
+  - At the end of the consultation, the candidate should have discussed solutions to the problems posed by the case.
+  - Gives the patient the opportunity to ask any further questions before closure.
+  - Candidate should form a problem list or preferred diagnosis.
+  - Candidate should answer the questions in the family doctor's letter.
+
+differential_diagnosis:
+  probable_diagnosis:
+    - Non-alcoholic fatty liver disease (NAFLD)
+  plausible_alternative_diagnoses:
+    - Alcoholic liver disease
+    - Other causes of primary liver disease
+    - Gallstones
+
+key_assessment_areas:
+  clinical_communication_skills:
+    - Gives the patient advice regarding weight reduction.
+    - Provides advice on where to get help to limit alcohol consumption.
+  managing_patients_concerns:
+    - Addresses the patient's concern about cancer.
+  clinical_judgement:
+    - Carries out an accurate assessment of the patient's alcohol intake.
+    - Elicits the history of depression.
+  maintaining_patient_welfare:
+    - See marksheet.
+
+patient_concerns_to_be_aware_of_by_examiner:
+  - Patient realises that she may be drinking more than she should.
+  - Patient feels guilty and does not want anyone else to know about her drinking.
+  - Patient is worried about her recent symptoms and is concerned that she might have cancer.
+  - Patient has specific questions:
+      - What is wrong with me?
+      - Could I have cancer?
+      - Should I have further tests to find out what is wrong?
+      - Will I get better?
+
+examiner_notes:
+  - Examiners should advise candidates when there are 2 minutes remaining (i.e., after 12 minutes).
+  - If the candidate appears to have finished early, remind them how long is left and enquire if there is anything else they would like to ask, or whether they have finished.
+  - If they have finished, please remain silent and allow the candidate that time for reflection.
+  - The surrogate should remain until the end of the 14-minute period.
+  - It is not necessary for candidates to agree a summary with the patient during their interview.
