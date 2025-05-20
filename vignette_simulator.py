@@ -343,17 +343,22 @@ class DoctorSimulator:
     """Simulates a doctor conducting a patient interview"""
     def __init__(self, model_provider: LLMProvider, doc_prompt_file: str, diagnosis_active: bool = False, verbose: bool = False):
         self.model_provider = model_provider # Now expects a pre-configured provider
-        self.doc_prompt_file = doc_prompt_file # Store the prompt file path
+        self.doc_prompt_file = doc_prompt_file # Store the prompt file path for reference/logging if needed
         self.diagnosis_active = diagnosis_active # Store the diagnosis_active flag
         
-        # Load the doctor prompt
-        try:
-            with open(doc_prompt_file, 'r') as f:
-                doc_prompt = f.read()
-            self.model_provider.set_system_prompt(doc_prompt)
-        except Exception as e:
-            print(f"Error loading doctor prompt: {e}")
-            self.model_provider.set_system_prompt("")
+        # The system prompt is now expected to be pre-set on the model_provider 
+        # by the ConversationSimulator, especially if augmented (e.g., with referral text).
+        # Therefore, DoctorSimulator should not reload and set it from doc_prompt_file here.
+        
+        # Old code that was overwriting the prompt:
+        # try:
+        #     with open(doc_prompt_file, 'r') as f:
+        #         doc_prompt = f.read()
+        #     self.model_provider.set_system_prompt(doc_prompt)
+        # except Exception as e:
+        #     print(f"Error loading doctor prompt: {e}")
+        #     self.model_provider.set_system_prompt("")
+            
         self.verbose = verbose # Verbose setting is now handled by the passed provider
         # self.model_provider.set_verbose(self.verbose) # No longer needed here
     
@@ -568,14 +573,33 @@ class ConversationSimulator:
         })
 
         # Print the patient's opening message
-        print(f"\\n--- Step {current_step} ---")
+        print(f"\n--- Step {current_step} ---")
         print("Patient: " + patient_intro.replace('\\n', '\\n         '))
 
         step = current_step + 1 # Next step number
         conversation_complete = False
+        doctor_turn_count = 0 # DEBUG: Initialize doctor turn counter
 
         # Continue the conversation until it's complete
         while not conversation_complete:
+            doctor_turn_count += 1 # DEBUG: Increment doctor turn counter
+
+            # DEBUG: Print information for the doctor's 5th turn
+            if doctor_turn_count == 5:
+                print("\\n\\n--- DEBUG: DOCTOR LLM INPUT (Before Doctor's 5th Response) ---")
+                print("Doctor's System Prompt (self.doctor_provider.system_prompt):")
+                print("-------------------------------------------------------------")
+                print(self.doctor_provider.system_prompt)
+                print("-------------------------------------------------------------")
+                print("\\nConversation History (self.conversation passed to doctor.respond_to_patient):")
+                print("-------------------------------------------------------------")
+                for i, msg in enumerate(self.conversation):
+                    content_preview = str(msg.get('content', ''))[:200] # Increased preview length
+                    print(f"  Message {i+1}: Role: {msg.get('role', 'N/A')}, Content: '{content_preview}...'")
+                print("-------------------------------------------------------------")
+                print("--- END DEBUG: DOCTOR LLM INPUT ---\\n\\n")
+
+
             # Doctor responds to the patient's initial statement or last message
             # Ensure the correct system prompt is set for the doctor before responding
             doc_prompt = ""

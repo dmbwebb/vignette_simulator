@@ -4,7 +4,7 @@
 source venv/bin/activate
 
 # --- Configuration ---
-NUM_SIMS=1 # Number of simulations to run FOR EACH CASE
+NUM_SIMS=50 # Number of simulations to run FOR EACH CASE
 # Define the list of case files to process
 CASE_FILES_TO_RUN=(
   # "case_definitions/case1.yaml"
@@ -25,7 +25,7 @@ MODEL_DOCTOR="gpt-4o" # Specific model for the doctor. Leave empty or comment ou
 # --examination: enables examination prompt and implies diagnosis behavior
 DIAGNOSIS_ACTIVE=true
 EXAMINATION_ACTIVE=true # If true, uses doc_prompt_diagnosis_examinations.txt. If false and DIAGNOSIS_ACTIVE is true, uses doc_prompt_diagnosis.txt. If both false, uses doc_prompt.txt (summary).
-TREATMENT_ACTIVE=true   # If true, enables treatment recommendation, extraction, and classification
+TREATMENT_ACTIVE=false   # If true, enables treatment recommendation, extraction, and classification
 REFERRAL_ACTIVE=true   # If true, enables referral mode
 
 PROMPT_DIR="prompts" # Directory where prompt files are located

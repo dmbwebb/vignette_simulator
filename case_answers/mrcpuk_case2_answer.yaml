@@ -6,13 +6,12 @@ general_candidate_expectations:
   - Candidate should form a problem list or preferred diagnosis.
   - Candidate should answer the questions in the family doctor's letter.
 
-differential_diagnosis:
-  probable_diagnosis:
+diagnosis:
+  correct:
     - Non-alcoholic fatty liver disease (NAFLD)
-  plausible_alternative_diagnoses:
-    - Alcoholic liver disease
-    - Other causes of primary liver disease
-    - Gallstones
+    - Alcoholic liver disease # "plausible" in the original casefile
+    - Other causes of primary liver disease # "plausible" in the original casefile
+    - Gallstones # "plausible" in the original casefile
 
 key_assessment_areas:
   clinical_communication_skills:
