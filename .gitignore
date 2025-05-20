@@ -8,6 +8,7 @@ example_code/
 outputs/*
 !outputs/curated_outputs/
 !outputs/curated_outputs/**
+outputs/curated_outputs/*/
 
 .DS_Store
 
