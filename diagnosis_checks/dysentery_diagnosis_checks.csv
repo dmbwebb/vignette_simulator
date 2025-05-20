@@ -1,0 +1,53 @@
+extracted_diagnosis,diag_classification
+"Acute bacterial dysentery, possibly Shigellosis",correct
+Amoebic Dysentery,correct
+Amoebic dysentery,correct
+Bacillary Dysentery (Shigellosis),correct
+Bacillary dysentery,correct
+Bacterial Dysentery,correct
+Bacterial Gastroenteritis,correct
+Bacterial dysentery,correct
+Bacterial gastroenteritis,correct
+Bacterial gastroenteritis (likely Shigella infection),correct
+Dysentery,correct
+Shigella-related dysentery,correct
+Shigellosis,correct
+"['Bacterial gastroenteritis', 'viral gastroenteritis', 'dysentery']",correct
+"['bacterial dysentery', 'gastroenteritis']",correct
+"['bacterial gastroenteritis', 'Shigellosis']",correct
+"['bacterial gastroenteritis', 'dysentery']",correct
+"['viral gastroenteritis', 'bacterial gastroenteritis', 'dysentery']",correct
+acute bacterial dysentery,correct
+acute bacterial gastroenteritis,correct
+amoebic dysentery,correct
+amoebic dysentery (amoebiasis),correct
+bacterial dysentery,correct
+bacterial dysentery (likely Shigellosis),correct
+"bacterial dysentery, specifically Shigella infection",correct
+bacterial gastroenteritis,correct
+bacterial gastroenteritis (dysentery),correct
+dysentery,correct
+infectious diarrhea,correct
+mild bacterial enteritis infection,correct
+shigellosis,correct
+Acute Gastroenteritis,incorrect
+Acute Viral Gastroenteritis,incorrect
+Acute gastroenteritis,incorrect
+Acute viral gastroenteritis,incorrect
+Amoebiasis,incorrect
+Amoebic Dysentery,incorrect
+Amoebic Dysentery (Amebiasis),incorrect
+Amoebic Dysentery (Amoebiasis),incorrect
+Amoebic diarrhea,incorrect
+Amoebic dysentery,incorrect
+Infectious gastroenteritis,incorrect
+Viral Gastroenteritis,incorrect
+Viral Gastroenteritis (likely rotavirus),incorrect
+Viral gastroenteritis,incorrect
+acute gastroenteritis,incorrect
+acute viral gastroenteritis,incorrect
+amoebiasis,incorrect
+amoebic dysentery,incorrect
+gastroenteritis,incorrect
+viral gastroenteritis,incorrect
+"['viral gastroenteritis', 'bacterial infection']",unclear

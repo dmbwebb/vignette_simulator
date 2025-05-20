@@ -1,7 +1,8 @@
 # Load necessary libraries
 library(tidyverse)
 library(ggplot2)
-
+library(dups)
+library(trackr)
 # Create figs directory if it doesn't exist
 dir.create("figs", showWarnings = FALSE)
 
@@ -184,3 +185,80 @@ print(plot_treatment_proportions)
 ggsave("figs/treatment_proportions_plot.png", plot = plot_treatment_proportions, width = 12, height = 8)
 
 print("Analysis script finished. Plots saved to 'figs' directory as PDFs.") 
+
+
+
+
+# Improving diagnosis classification ----------------------------------------------------------------------------------------------
+
+
+data %>% 
+filter(case_label == "Dysentery") %>% 
+select(model_doctor, case_label, extracted_diagnosis,	diag_classification, diag_classification_confidence, diag_explanation) %>% 
+select(extracted_diagnosis, diag_classification) %>% 
+dups_drop() %>% 
+arrange(diag_classification, extracted_diagnosis) %>% 
+write_csv("diagnosis_checks/dysentery_diagnosis_checks.csv")
+
+
+
+data %>% 
+count_prop(case_label) %>% 
+filter(case_label == "Asthma") %>% 
+select(model_doctor, case_label, extracted_diagnosis,	diag_classification, diag_classification_confidence, diag_explanation) %>% 
+select(extracted_diagnosis, diag_classification) %>% 
+dups_drop() %>% 
+arrange(diag_classification, extracted_diagnosis) %>% 
+print_all
+
+# Improving treatment classification ----------------------------------------------------------------------------------------------
+
+# treatments_dysentery <- data %>% 
+# count_prop(case_label) %>% 
+# filter(case_label == "Dysentery") %>% 
+# # select(model_doctor, case_label, extracted_treatments, num_correct_treatments,	num_palliative_treatments,	num_unnecessary_harmful_treatments,	num_not_found_treatments,	num_errored_treatments_classification,	treatment_classification_explanation) %>% 
+# select(extracted_treatments, num_correct_treatments,	num_palliative_treatments,	num_unnecessary_harmful_treatments,	num_not_found_treatments,	num_errored_treatments_classification) %>% 
+# dups_drop() %>% 
+# mutate(
+#   extracted_treatments = str_remove_all(extracted_treatments, "\\[|\\]"),
+#   extracted_treatments = str_remove_all(extracted_treatments, '"'),
+#   extracted_treatments = str_split(extracted_treatments, ","),
+#   extracted_treatments = map(extracted_treatments, ~str_trim(.x))
+# ) %>% 
+# unnest(extracted_treatments) %>% 
+# select(extracted_treatments) %>% 
+# arrange(extracted_treatments) %>% 
+# mutate(extracted_treatments = str_to_lower(extracted_treatments)) %>% 
+# dups_drop() %>% 
+# print_all
+
+
+treatments <- read_csv("outputs/curated_outputs/treatment_classifications.csv") %>% 
+mutate(case_label = case_when(
+  str_detect(case_file, "case1") ~ "TB",
+  str_detect(case_file, "case2") ~ "Pre-eclampsia",
+  str_detect(case_file, "case3") ~ "Dysentery",
+  str_detect(case_file, "case4") ~ "Angina",
+  str_detect(case_file, "case5") ~ "Asthma",
+  TRUE ~ as.character(case_file) # Fallback if new cases are added
+))
+
+treatments %>% count_prop(case_label, category)
+
+treatments %>% filter(case_label == "Asthma") %>% 
+select(case_label, source_file, stated_treatment, category, matched_key_item) %>% 
+mutate(stated_treatment = str_to_lower(stated_treatment) %>% str_trim()) %>% 
+select(-source_file) %>% 
+dups_drop() %>% 
+arrange(stated_treatment, category) %>% 
+print_all
+
+
+
+
+
+
+
+
+
+
