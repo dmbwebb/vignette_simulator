@@ -411,12 +411,14 @@ class ConversationSimulator:
                  model_name_general: str = "gpt-4o-mini", model_name_doctor_specific: Optional[str] = None,
                  verbose: bool = False, diagnosis_active: bool = False, examination_active: bool = False, 
                  treatment_active: bool = False, # New argument
+                 referral_active: bool = False, # New argument for referral
                  patient_prompt_file: str = "prompts/patient_prompt.txt"):
         # Store verbose flag
         self.verbose = verbose
         self.diagnosis_active = diagnosis_active # Store the diagnosis_active flag
         self.examination_active = examination_active # Store the examination_active flag
         self.treatment_active = treatment_active # Store the treatment_active flag
+        self.referral_active = referral_active # Store the referral_active flag
         self.case_file_path = case_file # Store the case file path
         self.prompt_dir = prompt_dir # Store prompt_dir
         
@@ -477,8 +479,39 @@ class ConversationSimulator:
         
         effective_doc_prompt_file = str(Path(prompt_dir) / prompt_file_name)
         print(f"Using doctor prompt based on flags (diag:{self.diagnosis_active}, exam:{self.examination_active}): {effective_doc_prompt_file}")
+
+        # Load base doctor prompt content
+        base_doc_prompt_content = ""
+        try:
+            with open(effective_doc_prompt_file, 'r') as f:
+                base_doc_prompt_content = f.read()
+        except Exception as e:
+            print(f"Error loading doctor prompt: {e}")
+            # self.doctor_provider.set_system_prompt("") # Provider not yet fully set up, default is empty.
+
+        # Augment doctor prompt with referral text if active
+        self.active_referral_text_for_logging = None # For metadata logging
+        if self.referral_active:
+            referral_text_from_case = self.case_data.get('referral_text')
+            if referral_text_from_case and isinstance(referral_text_from_case, str) and referral_text_from_case.strip():
+                self.active_referral_text_for_logging = referral_text_from_case.strip()
+                formatted_referral_info = (
+                    f"\\n\\n--- START REFERRAL NOTE ---\\n"
+                    f"You have received the following referral note from the patient's General Practitioner:\\n"
+                    f"{self.active_referral_text_for_logging}\\n"
+                    f"--- END REFERRAL NOTE ---"
+                )
+                base_doc_prompt_content += formatted_referral_info
+                print(f"Referral mode active. Doctor's system prompt augmented with referral text from case file.")
+            else:
+                print(f"Referral mode active, but no 'referral_text' found or it is empty in case file: {case_file}")
+        
+        # Set the potentially augmented prompt on the doctor's provider
+        self.doctor_provider.set_system_prompt(base_doc_prompt_content)
             
         # Initialize simulators, passing the mode and the selected prompt file, and their dedicated providers
+        # DoctorSimulator's doc_prompt_file argument is now mainly for reference/logging if needed,
+        # as the system prompt is already set on its provider.
         self.doctor = DoctorSimulator(self.doctor_provider, effective_doc_prompt_file, diagnosis_active=self.diagnosis_active, verbose=self.verbose)
         
         # Patient simulator uses patient_provider
@@ -491,6 +524,27 @@ class ConversationSimulator:
     def run_simulation(self) -> Dict[str, Any]:
         """Run the full conversation simulation"""
         print("Starting conversation simulation...")
+
+        # Initialize conversation and metadata
+        self.conversation = []
+        self.metadata = []
+        current_step = 1 # Start step numbering at 1
+
+        # Handle Referral Text (for console and metadata logging)
+        # The actual referral text is part of the doctor's system prompt if active.
+        # This block is for explicit logging in the output YAML and console.
+        if self.referral_active and self.active_referral_text_for_logging:
+            print("\\n--- Referral Note from GP (Provided to Doctor) ---")
+            print(self.active_referral_text_for_logging.replace('\\n', '\\n')) # Pretty print
+            print("----------------------------------------------------\\n")
+            self.metadata.append({
+                "step": current_step, # Or step 0 if preferred for pre-conversation info
+                "speaker": "System (Referral Note)",
+                "question_id": None,
+                "message": self.active_referral_text_for_logging
+            })
+            current_step += 1
+
 
         # Patient starts the conversation using the introduction
         patient_intro = self.case_data.get('introduction', {}).get('en')
@@ -506,18 +560,18 @@ class ConversationSimulator:
             "role": "user", # Patient is the user
             "content": patient_intro
         }]
-        self.metadata = [{
-            "step": 1,
+        self.metadata.append({
+            "step": current_step, # Use current_step
             "speaker": "Patient",
             "question_id": None, # No question ID for the introduction
             "message": patient_intro
-        }]
+        })
 
         # Print the patient's opening message
-        print("\n--- Step 1 ---")
-        print("Patient: " + patient_intro.replace('\n', '\n         '))
+        print(f"\\n--- Step {current_step} ---")
+        print("Patient: " + patient_intro.replace('\\n', '\\n         '))
 
-        step = 2
+        step = current_step + 1 # Next step number
         conversation_complete = False
 
         # Continue the conversation until it's complete
@@ -691,6 +745,7 @@ class ConversationSimulator:
             "diagnosis_active": self.diagnosis_active,
             "examination_active": self.examination_active,
             "treatment_active": self.treatment_active, # Add treatment_active flag
+            "referral_active": self.referral_active, # Add referral_active flag
             "case_file": self.case_file_path, # Use stored case file path
             "conversation": self.metadata,
         }
@@ -1139,6 +1194,7 @@ def run_simulation_task(task_args: Tuple[int, argparse.Namespace, str, str, int]
             diagnosis_active=main_args.diagnosis, # Pass new flag
             examination_active=main_args.examination, # Pass new flag
             treatment_active=main_args.treatment, # Pass new flag
+            referral_active=main_args.referral, # Pass new flag
             patient_prompt_file=main_args.patient_prompt
         )
 
@@ -1179,6 +1235,7 @@ def main():
     parser.add_argument("--diagnosis", action="store_true", help="Enable diagnosis-specific behavior (final question, extraction, classification) and use diagnosis prompt if --examination is not set.")
     parser.add_argument("--examination", action="store_true", help="Enable examination-specific behavior (uses examination prompt) and implies diagnosis behavior.")
     parser.add_argument("--treatment", action="store_true", help="Enable treatment recommendation, extraction, and classification phase.")
+    parser.add_argument("--referral", action="store_true", help="Enable referral mode. If active, referral text from case file is added to doctor's system prompt.")
     parser.add_argument("--n_sims", type=int, default=1, help="Number of simulations to run PER CASE")
     parser.add_argument("--patient-prompt", type=str, default="prompts/patient_prompt.txt", help="Path to the patient prompt file")
 
