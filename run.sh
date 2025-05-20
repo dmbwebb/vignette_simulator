@@ -9,9 +9,10 @@ NUM_SIMS=1 # Number of simulations to run FOR EACH CASE
 CASE_FILES_TO_RUN=(
   # "case_definitions/case1.yaml"
   # "case_definitions/case2.yaml"
-  "case_definitions/case3.yaml"
+  # "case_definitions/case3.yaml"
   # "case_definitions/case4.yaml"
   # "case_definitions/case5.yaml"
+  "case_definitions/mrcpuk_case2.yaml"
   # Add more case files here, e.g., "case_definitions/case3.yaml"
 )
 # PROMPT_FILE is now determined by --prompt-dir in the python script
@@ -25,6 +26,7 @@ MODEL_DOCTOR="gpt-4o" # Specific model for the doctor. Leave empty or comment ou
 DIAGNOSIS_ACTIVE=true
 EXAMINATION_ACTIVE=true # If true, uses doc_prompt_diagnosis_examinations.txt. If false and DIAGNOSIS_ACTIVE is true, uses doc_prompt_diagnosis.txt. If both false, uses doc_prompt.txt (summary).
 TREATMENT_ACTIVE=true   # If true, enables treatment recommendation, extraction, and classification
+REFERRAL_ACTIVE=true   # If true, enables referral mode
 
 PROMPT_DIR="prompts" # Directory where prompt files are located
 
@@ -36,6 +38,7 @@ echo "Number of simulations per case: $NUM_SIMS"
 echo "Diagnosis Active: $DIAGNOSIS_ACTIVE"
 echo "Examination Active: $EXAMINATION_ACTIVE"
 echo "Treatment Active: $TREATMENT_ACTIVE"
+echo "Referral Active: $REFERRAL_ACTIVE"
 echo "Prompt Directory: $PROMPT_DIR"
 echo "Provider: $PROVIDER"
 echo "General Model: $MODEL"
@@ -76,6 +79,12 @@ fi
 if [ "$TREATMENT_ACTIVE" = "true" ]; then
   python_command+=" \
   --treatment"
+fi
+
+# Add referral flag if active
+if [ "$REFERRAL_ACTIVE" = "true" ]; then
+  python_command+=" \
+  --referral"
 fi
 
 # Add model-doctor only if MODEL_DOCTOR is set
