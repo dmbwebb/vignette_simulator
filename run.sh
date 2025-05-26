@@ -4,29 +4,35 @@
 source venv/bin/activate
 
 # --- Configuration ---
-NUM_SIMS=50 # Number of simulations to run FOR EACH CASE
+NUM_SIMS=5 # Number of simulations to run FOR EACH CASE
 # Define the list of case files to process
 CASE_FILES_TO_RUN=(
-  # "case_definitions/case1.yaml"
-  # "case_definitions/case2.yaml"
+  "case_definitions/case1.yaml"
+  "case_definitions/case2.yaml"
   # "case_definitions/case3.yaml"
   # "case_definitions/case4.yaml"
   # "case_definitions/case5.yaml"
-  "case_definitions/mrcpuk_case2.yaml"
+  # "case_definitions/mrcpuk_case2.yaml"
   # Add more case files here, e.g., "case_definitions/case3.yaml"
 )
 # PROMPT_FILE is now determined by --prompt-dir in the python script
 PROVIDER="OpenAI"
 MODEL="gpt-4o-mini"
-MODEL_DOCTOR="gpt-4o" # Specific model for the doctor. Leave empty or comment out to use general MODEL.
+MODEL_DOCTOR="gpt-4.1" # Specific model for the doctor. Leave empty or comment out to use general MODEL.
+
+# Define a list of specific models for the doctor. 
+# If the list is empty or commented out, the general MODEL will be used for the doctor.
+# To use the general model for some runs and a specific model for others, include "None" or an empty string in the list.
+# Example: MODEL_DOCTOR_LIST=("gpt-4.1" "None" "gpt-3.5-turbo")
+MODEL_DOCTOR_LIST=("gpt-4.1" "gpt-4o-mini" "gpt-4o") 
 
 # Set the desired behavior using boolean flags
 # --diagnosis: enables final diagnosis, extraction, classification, and uses diagnosis prompt (if --examination is false)
 # --examination: enables examination prompt and implies diagnosis behavior
 DIAGNOSIS_ACTIVE=true
 EXAMINATION_ACTIVE=true # If true, uses doc_prompt_diagnosis_examinations.txt. If false and DIAGNOSIS_ACTIVE is true, uses doc_prompt_diagnosis.txt. If both false, uses doc_prompt.txt (summary).
-TREATMENT_ACTIVE=false   # If true, enables treatment recommendation, extraction, and classification
-REFERRAL_ACTIVE=true   # If true, enables referral mode
+TREATMENT_ACTIVE=true   # If true, enables treatment recommendation, extraction, and classification
+REFERRAL_ACTIVE=false   # If true, enables referral mode
 
 PROMPT_DIR="prompts" # Directory where prompt files are located
 
@@ -42,10 +48,18 @@ echo "Referral Active: $REFERRAL_ACTIVE"
 echo "Prompt Directory: $PROMPT_DIR"
 echo "Provider: $PROVIDER"
 echo "General Model: $MODEL"
-if [ -n "$MODEL_DOCTOR" ]; then
-  echo "Doctor Model: $MODEL_DOCTOR"
+# Display the list of doctor models
+if [ ${#MODEL_DOCTOR_LIST[@]} -gt 0 ]; then
+  echo "Doctor Models to iterate through:"
+  for doc_model in "${MODEL_DOCTOR_LIST[@]}"; do
+    if [[ -z "$doc_model" || "$doc_model" == "None" ]]; then
+      echo "  - (using general model - $MODEL)"
+    else
+      echo "  - $doc_model"
+    fi
+  done
 else
-  echo "Doctor Model: (using general model - $MODEL)"
+  echo "Doctor Model: (using general model - $MODEL for all runs, as MODEL_DOCTOR_LIST is empty)"
 fi
 echo "-----------------------------------"
 
@@ -87,10 +101,20 @@ if [ "$REFERRAL_ACTIVE" = "true" ]; then
   --referral"
 fi
 
-# Add model-doctor only if MODEL_DOCTOR is set
-if [ -n "$MODEL_DOCTOR" ]; then
+# Add model-doctors only if MODEL_DOCTOR_LIST is not empty
+if [ ${#MODEL_DOCTOR_LIST[@]} -gt 0 ]; then
+  # Construct the --model-doctors argument string
+  model_doctor_args=""
+  for doc_model in "${MODEL_DOCTOR_LIST[@]}"; do
+    # Pass "None" as a string if doc_model is empty or literally "None"
+    if [[ -z "$doc_model" || "$doc_model" == "None" ]]; then
+      model_doctor_args+=" \"None\"" # Pass the string "None"
+    else
+      model_doctor_args+=" \"$doc_model\""
+    fi
+  done
   python_command+=" \
-  --model-doctor \"$MODEL_DOCTOR\""
+  --model-doctors$model_doctor_args"
 fi
 
 # Output is sent to terminal live via tee to /dev/stderr, and also captured to FULL_COMMAND_OUTPUT

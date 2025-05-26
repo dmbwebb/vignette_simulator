@@ -1187,13 +1187,13 @@ Please classify the doctor's diagnosis and provide your confidence and explanati
         except Exception as e:
             print(f"Error saving results: {e}")
 
-def run_simulation_task(task_args: Tuple[int, argparse.Namespace, str, str, int]):
+def run_simulation_task(task_args: Tuple[int, argparse.Namespace, str, str, int, Optional[str]]):
     """
-    Worker function to run a single simulation for a specific case.
+    Worker function to run a single simulation for a specific case and doctor model.
     Designed to be called by multiprocessing.Pool.map.
-    task_args contains: (simulation_id_for_case, main_cli_args, current_case_file_path, main_batch_output_dir_path, num_sims_for_this_case)
+    task_args contains: (simulation_id_for_case, main_cli_args, current_case_file_path, main_batch_output_dir_path, num_sims_for_this_case, current_doctor_model)
     """
-    simulation_id, main_args, current_case_file, main_batch_output_dir_str, total_sims_for_case = task_args
+    simulation_id, main_args, current_case_file, main_batch_output_dir_str, total_sims_for_case, current_doctor_model = task_args
 
     # Python's default print is not thread-safe / process-safe for interleaved output.
     # For critical logging from parallel processes, consider using the logging module
@@ -1202,18 +1202,22 @@ def run_simulation_task(task_args: Tuple[int, argparse.Namespace, str, str, int]
     # Construct a unique identifier for this simulation instance if needed for logging,
     # combining case and simulation ID.
     case_stem = Path(current_case_file).stem
-    instance_log_prefix = f"Case '{case_stem}', Sim {simulation_id}/{total_sims_for_case} (PID: {os.getpid()})"
+    doctor_model_name_for_log = current_doctor_model if current_doctor_model and current_doctor_model.strip() and current_doctor_model.lower() != 'none' else main_args.model
+    instance_log_prefix = f"Case '{case_stem}', Sim {simulation_id}/{total_sims_for_case}, DrModel: {doctor_model_name_for_log} (PID: {os.getpid()})"
     
     sys.stdout.write(f"--- Starting: {instance_log_prefix} ---\n")
     sys.stdout.flush()
     
     try:
+        # Use the specific doctor model for this task, or general model if current_doctor_model is None/empty/'none'
+        effective_doctor_model = current_doctor_model if current_doctor_model and current_doctor_model.strip() and current_doctor_model.lower() != 'none' else main_args.model
+
         simulator = ConversationSimulator(
             case_file=current_case_file, # Use the specific case for this task
             prompt_dir=main_args.prompt_dir,
             provider_name=main_args.provider,
             model_name_general=main_args.model, # General model
-            model_name_doctor_specific=main_args.model_doctor, # Doctor specific model
+            model_name_doctor_specific=effective_doctor_model, # Pass the resolved doctor model
             verbose=main_args.verbose,
             diagnosis_active=main_args.diagnosis, # Pass new flag
             examination_active=main_args.examination, # Pass new flag
@@ -1224,11 +1228,20 @@ def run_simulation_task(task_args: Tuple[int, argparse.Namespace, str, str, int]
 
         results = simulator.run_simulation()
         
-        # Add simulation_id and case_file to the results for clarity in the output file
+        # Add simulation_id, case_file, and doctor_model to the results for clarity
         results["simulation_id_for_case"] = simulation_id
         results["original_case_file"] = current_case_file
+        results["doctor_model_used"] = effective_doctor_model # Log the model actually used
         
-        output_filename = Path(main_batch_output_dir_str) / f"{case_stem}_sim_{simulation_id}.yaml"
+        # Include doctor model in the filename for uniqueness if it's different from general model
+        # And handle cases where doctor_model might be None or "None"
+        filename_doctor_model_suffix = ""
+        if effective_doctor_model != main_args.model:
+             # Sanitize model name for filename (e.g., replace slashes, colons)
+            sanitized_model_name = re.sub(r'[^a-zA-Z0-9_.-]', '_', effective_doctor_model)
+            filename_doctor_model_suffix = f"_drmodel_{sanitized_model_name}"
+
+        output_filename = Path(main_batch_output_dir_str) / f"{case_stem}_sim_{simulation_id}{filename_doctor_model_suffix}.yaml"
         
         simulator.save_results(str(output_filename), results)
         sys.stdout.write(f"--- Finished: {instance_log_prefix}. Results saved to {output_filename} ---\n")
@@ -1254,7 +1267,13 @@ def main():
     parser.add_argument("--prompt-dir", type=str, default="prompts", help="Directory containing prompt files")
     parser.add_argument("--provider", type=str, default="OpenAI", choices=["OpenAI", "Anthropic"], help="LLM provider to use")
     parser.add_argument("--model", type=str, default="gpt-4o-mini", help="Model to use")
-    parser.add_argument("--model-doctor", type=str, default=None, help="Specific model for the doctor. Defaults to --model if not set.")
+    parser.add_argument(
+        "--model-doctors", 
+        type=str, 
+        nargs='*',  # Zero or more arguments
+        default=None,  # Default to None if not provided
+        help="Specific model(s) for the doctor. If not set, or if an element is 'None' or empty, the general model specified by --model is used for that doctor iteration."
+    )
     parser.add_argument("--verbose", action="store_true", help="Enable verbose output, printing full prompts")
     parser.add_argument("--diagnosis", action="store_true", help="Enable diagnosis-specific behavior (final question, extraction, classification) and use diagnosis prompt if --examination is not set.")
     parser.add_argument("--examination", action="store_true", help="Enable examination-specific behavior (uses examination prompt) and implies diagnosis behavior.")
@@ -1292,59 +1311,84 @@ def main():
         print("No case files provided. Exiting.")
         sys.exit(0)
 
+    # Determine the list of doctor models to iterate through
+    # If --model-doctors is not provided (args.model_doctors is None), run once with None (which means use general model)
+    # If --model-doctors is provided as an empty list (e.g. --model-doctors), also run once with None.
+    # If --model-doctors is ['modelA', 'modelB'], run for modelA and modelB.
+    # If an element in the list is "None" (string) or empty string, it will be treated as using the general model.
+    doctor_models_to_run = args.model_doctors
+    if doctor_models_to_run is None or not doctor_models_to_run: # Handles None or empty list
+        doctor_models_to_run = [None] # Represents using the general model for the doctor
+
+    total_iterations = len(args.cases) * args.n_sims * len(doctor_models_to_run)
+    current_iteration = 0
+    print(f"Total simulation iterations to perform (cases * n_sims * doctor_models): {total_iterations}")
+
+
     for case_idx, current_case_file_path in enumerate(args.cases):
-        overall_cases_processed += 1
+        overall_cases_processed += 1 # This counts unique case files
         print(f"\n--- Processing Case {case_idx + 1} of {len(args.cases)}: {current_case_file_path} ---")
         
         if not Path(current_case_file_path).is_file():
             print(f"Error: Case file not found: {current_case_file_path}. Skipping this case.")
-            overall_cases_failed += 1
+            overall_cases_failed += 1 # This failure is at the case level
             continue
 
-        sims_for_this_case = args.n_sims
-        tasks_to_run_for_current_case = []
-        for i in range(1, sims_for_this_case + 1):
-            # task_args now passes args directly, ConversationSimulator will pick up model and model_doctor
-            tasks_to_run_for_current_case.append((i, args, current_case_file_path, str(batch_output_dir), sims_for_this_case))
+        case_successful_for_all_doctor_models = True
 
-        current_case_succeeded_all_sims = True # Assume success for the case initially
+        for doc_model_idx, current_doctor_model in enumerate(doctor_models_to_run):
+            doctor_model_name_for_print = current_doctor_model if current_doctor_model and current_doctor_model.strip() and current_doctor_model.lower() != 'none' else args.model
+            print(f"  --- Iterating with Doctor Model {doc_model_idx + 1} of {len(doctor_models_to_run)}: {doctor_model_name_for_print} ---")
 
-        if sims_for_this_case == 0:
-            print(f"No simulations to run for case {current_case_file_path} (n_sims is 0). Marked as success.")
-            # current_case_succeeded_all_sims remains true
-        elif sims_for_this_case == 1:
-            print(f"Running a single simulation for case {current_case_file_path} sequentially...")
-            # tasks_to_run_for_current_case[0] is (1, args, current_case_file_path, str(batch_output_dir), 1)
-            success_status = run_simulation_task(tasks_to_run_for_current_case[0])
-            if not success_status:
-                current_case_succeeded_all_sims = False
-                print(f"Single simulation failed for case {current_case_file_path}.")
-        else: # sims_for_this_case > 1 (parallel execution)
-            cpu_cores = os.cpu_count()
-            num_workers = min(sims_for_this_case, cpu_cores if cpu_cores and cpu_cores > 0 else 1)
-            print(f"Starting {sims_for_this_case} simulations for case {current_case_file_path} using {num_workers} parallel processes...")
+            sims_for_this_case_and_model = args.n_sims
+            tasks_to_run_for_current_config = []
+            for i in range(1, sims_for_this_case_and_model + 1):
+                current_iteration +=1
+                # task_args now includes current_doctor_model
+                tasks_to_run_for_current_config.append((i, args, current_case_file_path, str(batch_output_dir), sims_for_this_case_and_model, current_doctor_model))
+
+            current_config_succeeded_all_sims = True # Assume success for this case+model config
+
+            if sims_for_this_case_and_model == 0:
+                print(f"    No simulations to run for case {current_case_file_path} with doctor model {doctor_model_name_for_print} (n_sims is 0). Marked as success for this configuration.")
+                # current_config_succeeded_all_sims remains true
+            elif sims_for_this_case_and_model == 1:
+                print(f"    Running a single simulation (Iter {current_iteration}/{total_iterations}) for case {current_case_file_path}, doctor model {doctor_model_name_for_print} sequentially...")
+                success_status = run_simulation_task(tasks_to_run_for_current_config[0])
+                if not success_status:
+                    current_config_succeeded_all_sims = False
+                    print(f"    Single simulation failed for case {current_case_file_path}, doctor model {doctor_model_name_for_print}.")
+            else: # sims_for_this_case_and_model > 1 (parallel execution)
+                cpu_cores = os.cpu_count()
+                num_workers = min(sims_for_this_case_and_model, cpu_cores if cpu_cores and cpu_cores > 0 else 1)
+                print(f"    Starting {sims_for_this_case_and_model} simulations (Iters {current_iteration - sims_for_this_case_and_model + 1} to {current_iteration}/{total_iterations}) for case {current_case_file_path}, doctor model {doctor_model_name_for_print} using {num_workers} parallel processes...")
+                
+                with multiprocessing.Pool(processes=num_workers) as pool:
+                    simulation_outcomes = pool.map(run_simulation_task, tasks_to_run_for_current_config)
+                
+                actual_successful_sims_count = sum(1 for outcome in simulation_outcomes if outcome)
+                failed_sims_count = sims_for_this_case_and_model - actual_successful_sims_count
+                
+                print(f"    --- Summary for case: {current_case_file_path}, Doctor Model: {doctor_model_name_for_print} ---")
+                print(f"    Total simulations attempted: {sims_for_this_case_and_model}")
+                print(f"    Successfully completed: {actual_successful_sims_count}")
+                print(f"    Failed: {failed_sims_count}")
+                
+                if failed_sims_count > 0:
+                    current_config_succeeded_all_sims = False
+                    print(f"    Please check output above for error details from failed simulations for this configuration.")
             
-            with multiprocessing.Pool(processes=num_workers) as pool:
-                simulation_outcomes = pool.map(run_simulation_task, tasks_to_run_for_current_case)
-            
-            actual_successful_sims_count = sum(1 for outcome in simulation_outcomes if outcome)
-            failed_sims_count = sims_for_this_case - actual_successful_sims_count
-            
-            print(f"\n--- Summary for case: {current_case_file_path} ---")
-            print(f"Total simulations attempted: {sims_for_this_case}")
-            print(f"Successfully completed: {actual_successful_sims_count}")
-            print(f"Failed: {failed_sims_count}")
-            
-            if failed_sims_count > 0:
-                current_case_succeeded_all_sims = False
-                print(f"Please check output above for error details from failed simulations for case {current_case_file_path}.")
+            if not current_config_succeeded_all_sims:
+                case_successful_for_all_doctor_models = False
+                # We don't increment overall_cases_failed here yet, that's done after all doc_models for a case
         
-        if current_case_succeeded_all_sims:
+        # After iterating all doctor models for the current_case_file_path
+        if case_successful_for_all_doctor_models:
             overall_cases_succeeded +=1
-            print(f"--- Case {current_case_file_path} processed successfully ({sims_for_this_case} sims) ---")
+            print(f"--- Case {current_case_file_path} processed successfully for all doctor models ({sims_for_this_case_and_model} sims each) ---")
         else:
             overall_cases_failed += 1
-            print(f"--- Case {current_case_file_path} failed or had partial failures ---")
+            print(f"--- Case {current_case_file_path} had one or more failures across different doctor models ---")
 
     # Main orchestration summary
     print(f"\n\n--- Overall Batch Summary ---")
