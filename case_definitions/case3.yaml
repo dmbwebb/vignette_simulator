@@ -359,8 +359,8 @@ examination_questions:
     type: Examination
     question_en: Stool test for bacteria (including amoeba)
     question_hi: मल में जीवाणु (अमीबा सहित) जाँच
-    answer_en: Evidence of amoeba present
-    answer_hi: अमीबा का प्रमाण है
+    answer_en: Evidence of Shigella present
+    answer_hi: शिगेला का प्रमाण है
   - id: E12
     type: Examination
     question_en: Mucous membranes for moistness

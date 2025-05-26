@@ -35,9 +35,11 @@ examinations:
 diagnosis:
   correct:
     - heart attack
-    - angina
+    - angina # Yes (already in correct list as above); strictly speaking, angina is not a ‘heart attack/myocardial infarction’, rather is the term used to describe symptoms due to narrowing of coronary artery/ies leading to reduced / inadequate blood supply to some or much of the heart muscle without (yet) causing infarction (death of muscle due to blockage of blood supply to muscle) 
+    - angina pectoris
     - myocardial infarction
     - attack
+    - acute coronary syndrome / ACS #  Yes (is an all-encompassing term which includes ‘crescendo angina’, myocardial infarction (‘heart attack’) with or without classical ECG changes etc)
   incorrect:
     - blood pressure problem
     - gastrointestinal problem
@@ -57,19 +59,43 @@ treatments:
   correct:
     - Aspirin
     - clopidogrel
+    - ticagrelor # a newer P2Y12 inhibitor
+    - p2y12 inhibitors # clopidogrel is a p2y12 inhibitor
     - other anti‑platelet agents
     - do an ECG
+    - do coronary angiography # medical imaging of heart
   palliative:
+    - anti-diabetes medication # elevated blood glucose, known diabetes history
+    - metformin # for diabetes
+    - diabetes management, e.g., diet, exercise # elevated blood pressure, known hypertension history
+    - glycemic control # critical for diabetes management
+    - insulin # for diabetes
+    - antihypertensive medication # elevated blood pressure, known hypertension history
+    - oral hypoglycemic agents # for diabetes
     - Nitroglycerin
-    - blood thinners
-    - betablockers
+    - antianginal medications (e.g. nitrates)
+    - antithrombotic therapy # for acute MI
+    - nitrates # nitroglycerin is a nitrate
+    - blood thinners / anticoagulants
+    - Calcium channel blockers # not recommended for acute MI, but yes for angina
+    - heparin # heparin is a blood thinner
+    - betablockers (e.g. metoprolol)
     - ACE inhibitors
+    - ARBs (Angiotensin Receptor Blockers)
     - vasodilators
     - other cardiac medication
     - morphine
     - other pain medication
+    - high-intensity statin therapy # for acute MI
+    - oxygen therapy
     - referral
     - referral for an ECG
+    - angioplasty # angioplasty is a medical procedure to open up blocked arteries, Potentially, depending  if blockage of coronary artery is found at angiography
+    - reperfusion therapy # Yes,this is what angioplasty or thrombolytics can achieve acutely
+    - thrombolysis 
+    - pci (percutaneous coronary intervention) # same as angioplasty
+    - Coronary artery bypass graft CABG # if blockage unsuitable for angioplasty 
+    - smoking cessation # advice
   unnecessary_or_harmful:
     - antibiotics
     - oral rehydration salts

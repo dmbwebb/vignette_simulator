@@ -28,29 +28,54 @@ examinations:
 diagnosis:
   correct:
     - bacterial diarrhea
+    - amoebic dysentery    # stool sample says amoeba, but not bacteria
     - dysentery
+    - Shigellosis
+    - Shigella infection
   incorrect:
     - weather
     - heat in liver
     - acidity
     - diarrhea
+    - viral gastroenteritis
+    - bacterial gastroenteritis # implies vomiting as well as diarrhea
 
 # Treatments for case 3
 treatments:
   correct:
     - ORS
     - rehydration
+    - antibiotics (for bacterial dysentery) # should be given for bacterial diarrhea, but not amoebic dysentery
+    - ciprofloxacin # for bacterial diarrhea
+    - amoxicillin # for bacterial diarrhea
+    - azithromycin # for bacterial diarrhea
+    - levofloxacin # for bacterial diarrhea
+    - erythromycin # for bacterial diarrhea
+    - cefixime # for bacterial diarrhea
+    - ciprofloxacin # for bacterial diarrhea
+    - clarithromycin # for bacterial diarrhea
+    - anti-amoeba medication # should be given for amoebic dysentery, but not bacterial diarrhea
+    - tinidazole # for amoebic dysentery
+    - metronidazole # for amoebic dysentery
+    - paromomycin # for amoebic dysentery
   palliative:
-    - antibiotics
-    - zinc
+    - zinc # Yes: giving oral zinc in addition to the right antibiotic and oral-rehydration therapy reliably shortens the illness by ≈½ day to 1 day, lowers stool volume, and improves weight gain and immune recovery in children. (but not amoebic). WHO/UNICEF since 2004 (re-affirmed 2023) includes zinc for all episodes of childhood diarrhoea, bloody or not.
+    - paracetamol / acetaminophen # for fever
+    - ibuprofen # for fever
+    - antipyretics (apart from aspirin) # for fever
+    - diet recommendations (e.g., bland diet, rice, etc.)
+    - probiotics # only helpful for symptoms, and only in the recovery phase
   unnecessary_or_harmful:
-    - aspirin
+    - diloxanide furoate # not recommended for children <2 years old, lack of evidence (treats amoebic dysentery)
+    - aspirin # not recommended for children due to blood thinning effects
     - clopidogrel
     - anti-platelet agents
     - blood thinners
     - betablockers
     - ACE inhibitors
     - vasodilators
+    - loperamide / immodium # Imodium (loperamide) itself doesn’t slow-down viral or other non-invasive diarrhoeal illnesses, but when the diarrhoea is caused by invasive bacteria (bloody stool, high fever, severe abdominal pain) or by Clostridioides difficile, the drug can trap pathogens and their toxins in the gut, delay their clearance, and – in a minority of cases – lead to serious complications such as toxic megacolon. So it can indeed “prolong illness” or worsen outcomes in the wrong setting.
+    - antimotility agents # loperamide is an antimotility agent
     - other cardiac medication
     - morphine
     - other pain medication

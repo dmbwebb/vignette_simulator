@@ -38,7 +38,14 @@ diagnosis:
   correct:
     - Asthma
     - asthma attack
+  not_incorrect_but_insufficient:
+    - Reactive Airway Disease # Neither of these are accepted diagnostic labels, rather are descriptive. RADS tends to refer to a patient with an ‘acute asthma-like’ attack but with no previous history of asthma (which this patient’s history suggests he has had)
+    - Reactive Airways Dysfunction Syndrome # Neither of these are accepted diagnostic labels, rather are descriptive. RADS tends to refer to a patient with an ‘acute asthma-like’ attack but with no previous history of asthma (which this patient’s history suggests he has had)
+    - Dust-Induced Airway Hyperreactivity # he says dust makes things worse, but again, it’s not a ‘diagnosis’
+    - exercise-induced bronchoconstriction # Not sufficient for diagnosis, more describing symptoms
   incorrect:
+    - allergic bronchospasm # a confusing term in this case as he doesn’t admit to any allergies
+    - bronchitis # the moment the term ‘bronchitis’ is used, there is a danger that it will be considered to be an infection-related condition, or an infectious condition, and antibiotics might be given; so this term should definitely not be used
     - blood pressure problem
     - gastrointestinal problem
     - heart problem
@@ -56,11 +63,20 @@ treatments:
     - bronchodilators
     - theophylline
     - inhaled or oral corticosteroids
+    - Budesonide # example of inhaled corticosteroid
     - leukotriene inhibitors
     - cromones
     - inhaled anticholinergics
+    - beta-agonists 
+    - Prednisolone
+    - peak-flow test # straightforward and should be done in all patients with suspected or definite asthma - easy to use and should be used in ‘primary care’
   palliative:
     - anti‑allergy medication
+    - referral to a lung function test (spirometry) # more complicated than peak flow tests - needs more sophisticated testing equipment and more specialist knowledge / skills to interpret the results - not to be used in ‘primary care’
+    - wearing a mask # unlikely to help unless ‘dust’ identified as a major or unique precipitator of symptoms
+    - environmental control # should always be explored in the history, and advice given re ‘avoidance’ and / or measures to reduce exposure to common and/or patient specific precipitants; in practice, rarely makes a clinical significant difference as ‘control measures’ are difficult to implement, and most patients have multiple precipitating factors
+    - avoidance of known triggers # see above
+    - avoid triggers like dust, smoke, etc. # see above
   unnecessary_or_harmful:
     - Aspirin
     - clopidogrel
