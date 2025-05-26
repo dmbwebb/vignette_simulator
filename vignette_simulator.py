@@ -105,8 +105,8 @@ class AnthropicProvider(LLMProvider):
         data = {
             "model": self.model,
             "messages": formatted_messages,
-            "system": self.system_prompt,
-            "max_tokens": 4000
+            "system": self.system_prompt
+            # "max_tokens": 4000
         }
         
         # Verbose output before API call
@@ -158,8 +158,8 @@ class OpenAIProvider(LLMProvider):
         
         data = {
             "model": self.model,
-            "messages": formatted_messages,
-            "max_tokens": 4000
+            "messages": formatted_messages
+            # "max_tokens": 4000
         }
         
         # Verbose output before API call
