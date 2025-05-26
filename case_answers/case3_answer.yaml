@@ -28,7 +28,7 @@ examinations:
 diagnosis:
   correct:
     - bacterial diarrhea
-    - amoebic dysentery    # stool sample says amoeba, but not bacteria
+    # - amoebic dysentery    # stool sample says amoeba, but not bacteria
     - dysentery
     - Shigellosis
     - Shigella infection
@@ -54,10 +54,10 @@ treatments:
     - cefixime # for bacterial diarrhea
     - ciprofloxacin # for bacterial diarrhea
     - clarithromycin # for bacterial diarrhea
-    - anti-amoeba medication # should be given for amoebic dysentery, but not bacterial diarrhea
-    - tinidazole # for amoebic dysentery
-    - metronidazole # for amoebic dysentery
-    - paromomycin # for amoebic dysentery
+    # - anti-amoeba medication # should be given for amoebic dysentery, but not bacterial diarrhea
+    # - tinidazole # for amoebic dysentery
+    # - metronidazole # for amoebic dysentery
+    # - paromomycin # for amoebic dysentery
   palliative:
     - zinc # Yes: giving oral zinc in addition to the right antibiotic and oral-rehydration therapy reliably shortens the illness by ≈½ day to 1 day, lowers stool volume, and improves weight gain and immune recovery in children. (but not amoebic). WHO/UNICEF since 2004 (re-affirmed 2023) includes zinc for all episodes of childhood diarrhoea, bloody or not.
     - paracetamol / acetaminophen # for fever
@@ -66,6 +66,10 @@ treatments:
     - diet recommendations (e.g., bland diet, rice, etc.)
     - probiotics # only helpful for symptoms, and only in the recovery phase
   unnecessary_or_harmful:
+    - anti-amoebic medications # should be given for amoebic dysentery, but not bacterial diarrhea
+    - tinidazole # for amoebic dysentery
+    - paromomycin # for amoebic dysentery
+    - metronidazole # for bacterial diarrhea
     - diloxanide furoate # not recommended for children <2 years old, lack of evidence (treats amoebic dysentery)
     - aspirin # not recommended for children due to blood thinning effects
     - clopidogrel
