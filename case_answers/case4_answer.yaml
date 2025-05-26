@@ -64,6 +64,9 @@ treatments:
     - other anti‑platelet agents
     - do an ECG
     - do coronary angiography # medical imaging of heart
+    - high-intensity statin therapy # for acute MI
+    - atorvastatin
+    - statins
   palliative:
     - anti-diabetes medication # elevated blood glucose, known diabetes history
     - metformin # for diabetes
@@ -86,7 +89,6 @@ treatments:
     - other cardiac medication
     - morphine
     - other pain medication
-    - high-intensity statin therapy # for acute MI
     - oxygen therapy
     - referral
     - referral for an ECG

@@ -54,6 +54,7 @@ treatments:
     - cefixime # for bacterial diarrhea
     - ciprofloxacin # for bacterial diarrhea
     - clarithromycin # for bacterial diarrhea
+    - ceftriaxone # for bacterial diarrhea, given by injection, used when oral drugs are impossible or ineffective.
     # - anti-amoeba medication # should be given for amoebic dysentery, but not bacterial diarrhea
     # - tinidazole # for amoebic dysentery
     # - metronidazole # for amoebic dysentery
@@ -64,7 +65,14 @@ treatments:
     - ibuprofen # for fever
     - antipyretics (apart from aspirin) # for fever
     - diet recommendations (e.g., bland diet, rice, etc.)
+    - continue breastfeeding, continue feeding
     - probiotics # only helpful for symptoms, and only in the recovery phase
+    - handwashing / hygiene behaviors
+    - boiling / filtering water
+    - monitoring for dehydration
+  neutral:
+    - supportive care
+    - close monitoring
   unnecessary_or_harmful:
     - anti-amoebic medications # should be given for amoebic dysentery, but not bacterial diarrhea
     - tinidazole # for amoebic dysentery
