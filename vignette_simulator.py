@@ -15,7 +15,7 @@ import requests
 from difflib import SequenceMatcher
 from dotenv import load_dotenv
 import re
-from datetime import datetime
+from datetime import datetime, timezone
 import multiprocessing
 
 # ==== Environment Variables Management ====
@@ -529,6 +529,7 @@ class ConversationSimulator:
     def run_simulation(self) -> Dict[str, Any]:
         """Run the full conversation simulation"""
         print("Starting conversation simulation...")
+        simulation_start_time_utc = datetime.now(timezone.utc).isoformat()
 
         # Initialize conversation and metadata
         self.conversation = []
@@ -766,6 +767,7 @@ class ConversationSimulator:
             "provider": self.provider_name,
             "model_general": self.model_name_general,
             "model_doctor": self.model_name_doctor_specific,
+            "simulation_start_time_utc": simulation_start_time_utc,
             "diagnosis_active": self.diagnosis_active,
             "examination_active": self.examination_active,
             "treatment_active": self.treatment_active, # Add treatment_active flag
@@ -1168,6 +1170,9 @@ Please classify the doctor's diagnosis and provide your confidence and explanati
             if treatment_classification_output:
                  simulation_results["treatment_classification_details"] = treatment_classification_output
         
+        simulation_end_time_utc = datetime.now(timezone.utc).isoformat()
+        simulation_results["simulation_end_time_utc"] = simulation_end_time_utc
+        
         # Optionally include raw messages if needed for debugging
         # simulation_results["raw_messages"] = self.conversation
 
@@ -1199,25 +1204,45 @@ def run_simulation_task(task_args: Tuple[int, argparse.Namespace, str, str, int,
     # For critical logging from parallel processes, consider using the logging module
     # or writing to process-specific files. For this script, interleaved stdout is accepted.
     
-    # Construct a unique identifier for this simulation instance if needed for logging,
-    # combining case and simulation ID.
     case_stem = Path(current_case_file).stem
-    doctor_model_name_for_log = current_doctor_model if current_doctor_model and current_doctor_model.strip() and current_doctor_model.lower() != 'none' else main_args.model
+    
+    # Determine effective doctor model for this specific task instance
+    # This logic is also used for the `instance_log_prefix`
+    _effective_doctor_model_for_task = current_doctor_model if current_doctor_model and current_doctor_model.strip() and current_doctor_model.lower() != 'none' else main_args.model
+
+    filename_doctor_model_suffix = ""
+    if _effective_doctor_model_for_task != main_args.model:
+        # Sanitize model name for filename
+        sanitized_model_name = re.sub(r'[^a-zA-Z0-9_.-]', '_', _effective_doctor_model_for_task)
+        filename_doctor_model_suffix = f"_drmodel_{sanitized_model_name}"
+
+    # Construct the expected output filename
+    output_filename_for_sim = Path(main_batch_output_dir_str) / f"{case_stem}_sim_{simulation_id}{filename_doctor_model_suffix}.yaml"
+    
+    # Construct a unique identifier for this simulation instance for logging
+    doctor_model_name_for_log = _effective_doctor_model_for_task # Use the already determined effective model
     instance_log_prefix = f"Case '{case_stem}', Sim {simulation_id}/{total_sims_for_case}, DrModel: {doctor_model_name_for_log} (PID: {os.getpid()})"
+
+    # Check if file exists and if we are in continue mode
+    if main_args.continue_batch and output_filename_for_sim.exists():
+        sys.stdout.write(f"--- SKIPPING (already exists in continue mode): {instance_log_prefix}. Output: {output_filename_for_sim} ---\n")
+        sys.stdout.flush()
+        return True # Indicate success as it's already done
     
     sys.stdout.write(f"--- Starting: {instance_log_prefix} ---\n")
     sys.stdout.flush()
     
     try:
         # Use the specific doctor model for this task, or general model if current_doctor_model is None/empty/'none'
-        effective_doctor_model = current_doctor_model if current_doctor_model and current_doctor_model.strip() and current_doctor_model.lower() != 'none' else main_args.model
+        # This is already captured in _effective_doctor_model_for_task, use that for clarity.
+        # effective_doctor_model = current_doctor_model if current_doctor_model and current_doctor_model.strip() and current_doctor_model.lower() != 'none' else main_args.model
 
         simulator = ConversationSimulator(
             case_file=current_case_file, # Use the specific case for this task
             prompt_dir=main_args.prompt_dir,
             provider_name=main_args.provider,
             model_name_general=main_args.model, # General model
-            model_name_doctor_specific=effective_doctor_model, # Pass the resolved doctor model
+            model_name_doctor_specific=_effective_doctor_model_for_task, # Pass the resolved doctor model
             verbose=main_args.verbose,
             diagnosis_active=main_args.diagnosis, # Pass new flag
             examination_active=main_args.examination, # Pass new flag
@@ -1231,20 +1256,11 @@ def run_simulation_task(task_args: Tuple[int, argparse.Namespace, str, str, int,
         # Add simulation_id, case_file, and doctor_model to the results for clarity
         results["simulation_id_for_case"] = simulation_id
         results["original_case_file"] = current_case_file
-        results["doctor_model_used"] = effective_doctor_model # Log the model actually used
+        results["doctor_model_used"] = _effective_doctor_model_for_task # Log the model actually used
         
-        # Include doctor model in the filename for uniqueness if it's different from general model
-        # And handle cases where doctor_model might be None or "None"
-        filename_doctor_model_suffix = ""
-        if effective_doctor_model != main_args.model:
-             # Sanitize model name for filename (e.g., replace slashes, colons)
-            sanitized_model_name = re.sub(r'[^a-zA-Z0-9_.-]', '_', effective_doctor_model)
-            filename_doctor_model_suffix = f"_drmodel_{sanitized_model_name}"
-
-        output_filename = Path(main_batch_output_dir_str) / f"{case_stem}_sim_{simulation_id}{filename_doctor_model_suffix}.yaml"
-        
-        simulator.save_results(str(output_filename), results)
-        sys.stdout.write(f"--- Finished: {instance_log_prefix}. Results saved to {output_filename} ---\n")
+        # Output filename determined earlier as output_filename_for_sim
+        simulator.save_results(str(output_filename_for_sim), results)
+        sys.stdout.write(f"--- Finished: {instance_log_prefix}. Results saved to {output_filename_for_sim} ---\n")
         sys.stdout.flush()
         return True # Indicate success
     except Exception as e:
@@ -1281,6 +1297,12 @@ def main():
     parser.add_argument("--referral", action="store_true", help="Enable referral mode. If active, referral text from case file is added to doctor's system prompt.")
     parser.add_argument("--n_sims", type=int, default=1, help="Number of simulations to run PER CASE")
     parser.add_argument("--patient-prompt", type=str, default="prompts/patient_prompt.txt", help="Path to the patient prompt file")
+    parser.add_argument(
+        "--continue-batch",
+        type=str,
+        default=None,
+        help="Path to an existing timestamped output directory to continue. If set, this directory will be used, and simulations with existing output YAML files will be skipped."
+    )
 
     args = parser.parse_args()
 
@@ -1302,10 +1324,19 @@ def main():
     base_output_dir.mkdir(parents=True, exist_ok=True)
 
     # Create timestamped subdirectory for this entire batch of cases
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    batch_output_dir = base_output_dir / timestamp
-    batch_output_dir.mkdir(exist_ok=True)
-    print(f"Batch output directory: {batch_output_dir}")
+    # unless --continue-batch is specified
+    if args.continue_batch:
+        batch_output_dir = Path(args.continue_batch)
+        if not batch_output_dir.is_dir():
+            print(f"Error: Provided --continue-batch directory '{args.continue_batch}' does not exist or is not a directory.")
+            sys.exit(1)
+        print(f"Continuing batch in existing directory: {batch_output_dir}")
+    else:
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        batch_output_dir = base_output_dir / timestamp
+        batch_output_dir.mkdir(parents=True, exist_ok=True) # Use parents=True, exist_ok=True
+        print(f"New batch output directory: {batch_output_dir}")
+
 
     if not args.cases:
         print("No case files provided. Exiting.")

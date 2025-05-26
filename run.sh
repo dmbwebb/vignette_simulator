@@ -24,7 +24,7 @@ MODEL_DOCTOR="gpt-4.1" # Specific model for the doctor. Leave empty or comment o
 # If the list is empty or commented out, the general MODEL will be used for the doctor.
 # To use the general model for some runs and a specific model for others, include "None" or an empty string in the list.
 # Example: MODEL_DOCTOR_LIST=("gpt-4.1" "None" "gpt-3.5-turbo")
-MODEL_DOCTOR_LIST=("gpt-4.1" "gpt-4o-mini" "gpt-4o") 
+MODEL_DOCTOR_LIST=("gpt-4.1" "gpt-4o-mini" "gpt-4o" "o3" "o4-mini") 
 
 # Set the desired behavior using boolean flags
 # --diagnosis: enables final diagnosis, extraction, classification, and uses diagnosis prompt (if --examination is false)
@@ -35,6 +35,11 @@ TREATMENT_ACTIVE=true   # If true, enables treatment recommendation, extraction,
 REFERRAL_ACTIVE=false   # If true, enables referral mode
 
 PROMPT_DIR="prompts" # Directory where prompt files are located
+
+# --- Continue Mode Configuration ---
+CONTINUE_PREVIOUS_BATCH=false # Set to true to attempt to continue the most recent batch
+# If CONTINUE_PREVIOUS_BATCH is true, and a previous batch directory is found,
+# the --continue-batch argument will be passed to the python script.
 
 echo "--- Running Vignette Simulator for Multiple Cases ---"
 echo "Case Files to Process:"
@@ -68,6 +73,32 @@ if [ ${#CASE_FILES_TO_RUN[@]} -eq 0 ]; then
   exit 0
 fi
 
+# --- Determine Batch Directory and Continue Argument ---
+PYTHON_CONTINUE_ARG=""
+BATCH_OUTPUT_DIR_TO_USE=""
+
+if [ "$CONTINUE_PREVIOUS_BATCH" = "true" ]; then
+  echo "Attempting to continue previous batch..."
+  # Find the most recently modified directory in 'outputs'
+  # This assumes directories in 'outputs' are timestamped or otherwise sortable by time if they are batch directories
+  LATEST_BATCH_DIR=$(ls -td outputs/*/ 2>/dev/null | head -n 1)
+
+  if [ -n "$LATEST_BATCH_DIR" ] && [ -d "$LATEST_BATCH_DIR" ]; then
+    # Trim trailing slash if present (from ls fallback)
+    LATEST_BATCH_DIR_TRIMMED=${LATEST_BATCH_DIR%/}
+    echo "Found most recent directory: $LATEST_BATCH_DIR_TRIMMED. This will be used for --continue-batch."
+    PYTHON_CONTINUE_ARG="--continue-batch \"$LATEST_BATCH_DIR_TRIMMED\""
+    BATCH_OUTPUT_DIR_TO_USE=$LATEST_BATCH_DIR_TRIMMED # Used for final message if script doesn't output its own dir
+  else
+    echo "No previous batch directory found in 'outputs/' or 'outputs/' doesn't exist. Starting a new batch."
+    # CONTINUE_PREVIOUS_BATCH remains true, but PYTHON_CONTINUE_ARG remains empty, so python script starts new batch.
+    # The python script will create a new timestamped dir, and its output will be captured for OUTPUT_DIR.
+  fi
+else
+  echo "Not in continue mode. A new batch directory will be created by the Python script."
+  # PYTHON_CONTINUE_ARG remains empty
+fi
+
 # Run the simulator for all specified cases
 # The python script now handles looping internally
 # Output is sent to terminal live via tee to /dev/stderr, and also captured to FULL_COMMAND_OUTPUT
@@ -77,6 +108,11 @@ python_command="python3 -u vignette_simulator.py \
   --provider \"$PROVIDER\" \
   --model \"$MODEL\" \
   --n_sims \"$NUM_SIMS\""
+
+# Add the continue argument if it was set
+if [ -n "$PYTHON_CONTINUE_ARG" ]; then
+  python_command+=" $PYTHON_CONTINUE_ARG"
+fi
 
 # Add diagnosis and examination flags if active
 if [ "$DIAGNOSIS_ACTIVE" = "true" ]; then
@@ -180,7 +216,6 @@ if [ $SUMMARIZER_EXIT_CODE -eq 0 ]; then
   echo "Summarizer finished successfully."
 else
   echo "ERROR: Summarizer script failed with exit code $SUMMARIZER_EXIT_CODE."
-  echo "Full output from simulator was displayed above."
   echo "-----------------------------------"
   exit 1
 fi
