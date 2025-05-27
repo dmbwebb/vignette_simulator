@@ -586,11 +586,11 @@ class ConversationSimulator:
             doctor_turn_count += 1 # DEBUG: Increment doctor turn counter
 
             # DEBUG: Print information for the doctor's 5th turn
-            if doctor_turn_count == 5:
+            if doctor_turn_count == 1 or doctor_turn_count == 5:
                 print("\\n\\n--- DEBUG: DOCTOR LLM INPUT (Before Doctor's 5th Response) ---")
-                print("Doctor's System Prompt (self.doctor_provider.system_prompt):")
+                print("System prompt configured for the Doctor's LLM provider (self.doctor.model_provider.system_prompt):")
                 print("-------------------------------------------------------------")
-                print(self.doctor_provider.system_prompt)
+                print(self.doctor.model_provider.system_prompt) # self.doctor.model_provider is self.doctor_provider
                 print("-------------------------------------------------------------")
                 print("\\nConversation History (self.conversation passed to doctor.respond_to_patient):")
                 print("-------------------------------------------------------------")

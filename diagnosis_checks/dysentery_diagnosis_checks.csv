@@ -1,53 +1,143 @@
 extracted_diagnosis,diag_classification
-"Acute bacterial dysentery, possibly Shigellosis",correct
-Amoebic Dysentery,correct
-Amoebic dysentery,correct
-Bacillary Dysentery (Shigellosis),correct
-Bacillary dysentery,correct
-Bacterial Dysentery,correct
-Bacterial Gastroenteritis,correct
+Acute Shigella dysentery,correct
+Acute Shigella dysentery (Shigellosis),correct
+Acute Shigella dysentery (shigellosis),correct
+Acute bacillary dysentery,correct
+Acute bacillary dysentery (Shigella infection),correct
+Acute bacillary dysentery (Shigella infection).,correct
+Acute bacillary dysentery (Shigellosis),correct
+Acute bacillary dysentery (likely Shigella infection),correct
+Acute bacillary dysentery (likely Shigella).,correct
+Acute bacillary dysentery (most likely Shigella infection),correct
+Acute bacillary dysentery (most likely due to Shigella spp.),correct
+Acute bacillary dysentery (most probably Shigella infection),correct
+Acute bacillary dysentery (probable Shigella infection),correct
+Acute bacillary dysentery (probable Shigellosis),correct
+Acute bacillary dysentery (probable shigellosis),correct
+Acute bacillary dysentery (probably Shigella),correct
+Acute bacillary dysentery (probably Shigellosis),correct
+Acute bacillary dysentery (probably due to Shigella species),correct
+Acute bacillary dysentery (shigellosis),correct
+Acute bacillary dysentery (shigellosis) due to Shigella infection,correct
+Acute bacillary dysentery (shigellosis) due to Shigella infection.,correct
+Acute bacillary dysentery due to Shigella,correct
+Acute bacillary dysentery due to Shigella (shigellosis),correct
+Acute bacillary dysentery due to Shigella infection,correct
+Acute bacillary dysentery due to Shigella infection (Shigellosis),correct
+Acute bacillary dysentery due to Shigella infection (shigellosis),correct
+Acute bacillary dysentery due to Shigella infection.,correct
+Acute bacillary dysentery due to Shigella species.,correct
+"Acute bacillary dysentery, most likely Shigella infection.",correct
+"Acute bacillary dysentery, probably Shigellosis",correct
+Acute bacillary dysentery—most probably Shigella infection.,correct
+Acute bacillary dysentery—presumptively Shigellosis.,correct
+Acute bacillary dysentery—probable Shigella infection,correct
+Acute bacillary dysentery—probable Shigella infection.,correct
+Acute bacillary dysentery—probably Shigella (shigellosis),correct
+Acute bacterial dysentery,correct
+Acute bacterial dysentery (Shigella infection),correct
+Acute bacterial dysentery (likely Shigella),correct
+Acute bacterial dysentery (likely shigellosis),correct
+Acute bacterial dysentery (probable Shigella infection),correct
+Acute bacterial dysentery (probable Shigellosis),correct
+Acute bacterial dysentery due to Shigella species,correct
+Acute bacterial dysentery due to Shigella species.,correct
+"Acute bacterial dysentery, probably shigellosis.",correct
+Acute bacterial dysentery—most probably Shigella infection (shigellosis),correct
+Acute bacterial dysentery—most probably shigellosis.,correct
+Acute bacterial dysentery—probable Shigella infection.,correct
+Acute bacterial dysentery—probably Shigella infection.,correct
+Acute gastroenteritis with possible bacterial infection,correct
+Acute shigellosis,correct
+Acute shigellosis (bacillary dysentery),correct
+Acute shigellosis (bacillary dysentery) caused by Shigella,correct
+Bacillary dysentery (Shigella infection),correct
+Bacillary dysentery (Shigellosis),correct
+Bacillary dysentery (shigellosis),correct
+Bacillary dysentery (shigellosis) due to Shigella species,correct
+Bacillary dysentery (shigellosis) due to Shigella species.,correct
+Bacillary dysentery due to Shigella (shigellosis),correct
+Bacillary dysentery due to Shigella infection.,correct
+Bacterial Dysentery (Shigellosis),correct
 Bacterial dysentery,correct
-Bacterial gastroenteritis,correct
-Bacterial gastroenteritis (likely Shigella infection),correct
-Dysentery,correct
-Shigella-related dysentery,correct
+Bacterial dysentery (possibly Shigellosis),correct
+Bacterial dysentery (possibly caused by Shigella),correct
+Shigella (bacillary) dysentery,correct
+Shigella dysenteriae infection,correct
+Shigella dysenteriae infection (bacillary dysentery),correct
+Shigella dysenteriae–induced bacillary dysentery,correct
+Shigella dysentery,correct
+Shigella dysentery (acute bacterial dysentery),correct
+Shigella dysentery (bacillary dysentery),correct
+Shigella dysentery (shigellosis),correct
+Shigella-associated bacillary dysentery,correct
 Shigellosis,correct
-"['Bacterial gastroenteritis', 'viral gastroenteritis', 'dysentery']",correct
-"['bacterial dysentery', 'gastroenteritis']",correct
-"['bacterial gastroenteritis', 'Shigellosis']",correct
-"['bacterial gastroenteritis', 'dysentery']",correct
-"['viral gastroenteritis', 'bacterial gastroenteritis', 'dysentery']",correct
+Shigellosis (Bacillary Dysentery),correct
+Shigellosis (Shigella dysentery),correct
+Shigellosis (acute bacillary dysentery),correct
+Shigellosis (bacillary dysentery),correct
+"['acute gastroenteritis', 'bacterial dysentery']",correct
+"['acute gastroenteritis', 'dysentery']",correct
+acute bacillary dysentery,correct
+acute bacillary dysentery (Shigellosis),correct
+acute bacillary dysentery (shigellosis),correct
+acute bacillary dysentery due to Shigella infection,correct
 acute bacterial dysentery,correct
-acute bacterial gastroenteritis,correct
-amoebic dysentery,correct
-amoebic dysentery (amoebiasis),correct
+acute diarrheal disease,correct
+acute infectious diarrhea,correct
+bacillary dysentery,correct
+bacillary dysentery (Shigellosis),correct
+bacillary dysentery (shigellosis),correct
+bacillary dysentery due to Shigella infection,correct
+bacillary dysentery due to Shigella species,correct
 bacterial dysentery,correct
-bacterial dysentery (likely Shigellosis),correct
-"bacterial dysentery, specifically Shigella infection",correct
-bacterial gastroenteritis,correct
-bacterial gastroenteritis (dysentery),correct
 dysentery,correct
-infectious diarrhea,correct
-mild bacterial enteritis infection,correct
+gastroenteritis caused by a Shigella infection,correct
+infectious bacterial enteritis,correct
 shigellosis,correct
+shigellosis (bacillary dysentery),correct
+Acute Bacterial Gastroenteritis (Dysentery),incorrect
 Acute Gastroenteritis,incorrect
-Acute Viral Gastroenteritis,incorrect
+Acute amoebic dysentery,incorrect
 Acute gastroenteritis,incorrect
+Acute gastroenteritis with possible bacterial etiology.,incorrect
+Acute viral gastro-enteritis causing watery diarrhoea.,incorrect
 Acute viral gastroenteritis,incorrect
-Amoebiasis,incorrect
-Amoebic Dysentery,incorrect
-Amoebic Dysentery (Amebiasis),incorrect
-Amoebic Dysentery (Amoebiasis),incorrect
-Amoebic diarrhea,incorrect
-Amoebic dysentery,incorrect
-Infectious gastroenteritis,incorrect
+Acute viral gastroenteritis (probable rotavirus infection),incorrect
+Acute viral gastroenteritis (probable rotavirus),incorrect
+Acute viral gastroenteritis (probably rotavirus),incorrect
+Acute viral gastroenteritis (rotavirus/norovirus),incorrect
+Acute viral gastroenteritis causing diarrhoea,incorrect
+Acute viral gastroenteritis causing diarrhoea.,incorrect
+Acute viral gastroenteritis—most probably rotavirus infection.,incorrect
+Acute viral gastroenteritis—probably rotavirus infection.,incorrect
+Bacterial Gastroenteritis,incorrect
+Bacterial gastroenteritis,incorrect
+"Bacterial gastroenteritis, possibly Shigellosis.",incorrect
 Viral Gastroenteritis,incorrect
-Viral Gastroenteritis (likely rotavirus),incorrect
 Viral gastroenteritis,incorrect
+"['Bacterial Gastroenteritis', 'Amoebic Dysentery']",incorrect
+"['Bacterial gastroenteritis', 'Shigella', 'Campylobacter']",incorrect
+"['Bacterial gastroenteritis', 'Shigellosis']",incorrect
+"['acute gastroenteritis', 'bacterial infection']",incorrect
+"['bacterial gastroenteritis', 'dysentery']",incorrect
+"['bacterial gastroenteritis', 'gastrointestinal infection']",incorrect
+"['infectious gastroenteritis', 'gastrointestinal infection']",incorrect
+"['viral gastroenteritis', 'bacterial dysentery']",incorrect
+"['viral gastroenteritis', 'bacterial gastroenteritis']",incorrect
+['viral gastroenteritis'],incorrect
+acute bacterial gastroenteritis,incorrect
 acute gastroenteritis,incorrect
+acute infectious gastroenteritis,incorrect
 acute viral gastroenteritis,incorrect
-amoebiasis,incorrect
-amoebic dysentery,incorrect
-gastroenteritis,incorrect
+bacterial gastroenteritis,incorrect
+bacterial gastroenteritis (dysentery),incorrect
+bacterial gastroenteritis with possible dysentery,incorrect
+"bacterial gastroenteritis, possibly due to Shigella",incorrect
+infectious gastroenteritis,incorrect
+mild viral gastroenteritis,incorrect
 viral gastroenteritis,incorrect
-"['viral gastroenteritis', 'bacterial infection']",unclear
+Unclear: No diagnosis found in the text.,unclear
+"{'error': 'JSONDecodeError', 'raw_value': ""Error: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))""}",unclear
+"{'error': 'JSONDecodeError', 'raw_value': 'Unclear: No diagnosis found in the text.'}",unclear
+"{'error': 'JSONDecodeError', 'raw_value': 'Unclear: The statement asks for information regarding symptoms and does not provide a diagnosis.'}",unclear

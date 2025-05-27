@@ -4,14 +4,14 @@
 source venv/bin/activate
 
 # --- Configuration ---
-NUM_SIMS=100 # Number of simulations to run FOR EACH CASE
+NUM_SIMS=1 # Number of simulations to run FOR EACH CASE
 # Define the list of case files to process
 CASE_FILES_TO_RUN=(
-  "case_definitions/case1.yaml"
-  "case_definitions/case2.yaml"
+  # "case_definitions/case1.yaml"
+  # "case_definitions/case2.yaml"
   "case_definitions/case3.yaml"
-  "case_definitions/case4.yaml"
-  "case_definitions/case5.yaml"
+  # "case_definitions/case4.yaml"
+  # "case_definitions/case5.yaml"
   # "case_definitions/mrcpuk_case2.yaml"
   # Add more case files here, e.g., "case_definitions/case3.yaml"
 )
@@ -23,7 +23,9 @@ MODEL="gpt-4o-mini"
 # If the list is empty or commented out, the general MODEL will be used for the doctor.
 # To use the general model for some runs and a specific model for others, include "None" or an empty string in the list.
 # Example: MODEL_DOCTOR_LIST=("gpt-4.1" "None" "gpt-3.5-turbo")
-MODEL_DOCTOR_LIST=("gpt-4.1" "gpt-4o-mini" "gpt-4o" "o3" "o4-mini") 
+# MODEL_DOCTOR_LIST=("gpt-4.1" "gpt-4o-mini" "gpt-4o" "o3" "o4-mini") 
+# MODEL_DOCTOR_LIST=("o3") 
+MODEL_DOCTOR_LIST=("gpt-4.1") 
 
 # Set the desired behavior using boolean flags
 # --diagnosis: enables final diagnosis, extraction, classification, and uses diagnosis prompt (if --examination is false)
@@ -36,7 +38,7 @@ REFERRAL_ACTIVE=false   # If true, enables referral mode
 PROMPT_DIR="prompts" # Directory where prompt files are located
 
 # --- Continue Mode Configuration ---
-CONTINUE_PREVIOUS_BATCH=true # Set to true to attempt to continue the most recent batch
+CONTINUE_PREVIOUS_BATCH=false # Set to true to attempt to continue the most recent batch
 # If CONTINUE_PREVIOUS_BATCH is true, and a previous batch directory is found,
 # the --continue-batch argument will be passed to the python script.
 

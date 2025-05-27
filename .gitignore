@@ -33,3 +33,9 @@ build/
 .idea/
 *.swp
 *.swo 
+figures_report.synctex.gz
+figures_report.log
+figures_report.fls
+figures_report.fdb_latexmk
+figures_report.aux
+diagnosis_checks/dysentery_diagnosis_checks.csv
