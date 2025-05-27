@@ -7,12 +7,13 @@ library(trackr)
 dir.create("figs", showWarnings = FALSE)
 
 # Read the data
-data <- read_csv("outputs/curated_outputs/combined_summary.csv")
+data <- read_csv("outputs/20250526_160855/summary_20250526_160855.csv")
 
 # Check sample size for each combo of model_doctor, case_file combination
 sample_sizes <- data %>%
   group_by(model_doctor, case_file) %>%
-  summarise(n = n(), .groups = 'drop')
+  summarise(n = n(), .groups = 'drop') %>% 
+  print_all
 
 print("Sample sizes per model_doctor and case_file combination:")
 print(sample_sizes)
