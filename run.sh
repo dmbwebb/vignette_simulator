@@ -4,20 +4,21 @@
 source venv/bin/activate
 
 # --- Configuration ---
-NUM_SIMS=1 # Number of simulations to run FOR EACH CASE
+NUM_SIMS=100 # Number of simulations to run FOR EACH CASE
 # Define the list of case files to process
 CASE_FILES_TO_RUN=(
-  # "case_definitions/case1.yaml"
-  # "case_definitions/case2.yaml"
+  "case_definitions/case1.yaml"
+  "case_definitions/case2.yaml"
   "case_definitions/case3.yaml"
-  # "case_definitions/case4.yaml"
-  # "case_definitions/case5.yaml"
+  "case_definitions/case4.yaml"
+  "case_definitions/case5.yaml"
   # "case_definitions/mrcpuk_case2.yaml"
   # Add more case files here, e.g., "case_definitions/case3.yaml"
 )
 # PROMPT_FILE is now determined by --prompt-dir in the python script
 PROVIDER="OpenAI"
-MODEL="gpt-4o-mini"
+MODEL="gpt-4.1"
+LANGUAGE="hi" # Language setting: "en" for English, "hi" for Hindi
 
 # Define a list of specific models for the doctor. 
 # If the list is empty or commented out, the general MODEL will be used for the doctor.
@@ -51,6 +52,7 @@ echo "Diagnosis Active: $DIAGNOSIS_ACTIVE"
 echo "Examination Active: $EXAMINATION_ACTIVE"
 echo "Treatment Active: $TREATMENT_ACTIVE"
 echo "Referral Active: $REFERRAL_ACTIVE"
+echo "Language: $LANGUAGE"
 echo "Prompt Directory: $PROMPT_DIR"
 echo "Provider: $PROVIDER"
 echo "General Model: $MODEL"
@@ -108,7 +110,8 @@ python_command="python3 -u vignette_simulator.py \
   --prompt-dir \"$PROMPT_DIR\" \
   --provider \"$PROVIDER\" \
   --model \"$MODEL\" \
-  --n_sims \"$NUM_SIMS\""
+  --n_sims \"$NUM_SIMS\" \
+  --language \"$LANGUAGE\""
 
 # Add the continue argument if it was set
 if [ -n "$PYTHON_CONTINUE_ARG" ]; then

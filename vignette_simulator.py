@@ -186,9 +186,10 @@ class OpenAIProvider(LLMProvider):
 
 class PatientSimulator:
     """Simulates a patient responding to doctor's questions based on a case database"""
-    def __init__(self, case_data: Dict, model_provider: LLMProvider, patient_prompt_file: str = "prompts/patient_prompt.txt", verbose: bool = False):
+    def __init__(self, case_data: Dict, model_provider: LLMProvider, patient_prompt_file: str = "prompts/patient_prompt.txt", verbose: bool = False, language: str = "en"):
         self.case_data = case_data
         self.model_provider = model_provider # Now expects a pre-configured provider
+        self.language = language # Store language
         self.history_questions = case_data.get("history_questions", [])
         self.examination_questions = case_data.get("examination_questions", [])
         self.provider_treatment_questions = case_data.get("provider_treatment_questions", [])
@@ -201,6 +202,9 @@ class PatientSimulator:
                 system_prompt = f.read()
             self.model_provider.set_system_prompt(system_prompt)
             self.system_prompt = system_prompt # Store the system prompt
+        except FileNotFoundError:
+            print(f"Error: Patient prompt file '{patient_prompt_file}' not found for language '{self.language}'.")
+            sys.exit(1)
         except Exception as e:
             print(f"Error loading patient prompt from {patient_prompt_file}: {e}")
             # Fallback to a default prompt if loading fails
@@ -233,10 +237,28 @@ class PatientSimulator:
     def _identify_relevant_question_ids(self, doctor_question: str, conversation_history: List[Dict[str, str]]) -> List[str]:
         """Step 1: Use LLM to identify relevant question IDs from the database."""
         # Prepare the list of available questions for the prompt
-        available_questions_text = "\n".join(
-            [f"- ID: {q.get('id')}, Question: {q.get('question_en', '')}" 
-             for q in self.all_questions if q.get('id') and q.get('question_en')]
-        )
+        question_field_name = f"question_{self.language}"
+        available_questions_text_parts = []
+        for q in self.all_questions:
+            if q.get('id'):
+                question_text = q.get(question_field_name)
+                if not question_text: # Fallback or error if language-specific question is missing
+                    # As per user: throw an error if hi is selected and question_hi is missing
+                    if self.language == "hi":
+                        print(f"Error: Question text '{question_field_name}' not found for ID {q.get('id')} in case data.")
+                        sys.exit(1)
+                    # For 'en' or if a fallback was allowed, this part would be different.
+                    # Given strict error for 'hi', we might not even need an 'en' fallback here if 'en' is guaranteed.
+                    # For now, assume if question_field_name is 'question_en', it must exist.
+                    # If it's 'question_hi', it must exist if language is 'hi'.
+                    question_text = q.get('question_en', '') # Default to english if not found (should only happen if lang is en and somehow question_en is missing)
+                    if not question_text and self.language == "en":
+                         print(f"Warning: Question text 'question_en' not found for ID {q.get('id')} in case data. Using empty string.")
+
+
+                available_questions_text_parts.append(f"- ID: {q.get('id')}, Question: {question_text}")
+        
+        available_questions_text = "\\n".join(available_questions_text_parts)
         
         # Create the prompt for identifying relevant questions
         prompt = f"""
@@ -291,12 +313,33 @@ class PatientSimulator:
         
         # Retrieve relevant Q/A pairs
         context_items = []
+        question_field_name = f"question_{self.language}"
+        answer_field_name = f"answer_{self.language}"
+
         for q_id in relevant_ids:
             q_data = self.questions_by_id.get(q_id)
             if q_data:
-                context_items.append(f"  - Question (ID {q_id}): {q_data.get('question_en', '')}\n    Answer: {q_data.get('answer_en', '')}")
+                question_text = q_data.get(question_field_name)
+                answer_text = q_data.get(answer_field_name)
+
+                if self.language == "hi":
+                    if question_text is None:
+                        print(f"Error: Field '{question_field_name}' missing for question ID '{q_id}' in language 'hi'.")
+                        sys.exit(1)
+                    if answer_text is None:
+                        print(f"Error: Field '{answer_field_name}' missing for question ID '{q_id}' in language 'hi'.")
+                        sys.exit(1)
+                elif self.language == "en": # Default to en fields if specific lang field is missing for en
+                    if question_text is None:
+                        question_text = q_data.get('question_en', '') # Should ideally exist
+                        if not question_text : print(f"Warning: 'question_en' missing for ID '{q_id}'.")
+                    if answer_text is None:
+                        answer_text = q_data.get('answer_en', '') # Should ideally exist
+                        if not answer_text : print(f"Warning: 'answer_en' missing for ID '{q_id}'.")
+                
+                context_items.append(f"  - Question (ID {q_id}): {question_text}\\n    Answer: {answer_text}")
         
-        context_string = "\n".join(context_items) if context_items else "No specific information found in your case file for this question."
+        context_string = "\\n".join(context_items) if context_items else "No specific information found in your case file for this question."
         
         # Prepare messages for the LLM
         # The system prompt is already set in __init__
@@ -417,7 +460,8 @@ class ConversationSimulator:
                  verbose: bool = False, diagnosis_active: bool = False, examination_active: bool = False, 
                  treatment_active: bool = False, # New argument
                  referral_active: bool = False, # New argument for referral
-                 patient_prompt_file: str = "prompts/patient_prompt.txt"):
+                 patient_prompt_file: str = "prompts/patient_prompt.txt", # Default English patient prompt
+                 language: str = "en"): # New language argument
         # Store verbose flag
         self.verbose = verbose
         self.diagnosis_active = diagnosis_active # Store the diagnosis_active flag
@@ -426,6 +470,7 @@ class ConversationSimulator:
         self.referral_active = referral_active # Store the referral_active flag
         self.case_file_path = case_file # Store the case file path
         self.prompt_dir = prompt_dir # Store prompt_dir
+        self.language = language # Store language
         
         # Store provider and model names
         self.provider_name = provider_name
@@ -475,24 +520,31 @@ class ConversationSimulator:
         
         # Determine the correct doctor prompt file based on the mode and prompt_dir
         if self.examination_active:
-            prompt_file_name = "doc_prompt_diagnosis_examinations.txt"
+            base_prompt_file_name = "doc_prompt_diagnosis_examinations"
         elif self.diagnosis_active:
-            prompt_file_name = "doc_prompt_diagnosis.txt"
+            base_prompt_file_name = "doc_prompt_diagnosis"
         else: # Default/Summary mode
-            prompt_file_name = "doc_prompt.txt"
+            base_prompt_file_name = "doc_prompt"
+        
+        prompt_suffix = "_hi" if self.language == "hi" else ""
+        prompt_file_name = f"{base_prompt_file_name}{prompt_suffix}.txt"
         # Add more mode-to-filename mappings here if needed
         
         effective_doc_prompt_file = str(Path(prompt_dir) / prompt_file_name)
-        print(f"Using doctor prompt based on flags (diag:{self.diagnosis_active}, exam:{self.examination_active}): {effective_doc_prompt_file}")
+        print(f"Using doctor prompt based on flags (diag:{self.diagnosis_active}, exam:{self.examination_active}, lang:{self.language}): {effective_doc_prompt_file}")
 
         # Load base doctor prompt content
         base_doc_prompt_content = ""
         try:
             with open(effective_doc_prompt_file, 'r') as f:
                 base_doc_prompt_content = f.read()
+        except FileNotFoundError:
+            print(f"Error: Doctor prompt file '{effective_doc_prompt_file}' not found for language '{self.language}'.")
+            sys.exit(1)
         except Exception as e:
             print(f"Error loading doctor prompt: {e}")
             # self.doctor_provider.set_system_prompt("") # Provider not yet fully set up, default is empty.
+            sys.exit(1)
 
         # Augment doctor prompt with referral text if active
         self.active_referral_text_for_logging = None # For metadata logging
@@ -519,8 +571,19 @@ class ConversationSimulator:
         # as the system prompt is already set on its provider.
         self.doctor = DoctorSimulator(self.doctor_provider, effective_doc_prompt_file, diagnosis_active=self.diagnosis_active, verbose=self.verbose)
         
+        # Determine patient prompt file based on language
+        actual_patient_prompt_file = patient_prompt_file # Default to English path
+        if self.language == "hi":
+            patient_prompt_base_name = Path(patient_prompt_file).stem
+            if patient_prompt_base_name.endswith("_hi"): # If default already had _hi (e.g. passed from main with _hi)
+                 actual_patient_prompt_file = patient_prompt_file
+            else:
+                 actual_patient_prompt_file = str(Path(prompt_dir) / f"{patient_prompt_base_name}_hi.txt")
+        
+        print(f"Using patient prompt: {actual_patient_prompt_file}")
+
         # Patient simulator uses patient_provider
-        self.patient = PatientSimulator(self.case_data, self.patient_provider, patient_prompt_file=patient_prompt_file, verbose=self.verbose)
+        self.patient = PatientSimulator(self.case_data, self.patient_provider, patient_prompt_file=actual_patient_prompt_file, verbose=self.verbose, language=self.language)
         
         # Initialize conversation storage
         self.conversation = []
@@ -543,29 +606,52 @@ class ConversationSimulator:
             print("\\n--- Referral Note from GP (Provided to Doctor) ---")
             print(self.active_referral_text_for_logging.replace('\\n', '\\n')) # Pretty print
             print("----------------------------------------------------\\n")
+            # Metadata step for referral note
+            # Ensure 'step' key exists before trying to use it.
+            # This metadata entry is pre-conversation, so step 0 or specific handling.
+            # Let's make current_step always start at 1, and handle referral as a special pre-step or alongside step 1.
+            # For simplicity, this is logged before step 1.
+
+            # The following logic for referral metadata is being shifted to be logged *before* the patient intro,
+            # so it will be the first item if present.
+            # self.metadata.append({
+            # "step": 0, # Or handle differently if step must be > 0
+            # "speaker": "System (Referral Note)",
+            # "question_id": None,
+            # "message": self.active_referral_text_for_logging
+            # })
+            # current_step = 1 # Ensure step starts at 1 after this potential pre-step.
+
+
+        # Patient starts the conversation using the introduction
+        patient_intro_key = self.language # 'en' or 'hi'
+        patient_intro = self.case_data.get('introduction', {}).get(patient_intro_key)
+        
+        if not patient_intro:
+            print(f"Error: Patient introduction for language '{patient_intro_key}' not found in case data (expected key 'introduction.{patient_intro_key}').")
+            # Fallback to a generic intro if both are missing - user specified error for hi
+            # patient_intro = "Hello Doctor, I need some help."
+            # print(f"Warning: Using default patient introduction: '{patient_intro}'")
+            sys.exit(1)
+
+        # Initialize conversation with referral note if active, then patient intro
+        self.conversation = []
+        self.metadata = []
+        current_step = 1
+
+        if self.referral_active and self.active_referral_text_for_logging:
             self.metadata.append({
-                "step": current_step, # Or step 0 if preferred for pre-conversation info
+                "step": current_step,
                 "speaker": "System (Referral Note)",
                 "question_id": None,
                 "message": self.active_referral_text_for_logging
             })
-            current_step += 1
+            current_step +=1 # Increment step after adding referral
 
-
-        # Patient starts the conversation using the introduction
-        patient_intro = self.case_data.get('introduction', {}).get('en')
-        if not patient_intro:
-            # Use Hindi intro if English is missing
-            patient_intro = self.case_data.get('introduction', {}).get('hi')
-        if not patient_intro:
-            # Fallback to a generic intro if both are missing
-            patient_intro = "Hello Doctor, I need some help."
-            print(f"Warning: Using default patient introduction: '{patient_intro}'")
-
-        self.conversation = [{
+        self.conversation.append({ # Patient intro is always first in LLM conversation
             "role": "user", # Patient is the user
             "content": patient_intro
-        }]
+        })
         self.metadata.append({
             "step": current_step, # Use current_step
             "speaker": "Patient",
@@ -772,6 +858,7 @@ class ConversationSimulator:
             "examination_active": self.examination_active,
             "treatment_active": self.treatment_active, # Add treatment_active flag
             "referral_active": self.referral_active, # Add referral_active flag
+            "language": self.language, # Add language to metadata
             "case_file": self.case_file_path, # Use stored case file path
             "conversation": self.metadata,
         }
@@ -1192,13 +1279,13 @@ Please classify the doctor's diagnosis and provide your confidence and explanati
         except Exception as e:
             print(f"Error saving results: {e}")
 
-def run_simulation_task(task_args: Tuple[int, argparse.Namespace, str, str, int, Optional[str]]):
+def run_simulation_task(task_args: Tuple[int, argparse.Namespace, str, str, int, Optional[str], str]):
     """
     Worker function to run a single simulation for a specific case and doctor model.
     Designed to be called by multiprocessing.Pool.map.
-    task_args contains: (simulation_id_for_case, main_cli_args, current_case_file_path, main_batch_output_dir_path, num_sims_for_this_case, current_doctor_model)
+    task_args contains: (simulation_id_for_case, main_cli_args, current_case_file_path, main_batch_output_dir_path, num_sims_for_this_case, current_doctor_model, language)
     """
-    simulation_id, main_args, current_case_file, main_batch_output_dir_str, total_sims_for_case, current_doctor_model = task_args
+    simulation_id, main_args, current_case_file, main_batch_output_dir_str, total_sims_for_case, current_doctor_model, language = task_args
 
     # Python's default print is not thread-safe / process-safe for interleaved output.
     # For critical logging from parallel processes, consider using the logging module
@@ -1248,7 +1335,8 @@ def run_simulation_task(task_args: Tuple[int, argparse.Namespace, str, str, int,
             examination_active=main_args.examination, # Pass new flag
             treatment_active=main_args.treatment, # Pass new flag
             referral_active=main_args.referral, # Pass new flag
-            patient_prompt_file=main_args.patient_prompt
+            patient_prompt_file=main_args.patient_prompt,
+            language=language # Pass language here as well
         )
 
         results = simulator.run_simulation()
@@ -1296,7 +1384,14 @@ def main():
     parser.add_argument("--treatment", action="store_true", help="Enable treatment recommendation, extraction, and classification phase.")
     parser.add_argument("--referral", action="store_true", help="Enable referral mode. If active, referral text from case file is added to doctor's system prompt.")
     parser.add_argument("--n_sims", type=int, default=1, help="Number of simulations to run PER CASE")
-    parser.add_argument("--patient-prompt", type=str, default="prompts/patient_prompt.txt", help="Path to the patient prompt file")
+    parser.add_argument("--patient-prompt", type=str, default="prompts/patient_prompt.txt", help="Path to the patient prompt file (base name, _hi.txt will be inferred for Hindi)")
+    parser.add_argument(
+        "--language",
+        type=str,
+        default="en",
+        choices=["en", "hi"],
+        help="Language for the conversation (en or hi). Affects prompts and case data fields used."
+    )
     parser.add_argument(
         "--continue-batch",
         type=str,
@@ -1376,7 +1471,7 @@ def main():
             for i in range(1, sims_for_this_case_and_model + 1):
                 current_iteration +=1
                 # task_args now includes current_doctor_model
-                tasks_to_run_for_current_config.append((i, args, current_case_file_path, str(batch_output_dir), sims_for_this_case_and_model, current_doctor_model))
+                tasks_to_run_for_current_config.append((i, args, current_case_file_path, str(batch_output_dir), sims_for_this_case_and_model, current_doctor_model, args.language))
 
             current_config_succeeded_all_sims = True # Assume success for this case+model config
 
