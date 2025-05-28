@@ -30,24 +30,31 @@ def extract_data_from_file(yaml_file_path: Path, all_loaded_case_answers: dict[s
     
     extracted_diagnosis_raw = data.get("extracted_diagnosis")
     extracted_diagnosis_parsed = None
-    if extracted_diagnosis_raw:
+    if extracted_diagnosis_raw is not None: # Explicitly check for None
         try:
-            if isinstance(extracted_diagnosis_raw, str):
+            if isinstance(extracted_diagnosis_raw, dict):
+                extracted_diagnosis_parsed = extracted_diagnosis_raw
+            elif isinstance(extracted_diagnosis_raw, str):
                 cleaned_str = extracted_diagnosis_raw.strip()
                 if cleaned_str.startswith("```json"):
                     cleaned_str = cleaned_str.removeprefix("```json").strip()
                 if cleaned_str.endswith("```"):
                     cleaned_str = cleaned_str.removesuffix("```").strip()
-                cleaned_str = cleaned_str.replace("\\\\n", "")
-                extracted_diagnosis_parsed = json.loads(cleaned_str)
-            elif isinstance(extracted_diagnosis_raw, dict):
-                 extracted_diagnosis_parsed = extracted_diagnosis_raw
+                
+                # Apply the newline cleaning uniformly before attempting to parse or use as string
+                final_str_value = cleaned_str.replace("\\\\n", "")
+
+                try:
+                    # Attempt to parse the cleaned string as JSON
+                    extracted_diagnosis_parsed = json.loads(final_str_value)
+                except json.JSONDecodeError:
+                    # If JSON parsing fails, use the cleaned string itself as the value
+                    extracted_diagnosis_parsed = final_str_value 
             else:
+                # For types other than dict or str (e.g., list, int, float directly from YAML)
                 extracted_diagnosis_parsed = extracted_diagnosis_raw
-        except json.JSONDecodeError:
-            extracted_diagnosis_parsed = {"error": "JSONDecodeError", "raw_value": extracted_diagnosis_raw}
-        except Exception as e:
-            extracted_diagnosis_parsed = {"error": str(e), "raw_value": extracted_diagnosis_raw}
+        except Exception as e: # Catch any other unexpected errors during processing
+            extracted_diagnosis_parsed = {"error": f"ProcessingError: {str(e)}", "raw_value": extracted_diagnosis_raw}
 
     doctor_questions_count = 0
     all_history_question_ids_list = []
