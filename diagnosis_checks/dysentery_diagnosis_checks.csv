@@ -1,13 +1,17 @@
 extracted_diagnosis,diag_classification
+Acute Bacillary Dysentery (Shigella infection),correct
+Acute Bacillary Dysentery due to Shigella,correct
 Acute Shigella dysentery,correct
 Acute Shigella dysentery (Shigellosis),correct
 Acute Shigella dysentery (shigellosis),correct
+Acute bacillary (bacterial) dysentery,correct
 Acute bacillary dysentery,correct
 Acute bacillary dysentery (Shigella infection),correct
 Acute bacillary dysentery (Shigella infection).,correct
 Acute bacillary dysentery (Shigellosis),correct
 Acute bacillary dysentery (likely Shigella infection),correct
 Acute bacillary dysentery (likely Shigella).,correct
+Acute bacillary dysentery (likely Shigellosis),correct
 Acute bacillary dysentery (most likely Shigella infection),correct
 Acute bacillary dysentery (most likely due to Shigella spp.),correct
 Acute bacillary dysentery (most probably Shigella infection),correct
@@ -51,6 +55,8 @@ Acute gastroenteritis with possible bacterial infection,correct
 Acute shigellosis,correct
 Acute shigellosis (bacillary dysentery),correct
 Acute shigellosis (bacillary dysentery) caused by Shigella,correct
+Bacillary Dysentery (possibly Shigella),correct
+Bacillary Dysentery due to Shigella,correct
 Bacillary dysentery (Shigella infection),correct
 Bacillary dysentery (Shigellosis),correct
 Bacillary dysentery (shigellosis),correct
@@ -72,12 +78,18 @@ Shigella dysentery (bacillary dysentery),correct
 Shigella dysentery (shigellosis),correct
 Shigella-associated bacillary dysentery,correct
 Shigellosis,correct
+Shigellosis (Acute Bacillary Dysentery),correct
 Shigellosis (Bacillary Dysentery),correct
+Shigellosis (Shigella bacterial dysentery),correct
 Shigellosis (Shigella dysentery),correct
+Shigellosis (Shigella-induced acute bacillary dysentery),correct
+Shigellosis (Shigella-induced bacillary dysentery),correct
 Shigellosis (acute bacillary dysentery),correct
 Shigellosis (bacillary dysentery),correct
+"['Shigella dysentery', 'other bacterial dysentery']",correct
 "['acute gastroenteritis', 'bacterial dysentery']",correct
 "['acute gastroenteritis', 'dysentery']",correct
+"['शिगेलोसिस (Shigellosis)', 'शिगेला जनित अमाशयशोथ (Bacillary dysentery)']",correct
 acute bacillary dysentery,correct
 acute bacillary dysentery (Shigellosis),correct
 acute bacillary dysentery (shigellosis),correct
@@ -96,8 +108,59 @@ gastroenteritis caused by a Shigella infection,correct
 infectious bacterial enteritis,correct
 shigellosis,correct
 shigellosis (bacillary dysentery),correct
+एक्ट्यूट बैक्टेरियल डीसेंट्री (संभावित शिगेलोसिस),correct
+एक्यूट बैक्टीरियल डाइज़ेंट्री (संभावित कारण — शिगेला संक्रमण),correct
+एक्यूट बैक्टीरियल डाइसेन्ट्री (acute bacterial dysentery),correct
+एक्यूट बैक्टीरियल डायरिया (डिसेन्ट्री),correct
+एक्यूट बैक्टीरियल डायरिया (संभावित शिगेल्लोसिस),correct
+तीव्र बैक्टीरियल आंत संक्रमण (acute bacterial dysentery),correct
+तीव्र बैक्टीरियल डिसेंट्री (Acute Bacillary Dysentery),correct
+"बैक्टीरियल आंतों का संक्रमण (इन्फ्लेमेटरी बैक्टीरियल डायरिया), संभावित कारण शिगेला",correct
+बैक्टीरियल डाइज़ेंट्री (शिगेलोसिस/बैक्टीरियल पेचिश),correct
+बैक्टीरियल डाइसेंटरी (संभावित कारण: शिगेलोसिस),correct
+बैक्टीरियल डाइसेंट्री (शिगेलोसेस/इनवेसिव बैक्टीरियल डायरिया),correct
+बैक्टीरियल डाइसेन्ट्री (संभावित शिगेलोसिस),correct
+बैक्टीरियल डायरिया (संभावित शिगेलोसिस),correct
+बैक्टीरियल डिसेंटरी (Bacillary Dysentery),correct
+शигेलोसिस (Shigella संक्रमण),correct
+शिगेला जनित आंवी/खूनी दस्त (Bacillary dysentery due to Shigella infection),correct
+शिगेला संक्रमण (Shigellosis / शिगेलोसिस = बैक्टीरियल डाइसेंट्री),correct
+शिगेला संक्रमण (Shigellosis/Bacillary Dysentery),correct
+शिगेलॉसिस (Shigella-जनित अमीबिक/बैक्टीरियल डाइज़ेन्ट्री),correct
+शिगेलोसिस,correct
+शिगेलोसिस (Bacillary Dysentery / Shigella infection),correct
+शिगेलोसिस (Bacillary Dysentery due to Shigella infection),correct
+शिगेलोसिस (Bacillary dysentery due to Shigella infection),correct
+शिगेलोसिस (Shigella infection causing bacillary dysentery),correct
+शिगेलोसिस (Shigella infection),correct
+शिगेलोसिस (Shigella infection/बैक्टीरियल डाइसेंट्री),correct
+शिगेलोसिस (Shigella एनफेक्शन),correct
+शिगेलोसिस (Shigella जनित एक्यूट बैक्टीरियल डायरिया/dysentery),correct
+शिगेलोसिस (Shigella जनित रक्तमई दस्त),correct
+शिगेलोसिस (Shigella जनित रक्तमय डायरिया),correct
+शिगेलोसिस (Shigella बैक्टीरियल डायरिया),correct
+शिगेलोसिस (Shigella संक्रमण / बैसिलरी डिसेन्ट्री),correct
+शिगेलोसिस (Shigella संक्रमण के कारण पेचिश),correct
+शिगेलोसिस (Shigella संक्रमण के कारण रक्तिमय आंत्रशोथ / डाइज़ेण्ट्री),correct
+शिगेलोसिस (Shigella संक्रमण या बैसिलरी डाइसेन्ट्री),correct
+शिगेलोसिस (Shigella संक्रमण),correct
+शिगेलोसिस (Shigella संक्रमण)‑जनित संक्रामक रक्तमिश्रित दस्त (Bacillary dysentery),correct
+शिगेलोसिस (Shigella संक्रमण/बैक्टीरियल डाइसेंट्री),correct
+शिगेलोसिस (Shigella संक्रमण/बैक्टीरियल डीसेंट्री),correct
+शिगेलोसिस (Shigella संबंधित आंत संक्रमण/बेसिलरी डिसेंट्री),correct
+शिगेलोसिस (Shigella-induced Bacillary Dysentery),correct
+शिगेलोसिस (Shigella-induced acute bacillary dysentery),correct
+शिगेलोसिस (Shigella-induced bacillary dysentery),correct
+शिगेलोसिस (Shigella-induced bacterial dysentery),correct
+शिगेलोसिस (Shigellosis),correct
+शिगेलोसिस (Shigellosis; बैक्टीरियल डायरिया),correct
+शिगेलोसिस (बैक्टीरियल डाइसेंट्री),correct
+शिगेलोसिस (बैक्टीरियल डिसेंट्री),correct
+शिगेलोसिस (शिगेला-संक्रमित जीवाणु ‘डायसेंट्री’),correct
+शिगेलोसिस या बैक्टीरियल डायरिया/डायसेंट्री (संक्रमणजन्य पेचिश),correct
 Acute Bacterial Gastroenteritis (Dysentery),incorrect
 Acute Gastroenteritis,incorrect
+Acute Viral Gastroenteritis,incorrect
 Acute amoebic dysentery,incorrect
 Acute gastroenteritis,incorrect
 Acute gastroenteritis with possible bacterial etiology.,incorrect

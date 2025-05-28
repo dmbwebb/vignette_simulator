@@ -7,15 +7,32 @@ library(trackr)
 dir.create("figs", showWarnings = FALSE)
 
 # Read the data
-data <- read_csv("outputs/20250526_160855/summary_20250526_160855.csv")
+data <- read_csv("outputs/curated_outputs/20250526_160855_ALLMODELS_ENGLISH/summary_20250526_160855.csv") %>% 
+mutate(language = "english")
+
+data_hindi <- read_csv("outputs/curated_outputs/20250527_143302_GPT41_HINDI/summary_20250527_143302_GPT41_HINDI.csv") %>% 
+mutate(language = "hindi")
+
+data <- bind_rows(data, data_hindi)
+
+# Create a combined model and language column
+data <- data %>%
+  mutate(model_doctor_lang = paste0(model_doctor, " (", 
+                                  case_when(
+                                    language == "english" ~ "en",
+                                    language == "hindi" ~ "hi",
+                                    TRUE ~ language
+                                  ), ")"))
+
+# data_hindi %>% pull(extracted_diagnosis)
 
 # Check sample size for each combo of model_doctor, case_file combination
 sample_sizes <- data %>%
-  group_by(model_doctor, case_file) %>%
+  group_by(model_doctor_lang, case_file) %>%
   summarise(n = n(), .groups = 'drop') %>% 
   print_all
 
-print("Sample sizes per model_doctor and case_file combination:")
+print("Sample sizes per model_doctor_lang and case_file combination:")
 print(sample_sizes)
 
 # Clean -1 values and convert to NA for specified columns
@@ -55,15 +72,15 @@ plot_theme <- theme_minimal(base_size = 12) +
   )
 
 # 1. doctor_questions_count
-plot_doc_questions <- ggplot(data, aes(x = model_doctor, y = doctor_questions_count, fill = model_doctor)) +
+plot_doc_questions <- ggplot(data, aes(x = model_doctor_lang, y = doctor_questions_count, fill = model_doctor_lang)) +
   geom_bar(stat = "summary", fun = "mean", position = "dodge") +
   stat_summary(fun = mean, aes(label = round(after_stat(y), 2)), geom = "text", position = position_dodge(width = 0.9), vjust = 1.5, size = 3) +
   facet_wrap(~case_label) +
   labs(
     title = "# questions from doctor",
-    x = "Model",
+    x = "Model (Language)",
     y = "# questions",
-    fill = "Model"
+    fill = "Model (Language)"
   ) +
   plot_theme
 
@@ -73,15 +90,15 @@ ggsave("figs/doctor_questions_count_plot.png", plot = plot_doc_questions, width 
 # 2. checklist_completion_rate
 plot_checklist_completion <- ggplot(data %>% 
                                    filter(case_label != "Pre-eclampsia" & case_label != "TB"), 
-                                 aes(x = model_doctor, y = checklist_completion_rate, fill = model_doctor)) +
+                                 aes(x = model_doctor_lang, y = checklist_completion_rate, fill = model_doctor_lang)) +
   geom_bar(stat = "summary", fun = "mean", position = "dodge") +
   stat_summary(fun = mean, aes(label = scales::percent(after_stat(y), accuracy = 0.1)), geom = "text", position = position_dodge(width = 0.9), vjust = 1.5, size = 3) +
   facet_wrap(~case_label) +
   labs(
     title = "Average Checklist Completion Rate",
-    x = "Model Doctor",
+    x = "Model (Language)",
     y = "Average Checklist Completion Rate",
-    fill = "Model Doctor"
+    fill = "Model (Language)"
   ) +
   scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0, 1)) +
   plot_theme
@@ -90,15 +107,15 @@ print(plot_checklist_completion)
 ggsave("figs/checklist_completion_rate_plot.png", plot = plot_checklist_completion, width = 10, height = 7)
 
 # 3. doctor_questions_without_ids
-plot_doc_questions_no_ids <- ggplot(data, aes(x = model_doctor, y = doctor_questions_without_ids, fill = model_doctor)) +
+plot_doc_questions_no_ids <- ggplot(data, aes(x = model_doctor_lang, y = doctor_questions_without_ids, fill = model_doctor_lang)) +
   geom_bar(stat = "summary", fun = "mean", position = "dodge") +
   stat_summary(fun = mean, aes(label = round(after_stat(y), 2)), geom = "text", position = position_dodge(width = 0.9), vjust = 1.5, size = 3) +
   facet_wrap(~case_label) +
   labs(
     title = "# questions not on checklist (off script questions)",
-    x = "Model Doctor",
+    x = "Model (Language)",
     y = "Average Questions Count (No IDs)",
-    fill = "Model Doctor"
+    fill = "Model (Language)"
   ) +
   plot_theme
 
@@ -108,20 +125,20 @@ ggsave("figs/doctor_questions_without_ids_plot.png", plot = plot_doc_questions_n
 
 # 4. diag_classification (proportion correct)
 diag_summary <- data %>%
-  group_by(model_doctor, case_label, diag_classification) %>%
+  group_by(model_doctor_lang, case_label, diag_classification) %>%
   summarise(count = n(), .groups = 'drop') %>%
-  group_by(model_doctor, case_label) %>%
+  group_by(model_doctor_lang, case_label) %>%
   mutate(proportion = count / sum(count)) %>% 
   ungroup
 
 plot_diag_classification <- ggplot(diag_summary, 
-                                   aes(x = model_doctor, y = proportion, fill = diag_classification)) +
+                                   aes(x = model_doctor_lang, y = proportion, fill = diag_classification)) +
   geom_col(position = "fill") +
   geom_text(aes(label = scales::percent(proportion, accuracy = 0.1)), position = position_fill(vjust = 0.1), size = 3) +
   facet_wrap(~case_label) +
   labs(
     title = "Proportion of Diagnosis Classifications",
-    x = "Model Doctor",
+    x = "Model (Language)",
     y = "Proportion",
     fill = "Diagnosis Classification"
   ) +
@@ -134,7 +151,7 @@ ggsave("figs/diag_classification_proportions_plot.png", plot = plot_diag_classif
 
 # 5. Filled bargraph for treatment proportions
 treatment_data_long <- data %>%
-  select(model_doctor, case_label, 
+  select(model_doctor_lang, case_label, 
          num_correct_treatments, num_palliative_treatments, 
          num_unnecessary_harmful_treatments, num_not_found_treatments) %>%
   pivot_longer(
@@ -153,22 +170,22 @@ treatment_data_long <- data %>%
   filter(!is.na(count)) # Remove NAs which were -1, if any row has all treatments as NA after cleaning
 
 treatment_summary <- treatment_data_long %>%
-  group_by(model_doctor, case_label, treatment_type) %>%
+  group_by(model_doctor_lang, case_label, treatment_type) %>%
   summarise(total_count = sum(count, na.rm = TRUE), .groups = 'drop') %>%
-  group_by(model_doctor, case_label) %>%
+  group_by(model_doctor_lang, case_label) %>%
   mutate(proportion = total_count / sum(total_count, na.rm = TRUE)) %>%
   filter(!is.na(proportion)) %>%  # Ensure proportion is not NA (e.g. if sum(total_count) was 0)
   mutate(treatment_type = treatment_type  %>% fct_rev())
 
 plot_treatment_proportions <- ggplot(treatment_summary, 
-                                     aes(x = model_doctor, y = proportion, fill = treatment_type)) +
+                                     aes(x = model_doctor_lang, y = proportion, fill = treatment_type)) +
   geom_bar(stat = "identity", position = "fill") +
   geom_text(aes(label = ifelse(proportion > 0.01, scales::percent(proportion, accuracy = 0.1), "")), 
             position = position_fill(vjust = 0.1), size = 2.5) +
   facet_wrap(~case_label) +
   labs(
     title = "Proportion of Treatment Types",
-    x = "Model Doctor",
+    x = "Model (Language)",
     y = "Proportion of Treatments",
     fill = "Treatment Type"
   ) +
@@ -195,7 +212,7 @@ print("Analysis script finished. Plots saved to 'figs' directory as PDFs.")
 
 data %>% 
 filter(case_label == "Dysentery") %>% 
-select(model_doctor, case_label, extracted_diagnosis,	diag_classification, diag_classification_confidence, diag_explanation) %>% 
+select(model_doctor_lang, case_label, extracted_diagnosis,	diag_classification, diag_classification_confidence, diag_explanation) %>% 
 select(extracted_diagnosis, diag_classification) %>% 
 dups_drop() %>% 
 arrange(diag_classification, extracted_diagnosis) %>% 
@@ -206,7 +223,7 @@ write_csv("diagnosis_checks/dysentery_diagnosis_checks.csv")
 data %>% 
 count_prop(case_label) %>% 
 filter(case_label == "Asthma") %>% 
-select(model_doctor, case_label, extracted_diagnosis,	diag_classification, diag_classification_confidence, diag_explanation) %>% 
+select(model_doctor_lang, case_label, extracted_diagnosis,	diag_classification, diag_classification_confidence, diag_explanation) %>% 
 select(extracted_diagnosis, diag_classification) %>% 
 dups_drop() %>% 
 arrange(diag_classification, extracted_diagnosis) %>% 

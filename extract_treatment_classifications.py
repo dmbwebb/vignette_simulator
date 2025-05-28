@@ -181,7 +181,7 @@ def main():
     output_csv_path.parent.mkdir(parents=True, exist_ok=True)
 
     try:
-        df.to_csv(output_csv_path, index=False)
+        df.to_csv(output_csv_path, index=False, encoding='utf-8-sig')
         print(f"Successfully extracted data for {len(df)} treatment entries from {len(yaml_files)} files.")
         print(f"Output saved to {output_csv_path}")
     except Exception as e:
